@@ -1,5 +1,37 @@
 [build]
+  command = ""
+  publish = "."
   functions = "netlify/functions"
 
 [functions]
   node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/list"
+  to = "/list/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/list/"
+  to = "/list/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/listings"
+  to = "/listings/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/listings/"
+  to = "/listings/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/"
+  to = "/admin/index.html"
+  status = 200
