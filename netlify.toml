@@ -6,6 +6,9 @@
 [functions]
   node_bundler = "esbuild"
 
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "BUNNY_STORAGE_ZONE,BUNNY_STORAGE_PASSWORD,BUNNY_STORAGE_REGION,MARKETCHECK_API_KEY,ADMIN_KEY"
+
 [[redirects]]
   from = "/list"
   to = "/list/index.html"
