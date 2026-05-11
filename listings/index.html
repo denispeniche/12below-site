@@ -23,327 +23,236 @@ select.filter-btn{appearance:none;padding-right:28px;background-image:url("data:
 .clear-btn{color:#888;border-color:#e0e0e0;font-size:12px;}
 .sort-wrap{margin-left:auto;}
 .main{max-width:1200px;margin:0 auto;padding:28px 24px;}
-.status-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
-.count{font-size:14px;color:#666;font-weight:500;}
+.count{font-size:14px;color:#666;font-weight:500;margin-bottom:20px;}
 .sort-select{border:1.5px solid #d0d2dc;background:#fff;padding:8px 32px 8px 12px;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
 .card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s;cursor:pointer;}
 .card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.12);}
 .card-img{width:100%;height:200px;background:linear-gradient(135deg,#e8ecff,#d0d8ff);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
 .card-img img{width:100%;height:100%;object-fit:cover;display:block;}
-.card-img .icon{font-size:52px;opacity:.35;}
+.card-img .icon{font-size:52px;opacity:.35;position:absolute;}
 .savings-tag{position:absolute;top:12px;left:12px;background:#1a3afa;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;z-index:2;}
 .photo-count{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;font-weight:600;padding:3px 8px;border-radius:5px;}
 .card-body{padding:16px 18px 18px;}
 .car-name{font-size:17px;font-weight:700;margin-bottom:4px;color:#1a1a2e;}
 .car-meta{font-size:12px;color:#888;margin-bottom:12px;}
 .asking{font-size:22px;font-weight:800;color:#1a3afa;}
-.market{font-size:12px;color:#888;}
-.market span{text-decoration:line-through;}
-.savings{font-size:12px;color:#22c55e;font-weight:600;}
+.savings{font-size:12px;color:#22c55e;font-weight:600;margin-top:2px;}
 .card-footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid #f0f1f5;margin-top:12px;}
 .location{font-size:12px;color:#888;}
 .view-btn{background:#1a3afa;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;}
-.empty{text-align:center;padding:80px 20px;color:#888;}
 .loading{text-align:center;padding:80px 20px;color:#888;}
-.loading-spinner{width:36px;height:36px;border:3px solid #e8e9ed;border-top-color:#1a3afa;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
+.spinner{width:36px;height:36px;border:3px solid #e8e9ed;border-top-color:#1a3afa;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;}
 @keyframes spin{to{transform:rotate(360deg);}}
+.empty{text-align:center;padding:80px 20px;color:#888;}
 .footer{background:#1a1a2e;color:#fff;text-align:center;padding:48px 32px;margin-top:60px;}
 .footer h3{font-size:20px;font-weight:700;margin-bottom:8px;}
 .footer p{opacity:.7;font-size:14px;margin-bottom:20px;}
 .footer-btn{background:#1a3afa;color:#fff;border:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
-
-/* Modal */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
-.modal-overlay.open{display:flex;}
-.modal{background:#fff;border-radius:20px;max-width:680px;width:100%;margin:auto;overflow:hidden;}
-.modal-imgs{position:relative;background:#1a1a2e;height:320px;}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;overflow-y:auto;padding:20px;}
+.modal-overlay.open{display:block;}
+.modal{background:#fff;border-radius:20px;max-width:680px;width:100%;margin:40px auto;overflow:hidden;}
+.modal-imgs{position:relative;background:#1a1a2e;height:320px;overflow:hidden;}
 .modal-imgs img{width:100%;height:100%;object-fit:cover;display:none;}
 .modal-imgs img.active{display:block;}
-.modal-imgs .no-photo{display:flex;align-items:center;justify-content:center;height:100%;font-size:64px;opacity:.3;}
-.img-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);color:#fff;border:none;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.img-prev{left:12px;}
-.img-next{right:12px;}
-.img-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;}
-.img-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;border:none;}
+.no-photo{display:flex;align-items:center;justify-content:center;height:100%;font-size:64px;opacity:.3;}
+.img-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:3;}
+.img-prev{left:12px;} .img-next{right:12px;}
+.img-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:3;}
+.img-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;border:none;}
 .img-dot.active{background:#fff;}
 .modal-body{padding:24px 28px 28px;}
-.modal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
+.modal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
 .modal-title{font-size:22px;font-weight:800;}
-.modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:#888;padding:0 0 0 12px;}
-.modal-price{font-size:28px;font-weight:800;color:#1a3afa;margin-bottom:4px;}
-.modal-market{font-size:14px;color:#888;margin-bottom:4px;}
-.modal-savings{font-size:14px;color:#22c55e;font-weight:600;margin-bottom:20px;}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid #f0f1f5;border-radius:12px;overflow:hidden;margin-bottom:20px;}
-.info-cell{padding:12px 16px;border-bottom:1px solid #f0f1f5;}
+.modal-close{background:none;border:none;font-size:24px;cursor:pointer;color:#aaa;}
+.modal-price{font-size:30px;font-weight:800;color:#1a3afa;}
+.modal-sub{font-size:13px;color:#888;margin:4px 0 6px;}
+.modal-save{font-size:14px;color:#22c55e;font-weight:700;margin-bottom:20px;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid #ebebf0;border-radius:12px;overflow:hidden;margin-bottom:20px;}
+.info-cell{padding:12px 16px;border-bottom:1px solid #ebebf0;}
 .info-cell:nth-last-child(-n+2){border-bottom:none;}
-.info-label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
+.info-label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;}
 .info-val{font-size:14px;font-weight:600;}
 .contact-box{background:#f4f5f7;border-radius:12px;padding:18px 20px;}
 .contact-box h4{font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;}
-.contact-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:14px;}
-.contact-row:last-child{margin-bottom:0;}
-.contact-row a{color:#1a3afa;text-decoration:none;font-weight:600;}
+.contact-row{font-size:14px;margin-bottom:8px;}
+.contact-row a{color:#1a3afa;font-weight:600;text-decoration:none;}
 .call-btn{display:block;background:#1a3afa;color:#fff;text-align:center;padding:14px;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none;margin-top:16px;}
-@media(max-width:600px){.hero{padding:32px 20px;}.filters{padding:12px 16px;}.main{padding:20px 16px;}.grid{grid-template-columns:1fr;}.modal-imgs{height:220px;}.info-grid{grid-template-columns:1fr;}.info-cell:nth-last-child(-n+2){border-bottom:1px solid #f0f1f5;}.info-cell:last-child{border-bottom:none;}}
+@media(max-width:600px){.hero{padding:32px 20px;}.filters,.main{padding:16px;}.grid{grid-template-columns:1fr;}.modal-imgs{height:220px;}.info-grid{grid-template-columns:1fr;}.modal-body{padding:20px;}}
 </style>
 </head>
 <body>
-<nav>
-  <a href="/" class="logo">12Below</a>
-  <a href="/list" class="nav-btn">🚗 Sell my car</a>
-</nav>
+<nav><a href="/" class="logo">12Below</a><a href="/list" class="nav-btn">Sell my car</a></nav>
 <div class="hero">
-  <h1>🚗 Cars listed 12% below market</h1>
+  <h1>Cars listed 12% below market</h1>
   <p>Every listing is priced below market value. No dealer markup. No hidden fees.</p>
-  <div class="badges">
-    <span class="badge active">● All cars verified</span>
-    <span class="badge">Guaranteed below market</span>
-    <span class="badge">DMV area</span>
-  </div>
+  <div class="badges"><span class="badge active">All cars verified</span><span class="badge">Guaranteed below market</span><span class="badge">DMV area</span></div>
 </div>
 <div class="filters">
   <select class="filter-btn" id="makeFilter"><option value="">All makes</option></select>
   <select class="filter-btn" id="modelFilter"><option value="">All models</option></select>
   <select class="filter-btn" id="yearFilter"><option value="">Any year</option></select>
   <select class="filter-btn" id="priceFilter">
-    <option value="">Any price</option>
-    <option value="0-15000">Under $15k</option>
-    <option value="15000-25000">$15k-$25k</option>
-    <option value="25000-40000">$25k-$40k</option>
-    <option value="40000-999999">$40k+</option>
+    <option value="">Any price</option><option value="0-15000">Under $15k</option>
+    <option value="15000-25000">$15k-$25k</option><option value="25000-40000">$25k-$40k</option><option value="40000-999999">$40k+</option>
   </select>
   <select class="filter-btn" id="condFilter">
-    <option value="">Any condition</option>
-    <option value="excellent">Excellent</option>
-    <option value="good">Good</option>
-    <option value="fair">Fair</option>
+    <option value="">Any condition</option><option value="excellent">Excellent</option><option value="good">Good</option><option value="fair">Fair</option>
   </select>
   <button class="filter-btn clear-btn" id="clearBtn">Clear</button>
-  <div class="sort-wrap">
-    <select class="sort-select" id="sortSelect">
-      <option value="newest">Newest first</option>
-      <option value="price-low">Price: Low to High</option>
-      <option value="price-high">Price: High to Low</option>
-      <option value="savings">Most savings</option>
-    </select>
-  </div>
+  <div class="sort-wrap"><select class="sort-select" id="sortSelect">
+    <option value="newest">Newest first</option><option value="price-low">Price: Low to High</option>
+    <option value="price-high">Price: High to Low</option><option value="savings">Most savings</option>
+  </select></div>
 </div>
 <div class="main">
-  <div class="status-bar">
-    <span class="count" id="countLabel">Loading...</span>
-  </div>
-  <div id="grid" class="grid">
-    <div class="loading"><div class="loading-spinner"></div><p>Loading listings...</p></div>
-  </div>
+  <div class="count" id="countLabel">Loading...</div>
+  <div id="grid" class="grid"><div class="loading"><div class="spinner"></div><p>Loading listings...</p></div></div>
 </div>
 <div class="footer">
   <h3>Have a car to sell?</h3>
   <p>List it free and earn 20% more than any dealer trade-in.</p>
-  <button class="footer-btn" onclick="window.location='/list'">LIST MY CAR FOR FREE</button>
+  <button class="footer-btn" onclick="location.href='/list'">LIST MY CAR FOR FREE</button>
 </div>
-
 <div class="modal-overlay" id="modal">
   <div class="modal">
     <div class="modal-imgs" id="modalImgs"></div>
     <div class="modal-body">
-      <div class="modal-header">
-        <div class="modal-title" id="modalTitle"></div>
-        <button class="modal-close" id="modalClose">&#x2715;</button>
-      </div>
+      <div class="modal-header"><div class="modal-title" id="modalTitle"></div><button class="modal-close" id="modalClose">x</button></div>
       <div class="modal-price" id="modalPrice"></div>
-      <div class="modal-market" id="modalMarket"></div>
-      <div class="modal-savings" id="modalSavings"></div>
+      <div class="modal-sub" id="modalMarket"></div>
+      <div class="modal-save" id="modalSave"></div>
       <div class="info-grid" id="modalInfo"></div>
       <div class="contact-box" id="modalContact"></div>
     </div>
   </div>
 </div>
-
 <script>
-let allListings = [];
-let currentPhotoIdx = 0;
-let currentPhotos = [];
+var listings=[],photoIdx=0,photos=[];
+function proxyUrl(u){if(!u)return null;var m=u.match(/\/12below-cars\/(.+)$/);return m?'/.netlify/functions/photo?path='+encodeURIComponent(m[1]):u;}
+function pct(l){return l.marketValue&&l.marketValue>0?Math.round((1-l.askingPrice/l.marketValue)*100):12;}
+function fmt(n){return Number(n).toLocaleString();}
+function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):'';}
 
-// Convert private BunnyCDN storage URL to proxy URL
-function photoUrl(url) {
-  if (!url) return null;
-  // Extract just the path after the zone name
-  const match = url.match(/\/12below-cars\/(.+)$/);
-  if (match) return '/.netlify/functions/photo?path=' + encodeURIComponent(match[1]);
-  return url;
+window.addEventListener('load', function() {
+  fetch('/.netlify/functions/listings?status=active')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      listings = data;
+      fillFilters();
+      render();
+    })
+    .catch(function(e){
+      document.getElementById('grid').innerHTML='<div class="empty"><div style="font-size:48px">car</div><h3 style="color:#555;margin:12px 0 8px">No listings yet</h3><p>Be the first!</p></div>';
+      document.getElementById('countLabel').textContent='0 cars found';
+    });
+});
+
+function fillFilters(){
+  var makes=[...new Set(listings.map(function(l){return l.make;}).filter(Boolean))].sort();
+  var me=document.getElementById('makeFilter');
+  makes.forEach(function(m){var o=document.createElement('option');o.value=m;o.textContent=m;me.appendChild(o);});
+  var years=[...new Set(listings.map(function(l){return l.year;}).filter(Boolean))].sort(function(a,b){return b-a;});
+  var ye=document.getElementById('yearFilter');
+  years.forEach(function(y){var o=document.createElement('option');o.value=y;o.textContent=y;ye.appendChild(o);});
 }
 
-async function loadListings() {
-  try {
-    const r = await fetch('/.netlify/functions/listings?status=active');
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    allListings = await r.json();
-    populateFilters();
-    renderListings();
-  } catch(e) {
-    document.getElementById('grid').innerHTML = '<div class="empty"><div style="font-size:48px;margin-bottom:16px">🔍</div><h3 style="margin-bottom:8px;color:#555">No listings yet</h3><p>Be the first to list your car!</p></div>';
-    document.getElementById('countLabel').textContent = '0 cars found';
-  }
-}
-
-function populateFilters() {
-  const makes = [...new Set(allListings.map(l => l.make).filter(Boolean))].sort();
-  const makeEl = document.getElementById('makeFilter');
-  makes.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; makeEl.appendChild(o); });
-  const years = [...new Set(allListings.map(l => l.year).filter(Boolean))].sort((a,b) => b-a);
-  const yearEl = document.getElementById('yearFilter');
-  years.forEach(y => { const o = document.createElement('option'); o.value = y; o.textContent = y; yearEl.appendChild(o); });
-}
-
-function getFiltered() {
-  let list = [...allListings];
-  const make = document.getElementById('makeFilter').value;
-  const model = document.getElementById('modelFilter').value;
-  const year = document.getElementById('yearFilter').value;
-  const price = document.getElementById('priceFilter').value;
-  const cond = document.getElementById('condFilter').value;
-  const sort = document.getElementById('sortSelect').value;
-  if (make) list = list.filter(l => l.make === make);
-  if (model) list = list.filter(l => l.model === model);
-  if (year) list = list.filter(l => String(l.year) === year);
-  if (cond) list = list.filter(l => l.condition === cond);
-  if (price) { const [min,max]=price.split('-').map(Number); list=list.filter(l=>l.askingPrice>=min&&l.askingPrice<=max); }
-  if (sort==='price-low') list.sort((a,b)=>a.askingPrice-b.askingPrice);
-  else if (sort==='price-high') list.sort((a,b)=>b.askingPrice-a.askingPrice);
-  else if (sort==='savings') list.sort((a,b)=>(b.marketValue-b.askingPrice)-(a.marketValue-a.askingPrice));
-  else list.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+function filtered(){
+  var list=listings.slice();
+  var mk=document.getElementById('makeFilter').value;
+  var md=document.getElementById('modelFilter').value;
+  var yr=document.getElementById('yearFilter').value;
+  var pr=document.getElementById('priceFilter').value;
+  var co=document.getElementById('condFilter').value;
+  var so=document.getElementById('sortSelect').value;
+  if(mk)list=list.filter(function(l){return l.make===mk;});
+  if(md)list=list.filter(function(l){return l.model===md;});
+  if(yr)list=list.filter(function(l){return String(l.year)===yr;});
+  if(co)list=list.filter(function(l){return l.condition===co;});
+  if(pr){var pts=pr.split('-').map(Number);list=list.filter(function(l){return l.askingPrice>=pts[0]&&l.askingPrice<=pts[1];});}
+  if(so==='price-low')list.sort(function(a,b){return a.askingPrice-b.askingPrice;});
+  else if(so==='price-high')list.sort(function(a,b){return b.askingPrice-a.askingPrice;});
+  else if(so==='savings')list.sort(function(a,b){return(b.marketValue-b.askingPrice)-(a.marketValue-a.askingPrice);});
+  else list.sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt);});
   return list;
 }
 
-function pct(l) {
-  if (!l.marketValue||l.marketValue<=0) return 12;
-  return Math.round((1-l.askingPrice/l.marketValue)*100);
+function render(){
+  var list=filtered();
+  document.getElementById('countLabel').textContent=list.length+' car'+(list.length!==1?'s':'')+' found';
+  if(!list.length){document.getElementById('grid').innerHTML='<div class="empty"><h3 style="color:#555;margin-bottom:8px">No matches</h3><p>Try clearing filters.</p></div>';return;}
+  document.getElementById('grid').innerHTML=list.map(cardHtml).join('');
+  document.querySelectorAll('.card').forEach(function(c){
+    c.addEventListener('click',function(){
+      var l=listings.find(function(x){return x.id===c.dataset.id;});
+      if(l)openModal(l);
+    });
+  });
 }
 
-function renderCard(l) {
-  const savings = l.marketValue ? l.marketValue - l.askingPrice : 0;
-  const photos = (l.photos||[]).map(photoUrl).filter(Boolean);
-  const imgHtml = photos.length > 0
-    ? '<img src="'+photos[0]+'" alt="'+l.year+' '+l.make+'" onerror="this.style.display='none';this.nextSibling.style.display='flex'">' +
-      '<div class="icon" style="display:none">🚗</div>'
-    : '<div class="icon">🚗</div>';
-  const photoTag = photos.length > 1 ? '<div class="photo-count">📷 '+photos.length+'</div>' : '';
-  return '<div class="card" data-id="'+l.id+'">' +
-    '<div class="card-img"><div class="savings-tag">'+pct(l)+'% BELOW MARKET</div>'+imgHtml+photoTag+'</div>' +
-    '<div class="card-body">' +
-      '<div class="car-name">'+l.year+' '+l.make+' '+l.model+'</div>' +
-      '<div class="car-meta">'+Number(l.mileage).toLocaleString()+' mi · '+(l.condition||'').charAt(0).toUpperCase()+(l.condition||'').slice(1)+' condition</div>' +
-      '<div class="asking">$'+Number(l.askingPrice).toLocaleString()+'</div>' +
-      (l.marketValue?'<div class="market">Market: <span>$'+Number(l.marketValue).toLocaleString()+'</span></div>':'') +
-      (savings>0?'<div class="savings">You save $'+Number(savings).toLocaleString()+'</div>':'') +
-      '<div class="card-footer"><span class="location">📍 '+(l.location||l.zip||'DMV area')+'</span>' +
-      '<button class="view-btn">View Details</button></div>' +
+function cardHtml(l){
+  var ps=(l.photos||[]).map(proxyUrl).filter(Boolean);
+  var img=ps.length?'<img src="'+ps[0]+'" alt="'+l.year+' '+l.make+'" onerror="this.style.display='none'">':'<div class="icon">car</div>';
+  var pc=ps.length>1?'<div class="photo-count">'+ps.length+' photos</div>':'';
+  var sv=l.marketValue?l.marketValue-l.askingPrice:0;
+  return '<div class="card" data-id="'+l.id+'">'+
+    '<div class="card-img"><div class="savings-tag">'+pct(l)+'% BELOW MARKET</div>'+img+pc+'</div>'+
+    '<div class="card-body">'+
+    '<div class="car-name">'+l.year+' '+l.make+' '+l.model+'</div>'+
+    '<div class="car-meta">'+fmt(l.mileage)+' mi &middot; '+cap(l.condition)+' condition</div>'+
+    '<div class="asking">$'+fmt(l.askingPrice)+'</div>'+
+    (l.marketValue?'<div style="font-size:12px;color:#888;margin-top:2px">Market: <s>$'+fmt(l.marketValue)+'</s></div>':'')+
+    (sv>0?'<div class="savings">You save $'+fmt(sv)+'</div>':'')+
+    '<div class="card-footer"><span class="location">'+( l.location||l.zip||'DMV area')+'</span><button class="view-btn">View Details</button></div>'+
     '</div></div>';
 }
 
-function renderListings() {
-  const list = getFiltered();
-  document.getElementById('countLabel').textContent = list.length+' car'+(list.length!==1?'s':'')+' found';
-  if (!list.length) {
-    document.getElementById('grid').innerHTML = '<div class="empty"><div style="font-size:48px;margin-bottom:16px">🔍</div><h3 style="color:#555;margin-bottom:8px">No cars match your filters</h3><p>Try adjusting your search.</p></div>';
-  } else {
-    document.getElementById('grid').innerHTML = list.map(renderCard).join('');
-    document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('click', () => {
-        const listing = allListings.find(l => l.id === card.dataset.id);
-        if (listing) openModal(listing);
-      });
-    });
+function openModal(l){
+  photos=(l.photos||[]).map(proxyUrl).filter(Boolean);photoIdx=0;
+  var mi=document.getElementById('modalImgs');
+  if(!photos.length){mi.innerHTML='<div class="no-photo">car</div>';}
+  else{
+    mi.innerHTML=photos.map(function(p,i){return'<img src="'+p+'" class="'+(i===0?'active':'')+'" alt="Photo '+(i+1)+'">';}).join('')+
+    (photos.length>1?'<button class="img-nav img-prev" onclick="chPhoto(-1)">&#8249;</button><button class="img-nav img-next" onclick="chPhoto(1)">&#8250;</button>'+
+    '<div class="img-dots">'+photos.map(function(_,i){return'<button class="img-dot'+(i===0?' active':'')+'" onclick="goPhoto('+i+')"></button>';}).join('')+'</div>':'');
   }
-}
-
-function openModal(l) {
-  currentPhotos = (l.photos||[]).map(photoUrl).filter(Boolean);
-  currentPhotoIdx = 0;
-  renderModalPhotos();
-  
-  const savings = l.marketValue ? l.marketValue - l.askingPrice : 0;
-  document.getElementById('modalTitle').textContent = l.year+' '+l.make+' '+l.model;
-  document.getElementById('modalPrice').textContent = '$'+Number(l.askingPrice).toLocaleString();
-  document.getElementById('modalMarket').innerHTML = l.marketValue ? 'Market value: <s>$'+Number(l.marketValue).toLocaleString()+'</s>' : '';
-  document.getElementById('modalSavings').textContent = savings>0 ? 'You save $'+Number(savings).toLocaleString()+' ('+pct(l)+'% below market)' : '';
-  document.getElementById('modalInfo').innerHTML =
-    cell('Year',''+l.year)+cell('Make',l.make)+cell('Model',l.model)+cell('Mileage',Number(l.mileage).toLocaleString()+' mi')+
-    cell('Condition',(l.condition||'').charAt(0).toUpperCase()+(l.condition||'').slice(1))+cell('Location',l.location||l.zip||'DMV area')+
-    (l.vin?cell('VIN',l.vin):'')+(l.trim?cell('Trim',l.trim):'');
-  document.getElementById('modalContact').innerHTML =
+  var sv=l.marketValue?l.marketValue-l.askingPrice:0;
+  document.getElementById('modalTitle').textContent=l.year+' '+l.make+' '+l.model;
+  document.getElementById('modalPrice').textContent='$'+fmt(l.askingPrice);
+  document.getElementById('modalMarket').innerHTML=l.marketValue?'Market value: <s>$'+fmt(l.marketValue)+'</s>':'';
+  document.getElementById('modalSave').textContent=sv>0?'You save $'+fmt(sv)+' ('+pct(l)+'% below market)':'';
+  document.getElementById('modalInfo').innerHTML=
+    ic('Year',''+l.year)+ic('Make',l.make)+ic('Model',l.model)+ic('Mileage',fmt(l.mileage)+' mi')+
+    ic('Condition',cap(l.condition))+ic('Location',l.location||l.zip||'DMV area')+
+    (l.vin?ic('VIN',l.vin):'')+(l.trim?ic('Trim',l.trim):'');
+  document.getElementById('modalContact').innerHTML=
     '<h4>Contact Seller</h4>'+
-    '<div class="contact-row">👤 <span style="font-weight:600">'+(l.name||'Seller')+'</span></div>'+
-    (l.phone?'<div class="contact-row">📞 <a href="tel:'+l.phone+'">'+l.phone+'</a></div>':'')+
-    (l.email?'<div class="contact-row">✉️ <a href="mailto:'+l.email+'">'+l.email+'</a></div>':'')+
-    (l.notes&&l.notes!=='None'&&l.notes?'<div class="contact-row" style="flex-direction:column;align-items:flex-start;gap:4px"><span style="color:#888;font-size:12px">Notes</span><span>'+l.notes+'</span></div>':'')+
-    (l.phone?'<a class="call-btn" href="tel:'+l.phone+'">📞 Call Seller</a>':l.email?'<a class="call-btn" href="mailto:'+l.email+'">✉️ Email Seller</a>':'');
+    '<div class="contact-row">'+( l.name||'Seller')+'</div>'+
+    (l.phone?'<div class="contact-row"><a href="tel:'+l.phone+'">'+l.phone+'</a></div>':'')+
+    (l.email?'<div class="contact-row"><a href="mailto:'+l.email+'">'+l.email+'</a></div>':'')+
+    (l.phone?'<a class="call-btn" href="tel:'+l.phone+'">Call Seller</a>':l.email?'<a class="call-btn" href="mailto:'+l.email+'">Email Seller</a>':'');
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow='hidden';
 }
-
-function cell(label,val) {
-  return '<div class="info-cell"><div class="info-label">'+label+'</div><div class="info-val">'+(val||'-')+'</div></div>';
-}
-
-function renderModalPhotos() {
-  const el = document.getElementById('modalImgs');
-  if (!currentPhotos.length) {
-    el.innerHTML = '<div class="no-photo">🚗</div>';
-    return;
-  }
-  let html = currentPhotos.map((p,i) => '<img src="'+p+'" class="'+(i===0?'active':'')+'" alt="Photo '+(i+1)+'">').join('');
-  if (currentPhotos.length > 1) {
-    html += '<button class="img-nav img-prev" id="imgPrev">&#8249;</button>';
-    html += '<button class="img-nav img-next" id="imgNext">&#8250;</button>';
-    html += '<div class="img-dots">'+currentPhotos.map((_,i)=>'<button class="img-dot'+(i===0?' active':'')+'" data-i="'+i+'"></button>').join('')+'</div>';
-  }
-  el.innerHTML = html;
-  if (currentPhotos.length > 1) {
-    document.getElementById('imgPrev').addEventListener('click', () => changePhoto(-1));
-    document.getElementById('imgNext').addEventListener('click', () => changePhoto(1));
-    el.querySelectorAll('.img-dot').forEach(d => d.addEventListener('click', () => goPhoto(parseInt(d.dataset.i))));
-  }
-}
-
-function changePhoto(dir) {
-  goPhoto((currentPhotoIdx + dir + currentPhotos.length) % currentPhotos.length);
-}
-
-function goPhoto(idx) {
-  const imgs = document.querySelectorAll('#modalImgs img');
-  const dots = document.querySelectorAll('.img-dot');
-  imgs[currentPhotoIdx].classList.remove('active');
-  if (dots[currentPhotoIdx]) dots[currentPhotoIdx].classList.remove('active');
-  currentPhotoIdx = idx;
-  imgs[currentPhotoIdx].classList.add('active');
-  if (dots[currentPhotoIdx]) dots[currentPhotoIdx].classList.add('active');
-}
-
-document.getElementById('modalClose').addEventListener('click', closeModal);
-document.getElementById('modal').addEventListener('click', e => { if(e.target===document.getElementById('modal')) closeModal(); });
-function closeModal() { document.getElementById('modal').classList.remove('open'); document.body.style.overflow=''; }
-
-document.getElementById('clearBtn').addEventListener('click', () => {
-  ['makeFilter','modelFilter','yearFilter','priceFilter','condFilter'].forEach(id=>document.getElementById(id).value='');
-  renderListings();
+function ic(lb,vl){return'<div class="info-cell"><div class="info-label">'+lb+'</div><div class="info-val">'+(vl||'-')+'</div></div>';}
+window.chPhoto=function(d){goPhoto((photoIdx+d+photos.length)%photos.length);};
+window.goPhoto=function(i){
+  document.querySelectorAll('#modalImgs img')[photoIdx].classList.remove('active');
+  var dots=document.querySelectorAll('.img-dot');if(dots[photoIdx])dots[photoIdx].classList.remove('active');
+  photoIdx=i;
+  document.querySelectorAll('#modalImgs img')[photoIdx].classList.add('active');
+  if(dots[photoIdx])dots[photoIdx].classList.add('active');
+};
+document.getElementById('modalClose').addEventListener('click',function(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';});
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this){this.classList.remove('open');document.body.style.overflow='';}});
+document.getElementById('clearBtn').addEventListener('click',function(){['makeFilter','modelFilter','yearFilter','priceFilter','condFilter'].forEach(function(id){document.getElementById(id).value='';});render();});
+['makeFilter','modelFilter','yearFilter','priceFilter','condFilter','sortSelect'].forEach(function(id){document.getElementById(id).addEventListener('change',render);});
+document.getElementById('makeFilter').addEventListener('change',function(){
+  var mk=this.value,me=document.getElementById('modelFilter');
+  me.innerHTML='<option value="">All models</option>';
+  if(mk){var ms=[...new Set(listings.filter(function(l){return l.make===mk;}).map(function(l){return l.model;}).filter(Boolean))].sort();ms.forEach(function(m){var o=document.createElement('option');o.value=m;o.textContent=m;me.appendChild(o);});}
+  render();
 });
-['makeFilter','modelFilter','yearFilter','priceFilter','condFilter','sortSelect'].forEach(id => {
-  document.getElementById(id).addEventListener('change', renderListings);
-});
-document.getElementById('makeFilter').addEventListener('change', function() {
-  const make = this.value;
-  const modelEl = document.getElementById('modelFilter');
-  modelEl.innerHTML = '<option value="">All models</option>';
-  if (make) {
-    const models = [...new Set(allListings.filter(l=>l.make===make).map(l=>l.model).filter(Boolean))].sort();
-    models.forEach(m=>{const o=document.createElement('option');o.value=m;o.textContent=m;modelEl.appendChild(o);});
-  }
-  renderListings();
-});
-
-loadListings();
 </script>
 </body>
 </html>
