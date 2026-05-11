@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>List My Car Free | 12Below</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#1a3c6e;--blue-mid:#2356a0;--blue-light:#3b82f6;--blue-pale:#eff6ff;--dark:#0f172a;--gray:#64748b;--light:#f8fafc;--border:#e2e8f0;--green:#10b981;--green-pale:#ecfdf5;--red:#ef4444}
+body{font-family:'Montserrat',sans-serif;background:var(--light);color:var(--dark);-webkit-font-smoothing:antialiased}
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 6%;height:68px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:22px;font-weight:900;color:var(--blue);text-decoration:none}.logo span{color:var(--blue-light)}
+.nav-r a{font-size:13px;font-weight:600;color:var(--gray);text-decoration:none;padding:8px 14px;border-radius:8px}
+.nav-r a:hover{color:var(--blue);background:var(--blue-pale)}
+.btn-browse{background:var(--green-pale)!important;color:var(--green)!important;border-radius:10px!important;border:1.5px solid rgba(16,185,129,0.3)!important;font-weight:700!important}
+.page-hdr{background:linear-gradient(135deg,var(--blue) 0%,var(--blue-mid) 100%);padding:44px 6% 48px;overflow:hidden;position:relative}
+.page-hdr::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,0.04);top:-150px;right:-80px}
+.page-hdr h1{font-size:clamp(24px,3.5vw,36px);font-weight:900;color:#fff;letter-spacing:-1px;margin-bottom:8px;position:relative;z-index:1}
+.page-hdr p{font-size:14px;color:rgba(255,255,255,0.65);position:relative;z-index:1}
+.steps-bar{background:#fff;border-bottom:1px solid var(--border);padding:0 6%;display:flex;position:sticky;top:68px;z-index:90}
+.step{display:flex;align-items:center;gap:8px;padding:16px 20px 16px 0;font-size:12px;font-weight:700;color:var(--gray);border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap}
+.step.active{color:var(--blue);border-bottom-color:var(--blue)}.step.done{color:var(--green);border-bottom-color:var(--green)}
+.step-num{width:22px;height:22px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+.step.active .step-num{background:var(--blue);color:#fff}.step.done .step-num{background:var(--green);color:#fff}
+.main{max-width:760px;margin:0 auto;padding:40px 6% 80px}
+.card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:32px;margin-bottom:20px}
+.card h2{font-size:18px;font-weight:800;color:var(--blue);margin-bottom:4px}
+.card-sub{font-size:13px;color:var(--gray);margin-bottom:24px}
+.badge{display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);color:#065f46;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;margin-bottom:16px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:500;color:var(--dark);background:#fff;outline:none;transition:all .15s;-webkit-appearance:none;appearance:none}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2364748b' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue-light);box-shadow:0 0 0 3px rgba(59,130,246,0.1)}
+.field input::placeholder,.field textarea::placeholder{color:#94a3b8;font-weight:400}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.vin-row{display:flex;gap:10px;align-items:flex-end}.vin-row .field{flex:1;margin-bottom:0}
+.btn-lookup{padding:12px 20px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;height:50px;transition:all .15s}
+.btn-lookup:hover{background:var(--blue-mid)}.btn-lookup:disabled{opacity:.5;cursor:not-allowed}
+.vin-hint{font-size:11px;color:var(--gray);margin-top:5px}
+.vin-confirm{display:none;background:var(--green-pale);border:1px solid rgba(16,185,129,0.3);border-radius:10px;padding:12px 16px;margin-top:10px;font-size:13px;font-weight:700;color:#065f46}
+.vin-confirm.show{display:flex;align-items:center;gap:8px}
+.vin-err{display:none;background:#fef2f2;border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:12px 16px;margin-top:10px;font-size:13px;font-weight:600;color:var(--red)}
+.vin-err.show{display:block}
+.price-box{background:linear-gradient(135deg,var(--blue),var(--blue-mid));border-radius:14px;padding:24px;margin:20px 0}
+.pb-eyebrow{font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:6px}
+.pb-main{font-size:36px;font-weight:900;color:#fff;letter-spacing:-1.5px;line-height:1}
+.pb-sub{font-size:12px;color:rgba(255,255,255,0.5);margin-top:4px;margin-bottom:16px}
+.pb-source{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);font-size:10px;font-weight:700;padding:4px 10px;border-radius:100px;margin-bottom:14px}
+.pb-rows{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pri{background:rgba(255,255,255,0.1);border-radius:9px;padding:12px 14px}
+.pri-label{font-size:10px;font-weight:700;color:rgba(255,255,255,0.5);margin-bottom:4px}
+.pri-val{font-size:18px;font-weight:900;color:#fff}
+.pri.good .pri-val{color:#6ee7b7}.pri.bad .pri-val{color:#fca5a5}
+.ask-wrap{margin-top:16px}
+.ask-wrap label{display:block;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:6px}
+.ask-wrap input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:var(--dark);background:#fff;outline:none;transition:all .15s}
+.ask-wrap input:focus{border-color:var(--blue-light);box-shadow:0 0 0 3px rgba(59,130,246,0.1)}
+.ask-err{display:none;color:var(--red);font-size:12px;font-weight:700;margin-top:6px}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.upload-zone{border:2px dashed var(--border);border-radius:12px;padding:40px 24px;text-align:center;cursor:pointer;transition:all .2s}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--blue-light);background:var(--blue-pale)}
+.upload-icon{font-size:32px;margin-bottom:10px}
+.upload-title{font-size:14px;font-weight:800;color:var(--blue);margin-bottom:4px}
+.upload-sub{font-size:12px;color:var(--gray)}
+.photos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.photo-thumb{aspect-ratio:4/3;border-radius:8px;overflow:hidden;position:relative;background:var(--light)}
+.photo-thumb img{width:100%;height:100%;object-fit:cover}
+.photo-rm{position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,0.55);color:#fff;border:none;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:800}
+.upload-bar-wrap{height:4px;background:var(--border);border-radius:100px;margin-top:10px;overflow:hidden}
+.upload-bar{height:100%;background:var(--blue-light);border-radius:100px;transition:width .3s;width:0}
+.upload-status{font-size:12px;color:var(--gray);margin-top:6px;font-weight:600;min-height:18px}
+.btn-primary{width:100%;padding:15px;background:var(--blue);color:#fff;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;border:none;border-radius:10px;cursor:pointer;letter-spacing:0.04em;text-transform:uppercase;transition:all .15s;margin-top:8px}
+.btn-primary:hover{background:var(--blue-mid)}.btn-primary:disabled{opacity:.5;cursor:not-allowed}
+.btn-back{background:none;border:1.5px solid var(--border);padding:12px 22px;border-radius:10px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--gray);cursor:pointer}
+.btn-back:hover{border-color:var(--blue);color:var(--blue)}
+.btn-row{display:flex;gap:10px;margin-top:8px}.btn-row .btn-primary{flex:1}
+/* SUCCESS SCREEN */
+.success-wrap{text-align:center;padding:40px 24px}
+.success-check{width:72px;height:72px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:36px}
+.success-title{font-size:26px;font-weight:900;color:var(--blue);letter-spacing:-1px;margin-bottom:10px}
+.success-sub{font-size:14px;color:var(--gray);line-height:1.75;max-width:440px;margin:0 auto 24px}
+.what-next{background:var(--blue-pale);border:1px solid rgba(59,130,246,0.15);border-radius:14px;padding:20px 24px;text-align:left;margin-bottom:20px}
+.what-next-title{font-size:12px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+.what-next-step{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(59,130,246,0.1)}
+.what-next-step:last-child{border-bottom:none}
+.wns-icon{font-size:18px;flex-shrink:0}
+.wns-body .wns-title{font-size:13px;font-weight:800;color:var(--dark);margin-bottom:2px}
+.wns-body .wns-desc{font-size:12px;color:var(--gray);line-height:1.6}
+.listing-summary{background:var(--light);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:20px;text-align:left}
+.ls-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
+.ls-row:last-child{border-bottom:none}
+.ls-label{color:var(--gray);font-weight:600}.ls-val{color:var(--blue);font-weight:800}
+.btn-browse-listings{display:inline-block;padding:13px 28px;background:var(--green);color:#fff;border-radius:10px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:800;text-decoration:none;letter-spacing:0.04em;text-transform:uppercase}
+.btn-browse-listings:hover{background:#059669}
+.disclaimer{font-size:11px;color:var(--gray);text-align:center;margin-top:10px;line-height:1.6}
+@media(max-width:600px){.two-col{grid-template-columns:1fr}.photos-grid{grid-template-columns:repeat(3,1fr)}.vin-row{flex-direction:column}.btn-lookup{width:100%;height:auto}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">12<span>Below</span></a>
+  <div class="nav-r">
+    <a href="/listings/" class="btn-browse">&#128663; Browse cars</a>
+    <a href="/">Home</a>
+  </div>
+</nav>
+<div class="page-hdr">
+  <h1>List my car &#8212; free</h1>
+  <p>Real market value from live data. No fees. No commission. You keep every dollar.</p>
+</div>
+<div class="steps-bar">
+  <div class="step active" id="stp1"><div class="step-num">1</div>Car details</div>
+  <div class="step" id="stp2"><div class="step-num">2</div>Photos</div>
+  <div class="step" id="stp3"><div class="step-num">3</div>Contact</div>
+  <div class="step" id="stp4"><div class="step-num">4</div>Done</div>
+</div>
+<div class="main">
+
+<!-- STEP 1: VIN + Pricing -->
+<div id="step1">
+<div class="card">
+  <h2>Tell us about your car</h2>
+  <p class="card-sub">Enter your VIN to get a real market price from live dealer data.</p>
+  <div class="badge">&#128202; Powered by MarketCheck &#8212; live market data</div>
+  <div class="vin-row">
+    <div class="field">
+      <label>VIN number</label>
+      <input type="text" id="vinInput" placeholder="e.g. 1HGCM82633A004352" maxlength="17" autocomplete="off" style="text-transform:uppercase;font-size:15px;font-weight:700;letter-spacing:0.05em" oninput="this.value=this.value.toUpperCase();if(this.value.length===17)lookupVIN()">
+    </div>
+    <button class="btn-lookup" id="lookupBtn" onclick="lookupVIN()">Look up</button>
+  </div>
+  <p class="vin-hint">Your 17-character VIN is on your dashboard, driver-side door jamb, or registration.</p>
+  <div class="vin-confirm" id="vinConfirm">&#10003; <span id="vinCarName"></span></div>
+  <div class="vin-err" id="vinErr"></div>
+  <div id="detailsSection" style="display:none">
+    <div class="two-col" style="margin-top:20px">
+      <div class="field"><label>Mileage</label><input type="number" id="mileage" placeholder="e.g. 45,000" oninput="onDetailsChange()"></div>
+      <div class="field"><label>Your ZIP code</label><input type="text" id="zipCode" placeholder="e.g. 20910" maxlength="5" oninput="onDetailsChange()"></div>
+    </div>
+    <div class="field">
+      <label>Condition</label>
+      <select id="condition" onchange="onDetailsChange()">
+        <option value="" disabled selected>Select condition...</option>
+        <option value="excellent">Excellent &#8212; like new</option>
+        <option value="good">Good &#8212; minor wear</option>
+        <option value="fair">Fair &#8212; visible wear</option>
+      </select>
+    </div>
+    <button class="btn-primary" id="getPriceBtn" onclick="getMarketPrice()" disabled>Get my real market price &#8594;</button>
+  </div>
+  <div id="priceSection" style="display:none">
+    <div class="price-box">
+      <div class="pb-eyebrow">Live market value</div>
+      <div class="pb-main" id="pbMarket">-</div>
+      <div class="pb-sub" id="pbCarLabel">-</div>
+      <div class="pb-source">&#128202; MarketCheck live data</div>
+      <div class="pb-rows">
+        <div class="pri good"><div class="pri-label">Your 12Below price</div><div class="pri-val" id="pbBelow">-</div></div>
+        <div class="pri bad"><div class="pri-label">Dealer trade-in</div><div class="pri-val" id="pbDealer">-</div></div>
+        <div class="pri good"><div class="pri-label">You earn more</div><div class="pri-val" id="pbSavings">-</div></div>
+        <div class="pri"><div class="pri-label">Below market by</div><div class="pri-val">12%</div></div>
+      </div>
+    </div>
+    <div class="ask-wrap">
+      <label>Your asking price (max: <span id="maxLabel">-</span>)</label>
+      <input type="number" id="askPrice" placeholder="Enter your price..." oninput="validateAsk()">
+      <div class="ask-err" id="askErr"></div>
+    </div>
+    <button class="btn-primary" onclick="goStep2()" style="margin-top:16px">Next: Add photos &#8594;</button>
+    <p class="disclaimer">Price must be at or below market value. All listings are reviewed before publishing.</p>
+  </div>
+</div>
+</div>
+
+<!-- STEP 2: Photos -->
+<div id="step2" style="display:none">
+<div class="card">
+  <h2>Upload photos</h2>
+  <p class="card-sub">Up to 15 photos. First photo is your cover image. Photos help your listing sell faster.</p>
+  <div class="upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event)">
+    <div class="upload-icon">&#128247;</div>
+    <div class="upload-title">Click or drag photos here</div>
+    <div class="upload-sub">JPG, PNG &#8212; up to 10MB each</div>
+    <input type="file" id="fileInput" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
+  </div>
+  <div class="upload-bar-wrap"><div class="upload-bar" id="uploadBar"></div></div>
+  <div class="upload-status" id="uploadStatus"></div>
+  <div class="photos-grid" id="photosGrid"></div>
+</div>
+<div class="btn-row">
+  <button class="btn-back" onclick="goStep(1)">&#8592; Back</button>
+  <button class="btn-primary" onclick="goStep(3)">Next: Contact info &#8594;</button>
+</div>
+</div>
+
+<!-- STEP 3: Contact -->
+<div id="step3" style="display:none">
+<div class="card">
+  <h2>Your contact details</h2>
+  <p class="card-sub">Only shared with verified buyers we connect you with. Never public.</p>
+  <div class="two-col">
+    <div class="field"><label>Your name</label><input type="text" id="sellerName" placeholder="Full name"></div>
+    <div class="field"><label>Phone</label><input type="tel" id="sellerPhone" placeholder="(555) 000-0000"></div>
+  </div>
+  <div class="field"><label>Email</label><input type="email" id="sellerEmail" placeholder="you@email.com"></div>
+  <div class="field"><label>City, State</label><input type="text" id="sellerLocation" placeholder="e.g. Silver Spring, MD"></div>
+  <div class="field"><label>Additional notes (optional)</label><textarea id="sellerNotes" rows="3" placeholder="Recent service, new tires, reason for selling..."></textarea></div>
+</div>
+<div class="btn-row">
+  <button class="btn-back" onclick="goStep(2)">&#8592; Back</button>
+  <button class="btn-primary" id="submitBtn" onclick="submitListing()">Submit listing &#10003;</button>
+</div>
+</div>
+
+<!-- STEP 4: SUCCESS -->
+<div id="step4" style="display:none">
+<div class="card">
+  <div class="success-wrap">
+    <div class="success-check">&#10003;</div>
+    <div class="success-title">Listing received!</div>
+    <p class="success-sub">We got your listing and will review it shortly. Here's exactly what happens next:</p>
+    <div class="what-next">
+      <div class="what-next-title">What happens next</div>
+      <div class="what-next-step">
+        <div class="wns-icon">&#128269;</div>
+        <div class="wns-body"><div class="wns-title">We verify your listing (1-4 hours)</div><div class="wns-desc">We check your VIN, confirm the price is 12% or more below market, and review your photos.</div></div>
+      </div>
+      <div class="what-next-step">
+        <div class="wns-icon">&#128293;</div>
+        <div class="wns-body"><div class="wns-title">Your car goes live on /listings</div><div class="wns-desc">Once approved, buyers in the DMV area can see and contact you directly. You'll get an email confirmation.</div></div>
+      </div>
+      <div class="what-next-step">
+        <div class="wns-icon">&#128222;</div>
+        <div class="wns-body"><div class="wns-title">Buyers contact you directly</div><div class="wns-desc">Interested buyers send you a message. You negotiate, meet, and close &#8212; no middleman, no fees.</div></div>
+      </div>
+      <div class="what-next-step">
+        <div class="wns-icon">&#127881;</div>
+        <div class="wns-body"><div class="wns-title">You keep 100% of the sale price</div><div class="wns-desc">12Below never charges a fee or commission. Every dollar goes to you.</div></div>
+      </div>
+    </div>
+    <div class="listing-summary" id="listingSummary"></div>
+    <a href="/listings/" class="btn-browse-listings">&#128663; Browse other listings</a>
+    <p class="disclaimer" style="margin-top:16px">Questions? <a href="mailto:hello@12below.net" style="color:var(--blue-light)">hello@12below.net</a></p>
+  </div>
+</div>
+</div>
+
+</div><!-- end .main -->
+
+<script>
+var MC_KEY = 'g0he2MrNvE5HuvmjPLqR3CFyKmZbpN8k';
+var photos = [], currentMV = 0, currentMax = 0, vinData = {};
+var fmt = function(n){ return '$' + Math.round(n).toLocaleString('en-US'); };
+
+async function lookupVIN() {
+  var vin = document.getElementById('vinInput').value.trim().toUpperCase();
+  var btn = document.getElementById('lookupBtn');
+  var conf = document.getElementById('vinConfirm');
+  var err = document.getElementById('vinErr');
+  conf.classList.remove('show'); err.classList.remove('show');
+  document.getElementById('detailsSection').style.display = 'none';
+  document.getElementById('priceSection').style.display = 'none';
+  if (vin.length !== 17) { err.textContent = 'Please enter a valid 17-character VIN.'; err.classList.add('show'); return; }
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Looking up...';
+  try {
+    var r = await fetch('https://vpic.nhtsa.dot.gov/api/vehicles/decodevin/' + vin + '?format=json');
+    var d = await r.json();
+    var g = function(v){ var i = d.Results.find(function(x){ return x.Variable === v; }); return i && i.Value && i.Value !== 'null' && i.Value !== 'Not Applicable' ? i.Value : ''; };
+    var mk = g('Make'), mo = g('Model'), yr = g('Model Year'), tr = g('Trim');
+    if (!mk || !mo || !yr) { err.textContent = 'Could not decode this VIN. Please check and try again.'; err.classList.add('show'); btn.disabled = false; btn.textContent = 'Look up'; return; }
+    vinData = { vin: vin, make: mk, model: mo, year: yr, trim: tr };
+    document.getElementById('vinCarName').textContent = yr + ' ' + mk + ' ' + mo + (tr ? ' ' + tr : '');
+    conf.classList.add('show');
+    document.getElementById('detailsSection').style.display = 'block';
+  } catch(e) { err.textContent = 'VIN lookup failed: ' + e.message; err.classList.add('show'); }
+  btn.disabled = false; btn.textContent = 'Look up';
+}
+
+function onDetailsChange() {
+  var mi = document.getElementById('mileage').value;
+  var zip = document.getElementById('zipCode').value;
+  var co = document.getElementById('condition').value;
+  document.getElementById('getPriceBtn').disabled = !(mi && zip && zip.length === 5 && co);
+}
+
+async function getMarketPrice() {
+  var mi = document.getElementById('mileage').value;
+  var zip = document.getElementById('zipCode').value;
+  var co = document.getElementById('condition').value;
+  var btn = document.getElementById('getPriceBtn');
+  var err = document.getElementById('vinErr');
+  err.classList.remove('show');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Getting live price...';
+  try {
+    var url = 'https://api.marketcheck.com/v2/predict/car/us/marketcheck_price?api_key=' + MC_KEY +
+      '&vin=' + encodeURIComponent(vinData.vin) + '&miles=' + encodeURIComponent(mi) +
+      '&dealer_type=independent&zip=' + encodeURIComponent(zip) + '&is_certified=false';
+    var r = await fetch(url, { headers: { Accept: 'application/json' } });
+    var d = await r.json();
+    if (!d.marketcheck_price) { err.textContent = 'Could not get market price. ' + (d.message || 'Please try again.'); err.classList.add('show'); btn.disabled = false; btn.textContent = 'Try again'; return; }
+    var mkt = d.marketcheck_price;
+    var cd = { excellent: 1.0, good: 0.94, fair: 0.84 }[co] || 0.94;
+    var adjMkt = Math.round((mkt * cd) / 100) * 100;
+    var blw = Math.round(adjMkt * 0.88 / 100) * 100;
+    var dlr = Math.round(adjMkt * 0.70 / 100) * 100;
+    currentMV = adjMkt; currentMax = blw;
+    document.getElementById('pbCarLabel').textContent = vinData.year + ' ' + vinData.make + ' ' + vinData.model + (vinData.trim ? ' ' + vinData.trim : '');
+    document.getElementById('pbMarket').textContent = fmt(adjMkt);
+    document.getElementById('pbBelow').textContent = fmt(blw);
+    document.getElementById('pbDealer').textContent = fmt(dlr);
+    document.getElementById('pbSavings').textContent = fmt(blw - dlr) + ' more';
+    document.getElementById('maxLabel').textContent = fmt(blw);
+    document.getElementById('askPrice').value = blw;
+    document.getElementById('priceSection').style.display = 'block';
+    document.getElementById('priceSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch(e) { err.textContent = 'Error: ' + e.message; err.classList.add('show'); }
+  btn.disabled = false; btn.textContent = 'Get my real market price →';
+}
+
+function validateAsk() {
+  var v = parseInt(document.getElementById('askPrice').value);
+  var err = document.getElementById('askErr');
+  if (!v || !currentMax) { err.style.display = 'none'; return; }
+  if (v > currentMax) { err.textContent = 'Price must be ≤ ' + fmt(currentMax) + '.'; err.style.display = 'block'; }
+  else err.style.display = 'none';
+}
+
+function goStep(n) {
+  [1,2,3,4].forEach(function(i) {
+    document.getElementById('step'+i).style.display = i === n ? 'block' : 'none';
+    document.getElementById('stp'+i).className = 'step' + (i < n ? ' done' : i === n ? ' active' : '');
+  });
+  window.scrollTo(0, 0);
+}
+
+function goStep2() {
+  if (!currentMV) { alert('Please complete the VIN lookup and get your market price first.'); return; }
+  var ask = parseInt(document.getElementById('askPrice').value);
+  if (!ask) { alert('Please enter your asking price.'); return; }
+  if (ask > currentMax) { alert('Asking price must be at or below ' + fmt(currentMax) + '.'); return; }
+  goStep(2);
+}
+
+function handleFiles(files) {
+  Array.from(files).slice(0, 15 - photos.length).forEach(function(f) {
+    if (photos.length >= 15) return;
+    var reader = new FileReader();
+    reader.onload = function(e) { photos.push({ file: f, url: e.target.result }); renderPhotos(); };
+    reader.readAsDataURL(f);
+  });
+}
+function handleDrop(e) { e.preventDefault(); document.getElementById('dropZone').classList.remove('drag'); handleFiles(e.dataTransfer.files); }
+function renderPhotos() {
+  var g = document.getElementById('photosGrid');
+  g.innerHTML = photos.map(function(p, i) { return '<div class="photo-thumb"><img src="' + p.url + '"><button class="photo-rm" onclick="removePhoto('+i+')">×</button></div>'; }).join('');
+  document.getElementById('uploadStatus').textContent = photos.length ? photos.length + ' photo' + (photos.length > 1 ? 's' : '') + ' selected' : '';
+}
+function removePhoto(i) { photos.splice(i, 1); renderPhotos(); }
+
+async function uploadPhotos() {
+  if (!photos.length) return [];
+  var urls = [];
+  var bar = document.getElementById('uploadBar');
+  var status = document.getElementById('uploadStatus');
+  for (var i = 0; i < photos.length; i++) {
+    status.textContent = 'Uploading photo ' + (i+1) + ' of ' + photos.length + '...';
+    bar.style.width = ((i / photos.length) * 100) + '%';
+    try {
+      var r = await fetch('/.netlify/functions/upload', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: photos[i].url, filename: 'photo_' + Date.now() + '_' + i + '.jpg' })
+      });
+      var d = await r.json();
+      if (d.url) urls.push(d.url);
+    } catch(e) { /* skip failed uploads */ }
+  }
+  bar.style.width = '100%';
+  status.textContent = urls.length + ' photo' + (urls.length !== 1 ? 's' : '') + ' uploaded';
+  return urls;
+}
+
+async function submitListing() {
+  var name = document.getElementById('sellerName').value.trim();
+  var phone = document.getElementById('sellerPhone').value.trim();
+  var email = document.getElementById('sellerEmail').value.trim();
+  var loc = document.getElementById('sellerLocation').value.trim();
+  if (!name || !phone || !email || !loc) { alert('Please fill in name, phone, email, and location.'); return; }
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Submitting...';
+  var photoUrls = photos.length > 0 ? await uploadPhotos() : [];
+  var ask = parseInt(document.getElementById('askPrice').value);
+  var listing = {
+    id: Date.now(), make: vinData.make, model: vinData.model, year: vinData.year, trim: vinData.trim || '',
+    vin: vinData.vin, mileage: document.getElementById('mileage').value,
+    condition: document.getElementById('condition').value, askingPrice: ask, marketValue: currentMV,
+    name: name, email: email, phone: phone, location: loc,
+    zip: document.getElementById('zipCode').value, notes: document.getElementById('sellerNotes').value.trim(),
+    photos: photoUrls, status: 'new', createdAt: new Date().toISOString()
+  };
+  // Save to server
+  try {
+    await fetch('/.netlify/functions/listings', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(listing)
+    });
+  } catch(e) { /* still show success — email will notify Denis */ }
+  // Email notification
+  var fd = new FormData();
+  fd.append('_subject', 'New 12Below Listing: ' + vinData.year + ' ' + vinData.make + ' ' + vinData.model);
+  fd.append('_captcha', 'false');
+  fd.append('Vehicle', vinData.year + ' ' + vinData.make + ' ' + vinData.model + (vinData.trim ? ' ' + vinData.trim : ''));
+  fd.append('VIN', vinData.vin);
+  fd.append('Mileage', listing.mileage + ' miles');
+  fd.append('Condition', listing.condition);
+  fd.append('Asking_Price', fmt(ask));
+  fd.append('Market_Value', fmt(currentMV));
+  fd.append('Seller_Name', name);
+  fd.append('Seller_Email', email);
+  fd.append('Seller_Phone', phone);
+  fd.append('Location', loc);
+  fd.append('Notes', listing.notes || 'None');
+  try { await fetch('https://formsubmit.co/denispeniche@gmail.com', { method: 'POST', body: fd }); } catch(e) {}
+  // Show success
+  document.getElementById('listingSummary').innerHTML =
+    '<div class="ls-row"><span class="ls-label">Vehicle</span><span class="ls-val">' + vinData.year + ' ' + vinData.make + ' ' + vinData.model + '</span></div>' +
+    '<div class="ls-row"><span class="ls-label">VIN</span><span class="ls-val">' + vinData.vin + '</span></div>' +
+    '<div class="ls-row"><span class="ls-label">Market value</span><span class="ls-val">' + fmt(currentMV) + '</span></div>' +
+    '<div class="ls-row"><span class="ls-label">Your asking price</span><span class="ls-val">' + fmt(ask) + '</span></div>' +
+    '<div class="ls-row"><span class="ls-label">Photos</span><span class="ls-val">' + (photoUrls.length || photos.length) + ' uploaded</span></div>' +
+    '<div class="ls-row"><span class="ls-label">Status</span><span class="ls-val" style="color:var(--amber)">⏳ Pending review (1-4 hrs)</span></div>';
+  goStep(4);
+}
+</script>
+</body>
+</html>
