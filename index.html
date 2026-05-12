@@ -5,29 +5,37 @@
 <div class="fpanel active" id="sellForm"><div class="ftag sell">Selling my car</div><h3>Tell us about your car</h3><p class="fsub">Select your make and model to get started.</p><div class="mm-row"><div class="field"><label>Make</label><select id="sm" onchange="onMakeChange()"><option value="" disabled selected>Select make...</option></select></div><div class="field"><label>Model</label><select id="smo" disabled><option value="" disabled selected>Select make first...</option></select></div></div><div class="two-col"><div class="field"><label>Year</label><select id="sy"><option value="" disabled selected>Select year...</option></select></div><div class="field"><label>Mileage</label><input type="number" id="smi" placeholder="e.g. 35,000"></div></div><div class="field"><label>Condition</label><select id="sc"><option value="" disabled selected>Select condition...</option><option value="excellent">Excellent — like new</option><option value="good">Good — minor wear</option><option value="fair">Fair — visible wear</option></select></div><a href="#" class="btn-sell" id="listBtn">List my car for free</a><p class="disclaimer">100% free. No hidden fees. No commission. Ever.</p></div>
 <div class="fpanel" id="buyForm"><div class="ftag buy">Looking to buy</div><h3>What car are you looking for?</h3><p class="fsub">We find you a 12% below market deal.</p><form action="https://formsubmit.co/denispeniche@gmail.com" method="POST"><input type="hidden" name="_subject" value="New 12Below Buyer Request"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="type" value="buyer"><div class="mm-row"><div class="field"><label>Make (optional)</label><input type="text" name="make" placeholder="Any make"></div><div class="field"><label>Model (optional)</label><input type="text" name="model" placeholder="Any model"></div></div><div class="two-col"><div class="field"><label>Year range</label><input type="text" name="year_range" placeholder="e.g. 2018-2022"></div><div class="field"><label>Max budget</label><input type="text" name="budget" placeholder="e.g. $25,000" required></div></div><div class="field"><label>Your email</label><input type="email" name="email" placeholder="you@email.com" required></div><button type="submit" class="btn-buy">Find me a 12Below car</button><p class="disclaimer">Free. We notify you when a match is listed.</p></form></div></div></div></section>
 <section style="background:#0f1729;padding:60px 20px;">
+  <style>
+    .diff-grid{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:12px;margin-bottom:36px;}
+    .diff-arrow{color:#555;font-size:24px;font-weight:300;}
+    @media(max-width:640px){
+      .diff-grid{grid-template-columns:1fr;gap:8px;}
+      .diff-arrow{display:none;}
+    }
+  </style>
   <div style="max-width:800px;margin:0 auto;text-align:center;">
     <div style="font-size:17px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">On a $25,000 car</div>
     <h2 style="font-size:clamp(24px,3vw,36px);font-weight:800;color:#fff;margin-bottom:40px;">The 12Below difference</h2>
-    <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:12px;margin-bottom:36px;">
+    <div class="diff-grid">
       <div style="background:#1a1f30;border-radius:16px;padding:28px 20px;">
         <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;">&#127970; Dealer Trade-In</div>
         <div style="font-size:36px;font-weight:800;color:#f87171;margin-bottom:8px;">$16,250</div>
         <div style="font-size:12px;color:#666;">What they offer you</div>
       </div>
-      <div style="color:#555;font-size:24px;font-weight:300;">&#8594;</div>
+      <div class="diff-arrow">&#8594;</div>
       <div style="background:#1a1f30;border:2px solid #1a3afa;border-radius:16px;padding:28px 20px;">
         <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;">&#128994; 12Below Listing</div>
         <div style="font-size:36px;font-weight:800;color:#4ade80;margin-bottom:8px;">$22,000</div>
         <div style="font-size:12px;color:#666;">What you list for</div>
       </div>
-      <div style="color:#555;font-size:24px;font-weight:300;">&#8594;</div>
+      <div class="diff-arrow">&#8594;</div>
       <div style="background:#1a1f30;border-radius:16px;padding:28px 20px;">
         <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;">&#127991; Dealer Retail</div>
         <div style="font-size:36px;font-weight:800;color:#f87171;margin-bottom:8px;">$27,500+</div>
         <div style="font-size:12px;color:#666;">What they flip it for</div>
       </div>
     </div>
-    <div style="background:linear-gradient(135deg,#1a3afa22,#4ade8022);border:1px solid #4ade8044;border-radius:14px;padding:20px 32px;display:inline-block;">
+    <div style="background:linear-gradient(135deg,#1a3afa22,#4ade8022);border:1px solid #4ade8044;border-radius:14px;padding:20px 32px;">
       <span style="font-size:18px;font-weight:800;color:#fff;">Sell on 12Below and earn </span>
       <span style="font-size:18px;font-weight:800;color:#4ade80;">thousands more</span>
       <span style="font-size:18px;font-weight:800;color:#fff;"> than any dealer will offer you.</span>
