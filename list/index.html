@@ -96,6 +96,28 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.97);backdrop
 .btn-browse-listings:hover{background:#059669}
 .disclaimer{font-size:11px;color:var(--gray);text-align:center;margin-top:10px;line-height:1.6}
 @media(max-width:600px){.two-col{grid-template-columns:1fr}.photos-grid{grid-template-columns:repeat(3,1fr)}.vin-row{flex-direction:column}.btn-lookup{width:100%;height:auto}}
+
+.review-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:3000;align-items:center;justify-content:center;padding:20px;}
+.review-overlay.open{display:flex;}
+.review-box{background:#fff;border-radius:20px;max-width:500px;width:100%;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.review-header{background:linear-gradient(135deg,#1a3afa,#1228c8);color:#fff;padding:28px 28px 24px;text-align:center;}
+.review-header h2{font-size:22px;font-weight:800;margin-bottom:6px;}
+.review-header p{opacity:.85;font-size:14px;}
+.review-body{padding:28px;}
+.review-summary{background:#f8f9ff;border-radius:12px;padding:18px;margin-bottom:20px;}
+.review-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #ebebf0;font-size:14px;}
+.review-row:last-child{border-bottom:none;}
+.review-row .label{color:#888;}
+.review-row .val{font-weight:600;color:#1a1a2e;}
+.fee-box{border:2px solid #1a3afa;border-radius:14px;padding:20px;margin-bottom:20px;text-align:center;}
+.fee-amount{font-size:36px;font-weight:800;color:#1a3afa;margin-bottom:4px;}
+.fee-label{font-size:13px;color:#888;margin-bottom:12px;}
+.fee-note{background:#e8f5e9;border-radius:8px;padding:10px 14px;font-size:13px;color:#166534;font-weight:600;}
+.review-actions{display:flex;gap:12px;}
+.btn-back{flex:1;background:#f4f5f7;color:#333;border:none;padding:14px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;}
+.btn-confirm{flex:2;background:#1a3afa;color:#fff;border:none;padding:14px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-confirm:hover{background:#1228c8;}
+.btn-back:hover{background:#e8e9ed;}
 </style>
 </head>
 <body>
@@ -431,6 +453,111 @@ async function submitListing() {
     '<div class="ls-row"><span class="ls-label">Status</span><span class="ls-val" style="color:var(--amber)">⏳ Pending review (1-4 hrs)</span></div>';
   goStep(4);
 }
+
+// Intercept submit to show review screen
+(function() {
+  function interceptSubmit() {
+    var form = document.querySelector('form');
+    var submitBtn = document.getElementById('submitBtn') || document.querySelector('[type="submit"], button[class*="submit"]');
+    
+    function showReview(e) {
+      if(e) { e.preventDefault(); e.stopPropagation(); }
+      
+      // Build summary from form fields
+      var make = (document.getElementById('make') || document.querySelector('[name="make"]') || {value:''}).value;
+      var model = (document.getElementById('model') || document.querySelector('[name="model"]') || {value:''}).value;
+      var year = (document.getElementById('year') || document.querySelector('[name="year"]') || {value:''}).value;
+      var mileage = (document.getElementById('mileage') || document.querySelector('[name="mileage"]') || {value:''}).value;
+      var price = (document.getElementById('askingPrice') || document.getElementById('asking_price') || document.querySelector('[name="askingPrice"],[name="asking_price"],[name="price"]') || {value:''}).value;
+      var name = (document.getElementById('sellerName') || document.getElementById('name') || document.querySelector('[name="name"],[name="sellerName"]') || {value:''}).value;
+      
+      var rows = '';
+      if(year||make||model) rows += '<div class="review-row"><span class="label">Vehicle</span><span class="val">'+year+' '+make+' '+model+'</span></div>';
+      if(mileage) rows += '<div class="review-row"><span class="label">Mileage</span><span class="val">'+Number(mileage).toLocaleString()+' miles</span></div>';
+      if(price) rows += '<div class="review-row"><span class="label">Asking Price</span><span class="val">
+
+<div class="review-overlay" id="reviewOverlay">
+  <div class="review-box">
+    <div class="review-header">
+      <h2>Almost done!</h2>
+      <p>Review your listing before it goes live</p>
+    </div>
+    <div class="review-body">
+      <div class="review-summary" id="reviewSummary"></div>
+      <div class="fee-box">
+        <div class="fee-amount">$299</div>
+        <div class="fee-label">Success fee — only charged when your car sells</div>
+        <div class="fee-note">No sale? No fee. Zero risk to list.</div>
+      </div>
+      <div class="review-actions">
+        <button class="btn-back" onclick="document.getElementById('reviewOverlay').classList.remove('open')">&#8592; Edit</button>
+        <button class="btn-confirm" id="confirmSubmitBtn">List My Car Free &#8594;</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>+Number(price).toLocaleString()+'</span></div>';
+      if(name) rows += '<div class="review-row"><span class="label">Seller</span><span class="val">'+name+'</span></div>';
+      
+      document.getElementById('reviewSummary').innerHTML = rows || '<p style="color:#888;text-align:center">Review your listing details above</p>';
+      document.getElementById('reviewOverlay').classList.add('open');
+      
+      return false;
+    }
+    
+    if(submitBtn) {
+      submitBtn.addEventListener('click', showReview, true);
+    }
+    if(form) {
+      form.addEventListener('submit', showReview, true);
+    }
+    
+    // Confirm button does the actual submit
+    document.getElementById('confirmSubmitBtn').addEventListener('click', function() {
+      document.getElementById('reviewOverlay').classList.remove('open');
+      // Trigger the actual form submission
+      var form = document.querySelector('form');
+      if(form) {
+        // Remove our interceptor temporarily
+        var clone = form.cloneNode(true);
+        form.parentNode.replaceChild(clone, form);
+        clone.submit();
+      } else {
+        // If no form, trigger the original submit button
+        var btn = document.getElementById('submitBtn') || document.querySelector('[type="submit"]');
+        if(btn) btn.click();
+      }
+    });
+  }
+  
+  if(document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', interceptSubmit);
+  } else {
+    interceptSubmit();
+  }
+})();
 </script>
+
+<div class="review-overlay" id="reviewOverlay">
+  <div class="review-box">
+    <div class="review-header">
+      <h2>Almost done!</h2>
+      <p>Review your listing before it goes live</p>
+    </div>
+    <div class="review-body">
+      <div class="review-summary" id="reviewSummary"></div>
+      <div class="fee-box">
+        <div class="fee-amount">$299</div>
+        <div class="fee-label">Success fee — only charged when your car sells</div>
+        <div class="fee-note">No sale? No fee. Zero risk to list.</div>
+      </div>
+      <div class="review-actions">
+        <button class="btn-back" onclick="document.getElementById('reviewOverlay').classList.remove('open')">&#8592; Edit</button>
+        <button class="btn-confirm" id="confirmSubmitBtn">List My Car Free &#8594;</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
