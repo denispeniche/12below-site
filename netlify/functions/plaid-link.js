@@ -9,7 +9,7 @@ exports.handler = async function(event) {
       client_name: '12Below',
       country_codes: ['US'],
       language: 'en',
-      products: ['auth','balance'],
+      products: ['auth'],
       user: { client_user_id: Date.now().toString() }
     });
     const result = await new Promise((resolve, reject) => {
@@ -24,6 +24,7 @@ exports.handler = async function(event) {
         res.on('end', () => resolve({status: res.statusCode, body: data}));
       });
       req.on('error', reject);
+      req.setTimeout(10000, () => { req.destroy(); reject(new Error('timeout')); });
       req.write(body);
       req.end();
     });
