@@ -172,6 +172,7 @@ select.fbtn{appearance:none;padding-right:28px;}
       <div class="msaving" id="msaving"></div>
       <div class="specs" id="specs"></div>
       <div class="contact" id="contact"></div>
+      <a class="buy-btn" id="buyBtn" href="#" style="display:block;background:#22c55e;color:#fff;text-align:center;padding:15px;border-radius:12px;font-weight:800;font-size:16px;text-decoration:none;margin-top:12px;">&#128274; Buy This Car Securely</a>
     </div>
   </div>
 </div>
@@ -303,6 +304,7 @@ function openModal(l){
     (l.phone?'<a class="call-btn" href="tel:'+l.phone+'">&#128222; Call Seller</a>':
      l.email?'<a class="call-btn" href="mailto:'+l.email+'">&#9993; Email Seller</a>':'');
   
+  document.getElementById('buyBtn').href = '/buy?id=' + l.id;
   document.getElementById('ov').classList.add('open');
   document.body.style.overflow='hidden';
 }
