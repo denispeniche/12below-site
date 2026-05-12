@@ -10,6 +10,8 @@ exports.handler = async function(event) {
       country_codes: ['US'],
       language: 'en',
       products: ['auth'],
+      hosted_link: { delivery_method: 'all' },
+      account_filters: { depository: { account_subtypes: ['checking','savings'] } },
       user: { client_user_id: Date.now().toString() }
     });
     const result = await new Promise((resolve, reject) => {
