@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Buy Securely - 12Below</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Montserrat',sans-serif;background:#f4f5f7;color:#1a1a2e;min-height:100vh;}
+nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.logo{font-size:22px;font-weight:800;color:#1a3afa;text-decoration:none;}
+.wrap{max-width:560px;margin:40px auto;padding:0 20px;}
+.card{background:#fff;border-radius:20px;padding:32px;box-shadow:0 4px 20px rgba(0,0,0,.08);margin-bottom:20px;}
+.step{display:none;}
+.step.active{display:block;}
+.step-header{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+.step-num{width:36px;height:36px;background:#1a3afa;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;}
+.step-title{font-size:20px;font-weight:800;}
+.step-sub{font-size:13px;color:#888;margin-top:2px;}
+
+/* Car summary */
+.car-summary{background:#f8f9ff;border-radius:14px;padding:20px;margin-bottom:24px;display:flex;gap:16px;align-items:center;}
+.car-summary img{width:80px;height:60px;object-fit:cover;border-radius:8px;background:#e8ecff;}
+.car-info h3{font-size:16px;font-weight:700;margin-bottom:4px;}
+.car-price{font-size:22px;font-weight:800;color:#1a3afa;}
+.car-market{font-size:12px;color:#888;}
+.car-save{font-size:12px;color:#22c55e;font-weight:600;}
+
+/* Form */
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;}
+.field input{width:100%;padding:12px 14px;border:1.5px solid #d0d2dc;border-radius:10px;font-size:14px;font-family:inherit;outline:none;transition:border-color .2s;}
+.field input:focus{border-color:#1a3afa;}
+
+/* Escrow box */
+.escrow-box{background:linear-gradient(135deg,#f0f4ff,#e8f0ff);border:2px solid #1a3afa;border-radius:14px;padding:20px;margin-bottom:24px;}
+.escrow-box h4{font-size:14px;font-weight:700;color:#1a3afa;margin-bottom:12px;}
+.escrow-step{display:flex;gap:12px;margin-bottom:10px;font-size:13px;}
+.escrow-step:last-child{margin-bottom:0;}
+.escrow-icon{font-size:18px;flex-shrink:0;}
+
+/* Protection badges */
+.badges{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
+.badge-item{background:#f8f9ff;border-radius:10px;padding:14px;text-align:center;}
+.badge-icon{font-size:24px;margin-bottom:6px;}
+.badge-label{font-size:11px;font-weight:600;color:#555;}
+
+/* Buttons */
+.btn{width:100%;padding:16px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:background .2s;}
+.btn-primary{background:#1a3afa;color:#fff;}
+.btn-primary:hover{background:#1228c8;}
+.btn-primary:disabled{background:#9aa5d4;cursor:not-allowed;}
+.btn-secondary{background:#f4f5f7;color:#333;margin-top:10px;}
+.btn-secondary:hover{background:#e8e9ed;}
+
+/* Status */
+.status-card{text-align:center;padding:20px 0;}
+.status-icon{font-size:64px;margin-bottom:16px;}
+.status-title{font-size:22px;font-weight:800;margin-bottom:8px;}
+.status-sub{font-size:14px;color:#888;line-height:1.6;}
+.status-amount{font-size:36px;font-weight:800;color:#1a3afa;margin:16px 0 8px;}
+.status-badge{display:inline-block;background:#e8f5e9;color:#166534;font-size:13px;font-weight:700;padding:6px 16px;border-radius:20px;}
+
+/* Progress */
+.progress{display:flex;gap:8px;margin-bottom:32px;}
+.prog-step{flex:1;height:4px;border-radius:2px;background:#e8e9ed;}
+.prog-step.done{background:#1a3afa;}
+.prog-step.active{background:#93a8f4;}
+
+.loading-spinner{width:24px;height:24px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;margin-right:8px;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo">12Below</a><a href="/listings" style="font-size:14px;color:#666;text-decoration:none;">&#8592; Back to listings</a></nav>
+
+<div class="wrap">
+  <div class="progress" id="progress">
+    <div class="prog-step active" id="p1"></div>
+    <div class="prog-step" id="p2"></div>
+    <div class="prog-step" id="p3"></div>
+  </div>
+
+  <!-- Step 1: Buyer Info -->
+  <div class="card step active" id="step1">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div><div class="step-title">Your information</div><div class="step-sub">Tell us who you are</div></div>
+    </div>
+    <div class="car-summary" id="carSummary">
+      <div class="car-info">
+        <h3 id="carName">Loading...</h3>
+        <div class="car-price" id="carPrice"></div>
+        <div class="car-save" id="carSave"></div>
+      </div>
+    </div>
+    <div class="field"><label>Full Name</label><input type="text" id="buyerName" placeholder="John Smith"></div>
+    <div class="field"><label>Email Address</label><input type="email" id="buyerEmail" placeholder="john@email.com"></div>
+    <div class="field"><label>Phone Number</label><input type="tel" id="buyerPhone" placeholder="(240) 555-0100"></div>
+    <div class="escrow-box">
+      <h4>&#128274; How 12Below protects you</h4>
+      <div class="escrow-step"><span class="escrow-icon">1&#65039;&#8419;</span><span>You connect your bank securely — we never store your credentials</span></div>
+      <div class="escrow-step"><span class="escrow-icon">2&#65039;&#8419;</span><span>Funds go into secure escrow — not to the seller yet</span></div>
+      <div class="escrow-step"><span class="escrow-icon">3&#65039;&#8419;</span><span>You inspect the car and get the keys</span></div>
+      <div class="escrow-step"><span class="escrow-icon">4&#65039;&#8419;</span><span>You confirm — then and only then does the seller get paid</span></div>
+    </div>
+    <button class="btn btn-primary" onclick="goStep2()">Continue to Bank Verification &#8594;</button>
+  </div>
+
+  <!-- Step 2: Bank Connection -->
+  <div class="card step" id="step2">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div><div class="step-title">Connect your bank</div><div class="step-sub">Secure bank verification via Plaid</div></div>
+    </div>
+    <div class="badges">
+      <div class="badge-item"><div class="badge-icon">&#128274;</div><div class="badge-label">Bank-level encryption</div></div>
+      <div class="badge-item"><div class="badge-icon">&#128200;</div><div class="badge-label">Read-only access</div></div>
+      <div class="badge-item"><div class="badge-icon">&#9989;</div><div class="badge-label">Instant verification</div></div>
+      <div class="badge-item"><div class="badge-icon">&#127970;</div><div class="badge-label">Trusted by millions</div></div>
+    </div>
+    <p style="font-size:13px;color:#888;margin-bottom:20px;line-height:1.6;">We use Plaid to securely verify your bank account. We never see or store your banking credentials. This is the same technology used by Venmo, Robinhood, and thousands of other apps.</p>
+    <div id="bankConnected" style="display:none;background:#e8f5e9;border-radius:12px;padding:16px;margin-bottom:20px;">
+      <div style="font-weight:700;color:#166534;margin-bottom:4px;">&#10003; Bank connected successfully</div>
+      <div style="font-size:13px;color:#555;" id="bankInfo"></div>
+    </div>
+    <button class="btn btn-primary" id="connectBankBtn" onclick="connectBank()">&#128274; Connect Bank Securely</button>
+    <button class="btn btn-secondary" id="continueToEscrowBtn" style="display:none;" onclick="goStep3()">Continue to Escrow &#8594;</button>
+    <button class="btn btn-secondary" onclick="goStep1()">&#8592; Back</button>
+  </div>
+
+  <!-- Step 3: Confirm & Escrow -->
+  <div class="card step" id="step3">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div><div class="step-title">Confirm &amp; secure funds</div><div class="step-sub">Move funds to escrow to complete your offer</div></div>
+    </div>
+    <div class="status-card">
+      <div class="status-icon">&#128274;</div>
+      <div class="status-amount" id="escrowAmount"></div>
+      <div style="font-size:14px;color:#888;margin-bottom:16px;">will be held in secure escrow</div>
+      <div class="status-badge">Released only when you confirm delivery</div>
+    </div>
+    <div style="background:#fff8e1;border-radius:12px;padding:16px;margin:20px 0;font-size:13px;color:#92400e;line-height:1.6;">
+      <strong>What happens next:</strong><br>
+      Funds move to escrow within 1-2 business days. The seller is notified and you arrange to inspect and pick up the car. Once you confirm everything is good, funds are released to the seller.
+    </div>
+    <div id="confirmSummary" style="background:#f8f9ff;border-radius:12px;padding:16px;margin-bottom:20px;font-size:14px;"></div>
+    <button class="btn btn-primary" id="confirmEscrowBtn" onclick="confirmEscrow()">&#128274; Move Funds to Escrow</button>
+    <button class="btn btn-secondary" onclick="goStep2()">&#8592; Back</button>
+  </div>
+
+  <!-- Step 4: Success -->
+  <div class="card step" id="step4">
+    <div class="status-card">
+      <div class="status-icon">&#127881;</div>
+      <div class="status-title">You&apos;re all set!</div>
+      <div class="status-amount" id="successAmount"></div>
+      <div class="status-badge" style="margin-bottom:20px;">Secured in escrow</div>
+      <div class="status-sub" id="successDetails"></div>
+    </div>
+    <div style="background:#f0f4ff;border-radius:12px;padding:20px;margin:20px 0;text-align:left;">
+      <div style="font-weight:700;margin-bottom:12px;">Next steps:</div>
+      <div style="font-size:13px;color:#555;line-height:2;">
+        &#9989; Contact the seller to arrange viewing<br>
+        &#9989; Inspect the car thoroughly<br>
+        &#9989; Get the keys and signed title<br>
+        &#9989; Confirm in your email to release payment
+      </div>
+    </div>
+    <a href="/listings" class="btn btn-primary" style="display:block;text-align:center;text-decoration:none;padding:16px;">Browse More Listings</a>
+  </div>
+</div>
+
+<script>
+var listingData = null;
+var plaidToken = null;
+var bankData = null;
+
+// Get listing ID from URL
+function getParam(key) {
+  return new URLSearchParams(window.location.search).get(key);
+}
+
+// Load listing data
+async function loadListing() {
+  var id = getParam('id');
+  if(!id) { document.getElementById('carName').textContent = 'No listing selected'; return; }
+  try {
+    var r = await fetch('/.netlify/functions/listings');
+    var all = await r.json();
+    listingData = all.find(function(l){ return String(l.id) === String(id); });
+    if(!listingData) return;
+    document.getElementById('carName').textContent = listingData.year + ' ' + listingData.make + ' ' + listingData.model;
+    document.getElementById('carPrice').textContent = '$' + Number(listingData.askingPrice).toLocaleString();
+    var save = listingData.marketValue ? listingData.marketValue - listingData.askingPrice : 0;
+    if(save > 0) document.getElementById('carSave').textContent = 'You save $' + Number(save).toLocaleString() + ' vs market';
+    document.getElementById('escrowAmount').textContent = '$' + Number(listingData.askingPrice).toLocaleString();
+    document.getElementById('successAmount').textContent = '$' + Number(listingData.askingPrice).toLocaleString();
+  } catch(e) { console.error(e); }
+}
+
+function setProgress(step) {
+  for(var i=1;i<=3;i++){
+    var el = document.getElementById('p'+i);
+    el.className = 'prog-step' + (i < step ? ' done' : i === step ? ' active' : '');
+  }
+}
+
+function showStep(n) {
+  document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById('step'+n).classList.add('active');
+  setProgress(Math.min(n, 3));
+  window.scrollTo(0,0);
+}
+
+function goStep1(){ showStep(1); }
+function goStep2(){
+  var name = document.getElementById('buyerName').value.trim();
+  var email = document.getElementById('buyerEmail').value.trim();
+  var phone = document.getElementById('buyerPhone').value.trim();
+  if(!name || !email) { alert('Please fill in your name and email.'); return; }
+  showStep(2);
+  if(!plaidToken) initPlaid();
+}
+
+async function initPlaid() {
+  try {
+    var r = await fetch('/.netlify/functions/plaid-link', {method:'POST'});
+    var d = await r.json();
+    plaidToken = d.link_token;
+  } catch(e) { console.error('Plaid init error:', e); }
+}
+
+function connectBank() {
+  if(!plaidToken) { alert('Loading bank connection, please wait a moment and try again.'); initPlaid(); return; }
+  var handler = Plaid.create({
+    token: plaidToken,
+    onSuccess: async function(public_token, metadata) {
+      document.getElementById('connectBankBtn').innerHTML = '<span class="loading-spinner"></span> Verifying...';
+      document.getElementById('connectBankBtn').disabled = true;
+      try {
+        var r = await fetch('/.netlify/functions/plaid-exchange', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({
+            public_token: public_token,
+            listing_id: getParam('id'),
+            buyer_name: document.getElementById('buyerName').value,
+            buyer_email: document.getElementById('buyerEmail').value
+          })
+        });
+        bankData = await r.json();
+        document.getElementById('bankInfo').textContent = 
+          bankData.account_name + ' (' + bankData.account_type + ') — Available: $' + Number(bankData.balance||0).toLocaleString();
+        document.getElementById('bankConnected').style.display = 'block';
+        document.getElementById('connectBankBtn').style.display = 'none';
+        document.getElementById('continueToEscrowBtn').style.display = 'block';
+        
+        // Update confirm summary
+        document.getElementById('confirmSummary').innerHTML =
+          '<strong>Summary</strong><br><br>' +
+          'Buyer: ' + document.getElementById('buyerName').value + '<br>' +
+          'Car: ' + (listingData ? listingData.year+' '+listingData.make+' '+listingData.model : '') + '<br>' +
+          'Amount: $' + (listingData ? Number(listingData.askingPrice).toLocaleString() : '') + '<br>' +
+          'Bank: ' + bankData.account_name;
+      } catch(e) {
+        alert('Bank verification failed. Please try again.');
+        document.getElementById('connectBankBtn').disabled = false;
+        document.getElementById('connectBankBtn').textContent = 'Connect Bank Securely';
+      }
+    },
+    onExit: function(err) {
+      if(err) console.error('Plaid exit error:', err);
+      document.getElementById('connectBankBtn').disabled = false;
+      document.getElementById('connectBankBtn').textContent = 'Connect Bank Securely';
+    }
+  });
+  handler.open();
+}
+
+function goStep3() { showStep(3); }
+
+async function confirmEscrow() {
+  var btn = document.getElementById('confirmEscrowBtn');
+  btn.innerHTML = '<span class="loading-spinner"></span> Securing funds...';
+  btn.disabled = true;
+  try {
+    // Create Dwolla customer and initiate escrow
+    var r = await fetch('/.netlify/functions/dwolla-escrow', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        action: 'create_customer',
+        buyer_name: document.getElementById('buyerName').value,
+        buyer_email: document.getElementById('buyerEmail').value,
+        listing_id: getParam('id'),
+        amount: listingData ? listingData.askingPrice : 0,
+        routing: bankData ? bankData.routing : '',
+        account_number: bankData ? bankData.account_number : ''
+      })
+    });
+    var d = await r.json();
+    
+    document.getElementById('successDetails').innerHTML =
+      'Seller has been notified. Contact them to arrange a time to see the car.<br><br>' +
+      'Your funds are safely held in escrow and will only be released when you confirm everything is good.';
+    showStep(4);
+  } catch(e) {
+    alert('There was an error. Please try again.');
+    btn.disabled = false;
+    btn.textContent = 'Move Funds to Escrow';
+  }
+}
+
+loadListing();
+</script>
+</body>
+</html>
