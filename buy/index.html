@@ -230,12 +230,24 @@ async function initPlaid() {
   try {
     var r = await fetch('/.netlify/functions/plaid-link', {method:'POST'});
     var d = await r.json();
-    plaidToken = d.link_token;
+    if(d.link_token) {
+      plaidToken = d.link_token;
+      console.log('Plaid token loaded');
+    } else {
+      console.error('Plaid error:', d);
+    }
   } catch(e) { console.error('Plaid init error:', e); }
 }
 
-function connectBank() {
-  if(!plaidToken) { alert('Loading bank connection, please wait a moment and try again.'); initPlaid(); return; }
+async function connectBank() {
+  if(!plaidToken) {
+    document.getElementById('connectBankBtn').textContent = 'Loading...';
+    document.getElementById('connectBankBtn').disabled = true;
+    await initPlaid();
+    document.getElementById('connectBankBtn').textContent = 'Connect Bank Securely';
+    document.getElementById('connectBankBtn').disabled = false;
+    if(!plaidToken) { alert('Could not load bank connection. Please refresh and try again.'); return; }
+  }
   var handler = Plaid.create({
     token: plaidToken,
     onSuccess: async function(public_token, metadata) {
@@ -316,6 +328,7 @@ async function confirmEscrow() {
 }
 
 loadListing();
+initPlaid(); // Pre-load token immediately
 </script>
 </body>
 </html>
