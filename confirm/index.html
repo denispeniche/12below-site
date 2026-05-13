@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Sale Summary - 12Below</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Montserrat',sans-serif;background:#f4f5f7;min-height:100vh;display:flex;flex-direction:column;}
+nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.logo{font-size:22px;font-weight:800;color:#1a3afa;text-decoration:none;}
+.wrap{max-width:520px;margin:40px auto;padding:0 20px;width:100%;}
+.card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08);}
+.card-header{background:linear-gradient(135deg,#1a3afa,#1228c8);padding:28px 32px;color:#fff;}
+.card-header h1{font-size:22px;font-weight:800;margin-bottom:4px;}
+.card-header p{opacity:.85;font-size:14px;}
+.card-body{padding:32px;}
+.car-name{font-size:20px;font-weight:800;color:#1a1a2e;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid #f0f1f5;}
+.row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #f0f1f5;font-size:15px;}
+.row:last-of-type{border-bottom:none;}
+.row .label{color:#666;}
+.row .val{font-weight:700;color:#1a1a2e;}
+.row.total{background:#f8f9ff;border-radius:12px;padding:16px;margin:8px 0;border-bottom:none;}
+.row.total .label{font-weight:700;font-size:16px;color:#1a1a2e;}
+.row.total .val{font-size:22px;font-weight:800;color:#22c55e;}
+.tax-note{background:#fff8e1;border-radius:10px;padding:14px 18px;margin:20px 0;font-size:13px;color:#92400e;line-height:1.6;}
+.actions{margin-top:24px;display:flex;flex-direction:column;gap:10px;}
+.btn-confirm{background:#22c55e;color:#fff;border:none;padding:16px;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;}
+.btn-confirm:hover{background:#16a34a;}
+.btn-decline{background:#f4f5f7;color:#666;border:none;padding:14px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;}
+.btn-decline:hover{background:#e8e9ed;}
+.success{text-align:center;padding:20px 0;}
+.success-icon{font-size:64px;margin-bottom:16px;}
+.success-title{font-size:22px;font-weight:800;color:#1a1a2e;margin-bottom:8px;}
+.success-sub{font-size:14px;color:#888;line-height:1.6;}
+.declined{text-align:center;padding:20px 0;}
+.spin{width:32px;height:32px;border:3px solid #e8e9ed;border-top-color:#1a3afa;border-radius:50%;animation:sp .8s linear infinite;margin:0 auto 12px;}
+@keyframes sp{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo">12Below</a></nav>
+<div class="wrap">
+  <div class="card" id="mainCard">
+    <div class="card-header">
+      <h1>Sale Summary</h1>
+      <p>Review the offer before confirming</p>
+    </div>
+    <div class="card-body" id="cardBody">
+      <div class="spin"></div>
+      <p style="text-align:center;color:#888;font-size:14px;">Loading offer details...</p>
+    </div>
+  </div>
+</div>
+
+<script>
+var FEE = 299;
+
+function getParam(k) {
+  return new URLSearchParams(window.location.search).get(k);
+}
+
+function fmt(n) { return Number(n).toLocaleString(); }
+
+async function loadOffer() {
+  var offerId = getParam('offer');
+  var action = getParam('action');
+  
+  if(!offerId) {
+    document.getElementById('cardBody').innerHTML = '<p style="text-align:center;color:#888;padding:20px;">Invalid offer link.</p>';
+    return;
+  }
+
+  try {
+    // Load listing data to show car details
+    var r = await fetch('/.netlify/functions/listings');
+    var listings = await r.json();
+    
+    // Get offer data from URL params (passed in email link)
+    var price = Number(getParam('price') || 0);
+    var carName = decodeURIComponent(getParam('car') || 'Your car');
+    var sellerEmail = decodeURIComponent(getParam('seller_email') || '');
+    var buyerName = decodeURIComponent(getParam('buyer_name') || 'Buyer');
+    var buyerEmail = decodeURIComponent(getParam('buyer_email') || '');
+    var sellerReceives = price - FEE;
+
+    if(action === 'confirm') {
+      await processAction('confirm', offerId, carName, price, sellerEmail, buyerEmail, buyerName);
+      return;
+    }
+    if(action === 'decline') {
+      await processAction('decline', offerId, carName, price, sellerEmail, buyerEmail, buyerName);
+      return;
+    }
+
+    // Show summary
+    document.getElementById('cardBody').innerHTML =
+      '<div class="car-name">' + carName + '</div>' +
+      '<div class="row"><span class="label">Buyer payment</span><span class="val">$' + fmt(price) + '</span></div>' +
+      '<div class="row"><span class="label">12Below success fee</span><span class="val" style="color:#f87171;">- $' + FEE + '</span></div>' +
+      '<div class="row total"><span class="label">You receive</span><span class="val">$' + fmt(sellerReceives) + '</span></div>' +
+      '<div style="font-size:12px;color:#888;margin:4px 0 16px;text-align:right;">ACH transfer · 1-2 business days</div>' +
+      '<div class="tax-note">⚠️ <strong>Note for buyer:</strong> Maryland title tax (6% = $' + fmt(Math.round(price * 0.06)) + ') is paid directly at the MVA upon title transfer — not included here.</div>' +
+      '<div class="actions">' +
+        '<button class="btn-confirm" onclick="confirm_sale()">✅ Confirm Sale — Receive $' + fmt(sellerReceives) + '</button>' +
+        '<button class="btn-decline" onclick="decline_sale()">Decline Offer</button>' +
+      '</div>';
+
+    // Store data for buttons
+    window._offerData = {offerId, carName, price, sellerEmail, buyerEmail, buyerName, sellerReceives};
+
+  } catch(e) {
+    document.getElementById('cardBody').innerHTML = '<p style="text-align:center;color:#f87171;padding:20px;">Error loading offer. Please try again.</p>';
+  }
+}
+
+async function processAction(action, offerId, carName, price, sellerEmail, buyerEmail, buyerName) {
+  document.getElementById('cardBody').innerHTML = '<div class="spin"></div><p style="text-align:center;color:#888;font-size:14px;margin-top:8px;">Processing...</p>';
+  
+  try {
+    if(action === 'confirm') {
+      // Send confirmation email to buyer
+      await fetch('/.netlify/functions/notify', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          type: 'sale_confirmed',
+          buyer_email: buyerEmail,
+          buyer_name: buyerName,
+          car: carName,
+          price: price
+        })
+      });
+      document.getElementById('cardBody').innerHTML =
+        '<div class="success">' +
+        '<div class="success-icon">🎉</div>' +
+        '<div class="success-title">Sale confirmed!</div>' +
+        '<div class="success-sub">The buyer has been notified. Your payment of <strong>$' + fmt(price - FEE) + '</strong> will arrive within 1-2 business days via ACH transfer.</div>' +
+        '</div>';
+    } else {
+      document.getElementById('cardBody').innerHTML =
+        '<div class="declined">' +
+        '<div class="success-icon">❌</div>' +
+        '<div class="success-title">Offer declined</div>' +
+        '<div class="success-sub" style="color:#888;">The buyer will be refunded. Your listing remains active.</div>' +
+        '</div>';
+    }
+  } catch(e) {
+    document.getElementById('cardBody').innerHTML = '<p style="text-align:center;color:#f87171;padding:20px;">Error. Please try again.</p>';
+  }
+}
+
+window.confirm_sale = function() {
+  var d = window._offerData;
+  if(!d) return;
+  processAction('confirm', d.offerId, d.carName, d.price, d.sellerEmail, d.buyerEmail, d.buyerName);
+};
+
+window.decline_sale = function() {
+  var d = window._offerData;
+  if(!d) return;
+  if(confirm('Are you sure you want to decline this offer?')) {
+    processAction('decline', d.offerId, d.carName, d.price, d.sellerEmail, d.buyerEmail, d.buyerName);
+  }
+};
+
+loadOffer();
+</script>
+</body>
+</html>
