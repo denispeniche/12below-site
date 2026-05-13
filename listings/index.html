@@ -85,7 +85,7 @@ select.fbtn{appearance:none;padding-right:28px;}
 .spec-label{font-size:11px;color:#999;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
 .spec-val{font-size:14px;font-weight:700;color:#1a1a2e;}
 
-/* ── ACTION BUTTONS ROW ── */
+/* ACTION BUTTONS RO�W
 .action-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
 .action-btn{display:flex;align-items:center;justify-content:center;gap:7px;padding:12px 14px;border-radius:12px;font-size:13px;font-weight:700;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:filter .2s;}
 .action-btn:hover{filter:brightness(1.08);}
@@ -138,8 +138,8 @@ select.fbtn{appearance:none;padding-right:28px;}
 <option value="0-15000">Under $15k</option>
 <option value="15000-25000">$15k - $25k</option>
 <option value="25000-40000">$25k - $40k</option>
-<option value="40000-999999">$40k+</option>
-</select>
+<option value="40000-999999">$40k+3</option>
+</parect>
 <select class="fbtn" id="condFilter">
 <option value="">Any condition</option>
 <option value="excellent">Excellent</option>
@@ -182,7 +182,7 @@ select.fbtn{appearance:none;padding-right:28px;}
 </div>
 <div class="msaving" id="msaving"></div>
 
-<!-- ACTION BUTTONS: VIN History + Financing -->
+<!-- ACTION BUTTONS -->
 <div class="action-row" id="actionRow">
 <a class="action-btn btn-vin" id="vinBtn" href="#" target="_blank" rel="noopener">Vehicle History</a>
 <a class="action-btn btn-finance" id="financeBtn" href="https://www.autofi.com" target="_blank" rel="noopener">Get Financing</a>
@@ -202,12 +202,10 @@ function pct(l){
 if(!l.marketValue||!l.askingPrice)return 12;
 return Math.round((1-l.askingPrice/l.marketValue)*100);
 }
-function cp(c){return c?c.charAt(0).toUpperCase()+c.slice(1):'—';}
+function cp(c){return c?c.charAt(0).toUpperCase()+c.slice(1):'-';}
 function sp(label,val){
 return '<div class="spec"><div class="spec-label">'+label+'</div><div class="spec-val">'+val+'</div></div>';
 }
-
-
 function render(){
 var mk=document.getElementById('makeFilter').value;
 var mo=document.getElementById('modelFilter').value;
@@ -227,7 +225,6 @@ if(so==='price-low')list.sort(function(a,b){return a.askingPrice-b.askingPrice;}
 else if(so==='price-high')list.sort(function(a,b){return b.askingPrice-a.askingPrice;});
 else if(so==='savings')list.sort(function(a,b){return pct(b)-pct(a);});
 else list.sort(function(a,b){return(b.createdAt||0)-(a.createdAt||0);});
-
 var g=document.getElementById('grid');
 var lbl=document.getElementById('countLabel');
 if(!list.length){
@@ -242,29 +239,25 @@ return '<div class="card" onclick="openModal(\''+l.id+'\')">'+
 '<div class="card-img">'+
 '<img src="'+imgs[0]+'" alt="'+l.year+' '+l.make+' '+l.model+'" loading="lazy" onerror="this.style.display=\'none\'">'+
 '<span class="stag">'+pct(l)+'% below market</span>'+
-
 (imgs.length>1?'<span class="pcnt">1/'+imgs.length+' &#128247;</span>':'')+
 '</div>'+
 '<div class="card-body">'+
 '<div class="cname">'+l.year+' '+l.make+' '+l.model+'</div>'+
 '<div class="cmeta">'+fm(l.mileage)+' miles &middot; '+cp(l.condition)+'</div>'+
 '<div class="price">$'+fm(l.askingPrice)+'</div>'+
-(l.marketValue?'<div class="mkt">Market value: $'+fm(l.marketValue)+'</div>':'')+
-'<div class="save">Save $'+fm((l.marketValue||l.askingPrice)-l.askingPrice+(l.marketValue?0:0))+(l.marketValue?' vs market':'')+'</div>'+
+(l.marketValue?'<div class="mkt">Market value: $'+fm(l.marketValue)+'</div>":'')+
+'<div class="save">Save $'+fm((l.marketValue||l.askingPrice)-l.askingPrice)+(l.marketValue?' vs market':'')+'</div>'+
 '<div class="cfoot">'+
 '<span class="loc">&#128205; '+(l.location||l.zip||'DMV area')+'</span>'+
-'<button class="vbtn" onclick="event.stopPropagation();openModal(\''+l.id+'\')">View</button>'+
+'<button class="vbtn" onclick="event.stopPropagation();openModal(\''+l.id+'\')">View</spam>'+
 '</div></div></div>';
 }).join('');
 }
-
 function openModal(id){
 var l=AL.find(function(x){return x.id===id;});
 if(!l)return;
 PH=l.photos&&l.photos.length?l.photos:[''];
 PI=0;
-
-// Gallery
 var gal=document.getElementById('gallery');
 var imgs=PH.map(function(u,i){return'<img src="'+u+'" class="'+(i===0?'active':'')+'" alt="photo '+(i+1)+'">';}).join('');
 var nav=PH.length>1?
@@ -273,53 +266,23 @@ var nav=PH.length>1?
 '<div class="gdots">'+PH.map(function(_,i){return'<button class="gdot'+(i===0?' active':'')+'" onclick="gph('+i+')"></button>';}).join('')+'</div>'+
 '<div class="gcount"><span id="gcur">1</span>/'+PH.length+'</div>':'';
 gal.innerHTML=imgs+nav;
-
-// Header
 var sv=l.marketValue?l.marketValue-l.askingPrice:0;
 document.getElementById('mtitle').textContent=l.year+' '+l.make+' '+l.model;
 document.getElementById('mbadge').textContent=pct(l)+'% below market price';
 document.getElementById('mprice').textContent='$'+fm(l.askingPrice);
 document.getElementById('mmarket').textContent=l.marketValue?'$'+fm(l.marketValue):'';
 document.getElementById('msaving').textContent=sv>0?'You save $'+fm(sv)+' compared to market value':'';
-
-// VIN History Button
 var vinBtn=document.getElementById('vinBtn');
-if(l.vin&&l.vin.trim()){
-vinBtn.href='https://www.carfax.com/vehicle/'+l.vin.trim().toUpperCase();
-}else{
-vinBtn.href='https://www.carfax.com';
-}
-
-// AutoFi Financing Button
+if(l.vin&&l.vin.trim()){vinBtn.href='https://www.carfax.com/vehicle/'+l.vin.trim().toUpperCase();}
+else{vinBtn.href='https://www.carfax.com';}
 var financeBtn=document.getElementById('financeBtn');
-financeBtn.href='https://www.autofi.com/?utm_source=12below&utm_medium=listing&utm_campaign=referral&price='+l.askingPrice+(l.vin?'&vin='+l.vin:%');
-
-// Specs
-document.getElementById('specs').innerHTML=
-sp('Year',String(l.year))+
-sp('Make',l.make)+
-sp('Model',l.model)+
-sp('Mileage',fm(l.mileage)+' miles')+
-sp('Condition',cp(l.condition))+
-sp('Location',l.location||l.zip||'DMV area')+
-(l.vin?sp('VIN',l.vin):'')+
-(l.trim?sp('Trim',l.trim):'');
-
-// Contact
-document.getElementById('contact').innerHTML=
-'<h4>Contact Seller</h4>'+
-'<div class="cdetail"><span>&#128100;</span><span style="font-weight:600">'+(l.name||'Seller')+'</span></div>'+
-(l.phone?'<div class="cdetail"><span>&#128222;</span><a href="tel:'+l.phone+'">'+l.phone+'</a></div>':'')+
-.email?'<div class="cdetail"><span>&#9993;</span><a href="mailto:'+l.email+'">'+l.email+'</a></div>':'')+
-(l.notes&&l.notes.trim()&&l.notes!=='None'?'<div class="cdetail" style="flex-direction:column;align-items:flex-start;gap:4px"><span style="color:#888;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Notes</span><span>'+l.notes+'</span></div>':'')+
-(l.phone?'<a class="call-btn" href="tel:'+l.phone+'">&#128222; Call Seller</a>':
-l.email?'<a class="call-btn" href="mailto:'+l.email+'">&#9993; Email Seller</a>':'');
-
+financeBtn.href='https://www.autofi.com/?utm_source=12below&utm_medium=listing&utm_campaign=referral&price='+l.askingPrice+(l.vin?'&vin='+l.vin:'');
+document.getElementById('specs').innerHTML=sp('Year',String(l.year))+sp('Make',l.make)+sp('Model',l.model)+sp('Mileage',fm(l.mileage)+' miles')+sp('Condition',cp(l.condition))+sp('Location',l.location||l.zip||'DMV area')+(l.vin?sp('VIN',l.vin):'')+(l.trim?sp('Trim',l.trim):'');
+document.getElementById('contact').innerHTML='<h4>Contact Seller</h4>'+'<div class="cdetail"><span>&#128100;</span><span style="font-weight:600">'+(l.name||'Seller')+'</span></div>'+(l.phone?'<div class="cdetail"><span>&#128222;</span><a href="tel:'+l.phone+'">'+l.phone+'</a></div>':'')+(l.email?'<div class="cdetail"><span>&#9993;</span><a href="mailto:'+l.email+'">'+l.email+'</a></div>':'')+(l.notes&&l.notes.trim()&&l.notes!=='None'?'<div class="cdetail" style="flex-direction:column;align-items:flex-start;gap:4px"><span style="color:#888;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Notes</span><span>'+l.notes+'</span></div>':'')+(l.phone?'<a class="call-btn" href="tel:'+l.phone+'">&#128222; Call Seller</a>':l.email?'<a class="call-btn" href="mailto:'+l.email+'">&#9993; Email Seller</a>':'');
 document.getElementById('buyBtn').href='/buy?id='+l.id;
 document.getElementById('ov').classList.add('open');
 document.body.style.overflow='hidden';
 }
-
 window.gph=function(i){
 var imgs=document.querySelectorAll('#gallery img');
 var dots=document.querySelectorAll('.gdot');
@@ -333,14 +296,11 @@ imgs[PI].classList.add('active');
 if(dots[PI])dots[PI].classList.add('active');
 if(cur)cur.textContent=PI+1;
 };
-
 window.closeModal=function(){
 document.getElementById('ov').classList.remove('open');
 document.body.style.overflow='';
 };
-
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
-
 fetch('/.netlify/functions/listings')
 .then(function(r){return r.json();})
 .then(function(data){
@@ -355,13 +315,12 @@ render();
 document.getElementById('grid').innerHTML='<div class="empty"><p>Could not load listings. Please refresh.</p></div>';
 document.getElementById('countLabel').textContent='';
 });
-
 document.getElementById('clearBtn').addEventListener('click',function(){
 ['makeFilter','modelFilter','yearFilter','priceFilter','condFilter'].forEach(function(id){document.getElementById(id).value='';});
 render();
 });
 ['makeFilter','modelFilter','yearFilter','priceFilter','condFilter','sortSelect'].forEach(function(id){
-document.getElementById(id).addEventListener('change',render);
+document.getElementById(id).addEventListener('change'render);
 });
 document.getElementById('makeFilter').addEventListener('change',function(){
 var mk=this.value;
