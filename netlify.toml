@@ -47,3 +47,12 @@
   from = "/buy/"
   to = "/buy/index.html"
   status = 200
+[[redirects]]
+  from = "/confirm"
+  to = "/confirm/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/confirm/"
+  to = "/confirm/index.html"
+  status = 200
