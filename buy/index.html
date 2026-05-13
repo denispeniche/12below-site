@@ -301,6 +301,33 @@ async function confirmEscrow() {
   btn.disabled = true;
   try {
     // Create Dwolla customer and initiate escrow
+    // Send notification emails to seller and buyer
+    if(listingData) {
+      var offerId = Date.now().toString();
+      var carName = listingData.year + ' ' + listingData.make + ' ' + listingData.model;
+      var confirmUrl = '/confirm?offer=' + offerId +
+        '&price=' + listingData.askingPrice +
+        '&car=' + encodeURIComponent(carName) +
+        '&seller_email=' + encodeURIComponent(listingData.email||'') +
+        '&buyer_name=' + encodeURIComponent(document.getElementById('buyerName').value) +
+        '&buyer_email=' + encodeURIComponent(document.getElementById('buyerEmail').value);
+
+      await fetch('/.netlify/functions/notify', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          type: 'offer_received',
+          seller_email: listingData.email,
+          seller_name: listingData.name || 'Seller',
+          buyer_name: document.getElementById('buyerName').value,
+          buyer_email: document.getElementById('buyerEmail').value,
+          car: carName,
+          price: listingData.askingPrice,
+          offer_id: offerId
+        })
+      });
+    }
+
     var r = await fetch('/.netlify/functions/dwolla-escrow', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
