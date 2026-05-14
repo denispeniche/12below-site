@@ -207,7 +207,7 @@ select.fbtn{appearance:none;padding-right:28px;}
 </div>
 </div>
 <div class="calc-note" id="calcNote"></div>
-<a class="calc-cta" id="calcCta" href="https://www.autofi.com" target="_blank" rel="noopener">Get Pre-Qualified â It takes 2 minutes</a>
+<a class="calc-cta" id="calcCta" href="https://www.autofi.com" target="_blank" rel="noopener">Get Pre-Qualified Ã¢ÂÂ It takes 2 minutes</a>
 </div>
 <div class="action-row">
 <a class="action-btn btn-vin" id="vinBtn" href="#" target="_blank" rel="noopener">Vehicle History</a>
@@ -220,17 +220,41 @@ select.fbtn{appearance:none;padding-right:28px;}
 </div>
 </div>
 <script>
-var AL=[],PI=0,PH=[];
+var AL=[],PI=0,PH=[],CM=60,CP=0;
 function fm(n){return Number(n).toLocaleString();}
-function pct(l){
-if(!l.marketValue||!l.askingPrice)return 12;
-return Math.round((1-l.askingPrice/l.marketValue)*100);
+function pct(l){if(!l.marketValue||!l.askingPrice)return 12;return Math.round((1-l.askingPrice/l.marketValue)*100);}
+function cap(c){return c?c.charAt(0).toUpperCase()+c.slice(1):'-';}
+function sp(k,v){return '<div class="spec"><div class="spec-label">'+k+'</div><div class="spec-val">'+v+'</div></div>';}
+function proxyPhoto(url){if(!url)return '';var m=url.match(/bunnycdn\.com\/[^\/]+\/(.+)/);if(m)return '/.netlify/functions/img?p='+encodeURIComponent(m[1]);return url;}
+function calcUpdate(){
+var down=parseInt(document.getElementById('calcDown').value)||0;
+var rate=parseFloat(document.getElementById('calcRate').value)||7.5;
+var n=CM;var principal=Math.max(0,CP-down);var r=rate/100/12;
+var mo=r===0?principal/n:principal*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+var moRound=isFinite(mo)&&mo>0?Math.round(mo):0;
+document.getElementById('calcMo').textContent=moRound>0?'$'+fm(moRound):'--';
+document.getElementById('calcDownLbl').textContent='$'+fm(down);
+document.getElementById('calcRateLbl').textContent=rate+'%';
+var interest=Math.max(0,moRound*n-principal);
+document.getElementById('calcNote').textContent='$'+fm(principal)+' financed - '+n+' mo - '+rate+'% APR - ~$'+fm(Math.round(interest))+' interest';
 }
-function cp(c){return c?c.charAt(0).toUpperCase()+c.slice(1):'-';}
-function proxyPhoto(url){if(!url)return '';var m=url.match(/bunnycdn\.com\/[^\/]+\/(.+)/);if(m)return'/.netlify/functions/img?p='+encodeURIComponent(m[1]);return url;}
-function sp(label,val){
-return '<div class="spec"><div class="spec-label">'+label+'</div><div class="spec-val">'+val+'</div></div>';
+function calcInit(price,vin){
+CP=price||0;CM=60;
+var downEl=document.getElementById('calcDown');
+var maxDown=Math.min(Math.floor(price*0.4/500)*500,10000);
+if(downEl){downEl.max=maxDown;downEl.value=Math.min(2000,maxDown);}
+var rateEl=document.getElementById('calcRate');if(rateEl)rateEl.value=7.5;
+document.querySelectorAll('.calc-term').forEach(function(b){b.classList.toggle('sel',b.dataset.m==='60');});
+var cta=document.getElementById('calcCta');
+if(cta)cta.href='https://www.autofi.com/?utm_source=12below&utm_medium=listing&utm_campaign=calc&price='+price+(vin?'&vin='+vin:'');
+calcUpdate();
 }
+document.addEventListener('input',function(e){if(e.target.id==='calcDown'||e.target.id==='calcRate')calcUpdate();});
+document.addEventListener('click',function(e){
+var btn=e.target.closest('.calc-term');if(!btn)return;
+document.querySelectorAll('.calc-term').forEach(function(b){b.classList.remove('sel');});
+btn.classList.add('sel');CM=parseInt(btn.dataset.m);calcUpdate();
+});
 function render(){
 var mk=document.getElementById('makeFilter').value;
 var mo=document.getElementById('modelFilter').value;
@@ -239,57 +263,36 @@ var pr=document.getElementById('priceFilter').value;
 var cn=document.getElementById('condFilter').value;
 var so=document.getElementById('sortSelect').value;
 var list=AL.filter(function(l){
-if(mk&&l.make!==mk)return false;
-if(mo&&l.model!==mo)return false;
-if(yr&&String(l.year)!==yr)return false;
-if(cn&&l.condition!==cn)return false;
+if(mk&&l.make!==mk)return false;if(mo&&l.model!==mo)return false;
+if(yr&&String(l.year)!==yr)return false;if(cn&&l.condition!==cn)return false;
 if(pr){var rng=pr.split('-').map(Number);if(l.askingPrice<rng[0]||l.askingPrice>rng[1])return false;}
-return true;
-});
+return true;});
 if(so==='price-low')list.sort(function(a,b){return a.askingPrice-b.askingPrice;});
 else if(so==='price-high')list.sort(function(a,b){return b.askingPrice-a.askingPrice;});
 else if(so==='savings')list.sort(function(a,b){return pct(b)-pct(a);});
 else list.sort(function(a,b){return(b.createdAt||0)-(a.createdAt||0);});
-var g=document.getElementById('grid');
-var lbl=document.getElementById('countLabel');
-if(!list.length){
-g.innerHTML='<div class="empty"><p style="font-size:40px;margin-bottom:12px">&#128663;</p><p>No cars match your filters.</p></div>';
-lbl.textContent='0 cars found';
-return;
-}
+var g=document.getElementById('grid');var lbl=document.getElementById('countLabel');
+if(!list.length){g.innerHTML='<div class="empty"><p style="font-size:40px;margin-bottom:12px">&#128663;</p><p>No cars match your filters.</p></div>';lbl.textContent='0 cars found';return;}
 lbl.textContent=list.length+' car'+(list.length!==1?'s':'')+' available';
 g.innerHTML=list.map(function(l){
 var imgs=l.photos&&l.photos.length?l.photos:[''];
-return '<div class="card" onclick="openModal(\''+l.id+'\')">'+
-'<div class="card-img">'+
-'<img src="'+proxyPhoto(imgs[0])+'" alt="'+l.year+' '+l.make+' '+l.model+'" loading="lazy" onerror="this.style.display=\'none\'">'+
-'<span class="stag">'+pct(l)+'% below market</span>'+
-(imgs.length>1?'<span class="pcnt">1/'+imgs.length+' photos</span>':'')+
-'</div>'+
-'<div class="card-body">'+
-'<div class="cname">'+l.year+' '+l.make+' '+l.model+'</div>'+
-'<div class="cmeta">'+fm(l.mileage)+' miles - '+cp(l.condition)+'</div>'+
+return '<div class="card" onclick="openModal(''+l.id+'')">'+
+'<div class="card-img"><img src="'+proxyPhoto(imgs[0])+'" alt="'+l.year+' '+l.make+' '+l.model+'" loading="lazy" onerror="this.style.display='none'">'+
+'<span class="stag">'+pct(l)+'% below market</span>'+(imgs.length>1?'<span class="pcnt">1/'+imgs.length+' photos</span>':'')+
+'</div><div class="card-body"><div class="cname">'+l.year+' '+l.make+' '+l.model+'</div>'+
+'<div class="cmeta">'+fm(l.mileage)+' miles - '+cap(l.condition)+'</div>'+
 '<div class="price">$'+fm(l.askingPrice)+'</div>'+
 (l.marketValue?'<div class="mkt">Market value: $'+fm(l.marketValue)+'</div>':'')+
 '<div class="save">Save $'+fm((l.marketValue||l.askingPrice)-l.askingPrice)+(l.marketValue?' vs market':'')+'</div>'+
-'<div class="cfoot">'+
-'<span class="loc">'+(l.location||l.zip||'DMV area')+'</span>'+
-'<button class="vbtn" onclick="event.stopPropagation();openModal(\''+l.id+'\')">View</button>'+
-'</div></div></div>';
-}).join('');
-}
+'<div class="cfoot"><span class="loc">'+(l.location||l.zip||'DMV area')+'</span>'+
+'<button class="vbtn" onclick="event.stopPropagation();openModal(''+l.id+'')">View</button></div></div></div>';
+}).join('');}
 function openModal(id){
-var l=AL.find(function(x){return String(x.id)===String(id);});
-if(!l)return;
-PH=l.photos&&l.photos.length?l.photos:[''];
-PI=0;
+var l=AL.find(function(x){return String(x.id)===String(id);});if(!l)return;
+PH=l.photos&&l.photos.length?l.photos:[''];PI=0;
 var gal=document.getElementById('gallery');
 var imgs=PH.map(function(u,i){return'<img src="'+proxyPhoto(u)+'" class="'+(i===0?'active':'')+'" alt="photo '+(i+1)+'">';}).join('');
-var nav=PH.length>1?
-'<button class="gnav gprev" onclick="gph(PI-1)">&#8249;</button>'+
-'<button class="gnav gnext" onclick="gph(PI+1)">&#8250;</button>'+
-'<div class="gdots">'+PH.map(function(_,i){return'<button class="gdot'+(i===0?' active':'')+'" onclick="gph('+i+')"></button>';}).join('')+'</div>'+
-'<div class="gcount"><span id="gcur">1</span>/'+PH.length+'</div>':'';
+var nav=PH.length>1?'<button class="gnav gprev" onclick="gph(PI-1)">&#8249;</button><button class="gnav gnext" onclick="gph(PI+1)">&#8250;</button><div class="gdots">'+PH.map(function(_,i){return'<button class="gdot'+(i===0?' active':'')+'" onclick="gph('+i+')"></button>';}).join('')+'</div><div class="gcount"><span id="gcur">1</span>/'+PH.length+'</div>':'';
 gal.innerHTML=imgs+nav;
 var sv=l.marketValue?l.marketValue-l.askingPrice:0;
 document.getElementById('mtitle').textContent=l.year+' '+l.make+' '+l.model;
@@ -297,130 +300,22 @@ document.getElementById('mbadge').textContent=pct(l)+'% below market price';
 document.getElementById('mprice').textContent='$'+fm(l.askingPrice);
 document.getElementById('mmarket').textContent=l.marketValue?'$'+fm(l.marketValue):'';
 document.getElementById('msaving').textContent=sv>0?'You save $'+fm(sv)+' vs market value':'';
+calcInit(l.askingPrice,l.vin||'');
 var vinBtn=document.getElementById('vinBtn');
 vinBtn.href=l.vin&&l.vin.trim()?'https://www.carfax.com/vehicle/'+l.vin.trim().toUpperCase():'https://www.carfax.com';
-var financeBtn=document.getElementById('financeBtn');
-financeBtn.href='https://www.autofi.com/?utm_source=12below&utm_medium=listing&utm_campaign=referral&price='+l.askingPrice+(l.vin?'&vin='+l.vin:'');
-initCalc(l.askingPrice, l.vin||'');
-document.getElementById('specs').innerHTML=
-sp('Year',String(l.year))+
-sp('Make',l.make)+
-sp('Model',l.model)+
-sp('Mileage',fm(l.mileage)+' miles')+
-sp('Condition',cp(l.condition))+
-sp('Location',l.location||l.zip||'DMV area')+
-(l.vin?sp('VIN',l.vin):'')+
-(l.trim?sp('Trim',l.trim):'');
-document.getElementById('contact').innerHTML=
-'<h4>Contact Seller</h4>'+
-'<div class="cdetail"><span>&#128100;</span><span style="font-weight:600">'+(l.name||'Seller')+'</span></div>'+
-(l.phone?'<div class="cdetail"><span>&#128222;</span><a href="tel:'+l.phone+'">'+l.phone+'</a></div>':'')+
-(l.email?'<div class="cdetail"><span>&#9993;</span><a href="mailto:'+l.email+'">'+l.email+'</a></div>':'')+
-(l.notes&&l.notes.trim()&&l.notes!=='None'?'<div class="cdetail" style="flex-direction:column;align-items:flex-start;gap:4px"><span style="color:#888;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Notes</span><span>'+l.notes+'</span></div>':'')+
-(l.phone?'<a class="call-btn" href="tel:'+l.phone+'">&#128222; Call Seller</a>':
-l.email?'<a class="call-btn" href="mailto:'+l.email+'">&#9993; Email Seller</a>':'');
+var finBtn=document.getElementById('financeBtn');
+finBtn.href='https://www.autofi.com/?utm_source=12below&utm_medium=listing&utm_campaign=referral&price='+l.askingPrice+(l.vin?'&vin='+l.vin:'');
+document.getElementById('specs').innerHTML=sp('Year',String(l.year))+sp('Make',l.make)+sp('Model',l.model)+sp('Mileage',fm(l.mileage)+' miles')+sp('Condition',cap(l.condition))+sp('Location',l.location||l.zip||'DMV area')+(l.vin?sp('VIN',l.vin):'')+(l.trim?sp('Trim',l.trim):'');
+document.getElementById('contact').innerHTML='<h4>Contact Seller</h4><div class="cdetail"><span>&#128100;</span><span style="font-weight:600">'+(l.name||'Seller')+'</span></div>'+(l.phone?'<div class="cdetail"><span>&#128222;</span><a href="tel:'+l.phone+'">'+l.phone+'</a></div>':'')+(l.email?'<div class="cdetail"><span>&#9993;</span><a href="mailto:'+l.email+'">'+l.email+'</a></div>':'')+(l.notes&&l.notes.trim()&&l.notes!=='None'?'<div class="cdetail" style="flex-direction:column;align-items:flex-start;gap:4px"><span style="color:#888;font-size:12px;font-weight:600;text-transform:uppercase">Notes</span><span>'+l.notes+'</span></div>':'')+(l.phone?'<a class="call-btn" href="tel:'+l.phone+'">&#128222; Call Seller</a>':l.email?'<a class="call-btn" href="mailto:'+l.email+'">&#9993; Email Seller</a>':'');
 document.getElementById('buyBtn').href='/buy?id='+l.id;
-document.getElementById('ov').classList.add('open');
-document.body.style.overflow='hidden';
-}
-window.gph=function(i){
-var imgs=document.querySelectorAll('#gallery img');
-var dots=document.querySelectorAll('.gdot');
-var cur=document.getElementById('gcur');
-if(!imgs.length)return;
-i=(i+PH.length)%PH.length;
-imgs[PI].classList.remove('active');
-if(dots[PI])dots[PI].classList.remove('active');
-PI=i;
-imgs[PI].classList.add('active');
-if(dots[PI])dots[PI].classList.add('active');
-if(cur)cur.textContent=PI+1;
-};
-window.closeModal=function(){
-document.getElementById('ov').classList.remove('open');
-document.body.style.overflow='';
-};
+document.getElementById('ov').classList.add('open');document.body.style.overflow='hidden';}
+window.gph=function(i){var imgs=document.querySelectorAll('#gallery img');var dots=document.querySelectorAll('.gdot');var cur=document.getElementById('gcur');if(!imgs.length)return;i=(i+PH.length)%PH.length;imgs[PI].classList.remove('active');if(dots[PI])dots[PI].classList.remove('active');PI=i;imgs[PI].classList.add('active');if(dots[PI])dots[PI].classList.add('active');if(cur)cur.textContent=PI+1;};
+window.closeModal=function(){document.getElementById('ov').classList.remove('open');document.body.style.overflow='';};
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
-fetch('/.netlify/functions/listings')
-.then(function(r){return r.json();})
-.then(function(data){
-AL=Array.isArray(data)?data:(data.listings||[]);
-var makes=[...new Set(AL.map(function(l){return l.make;}).filter(Boolean))].sort();
-document.getElementById('makeFilter').innerHTML='<option value="">All makes</option>'+makes.map(function(m){return'<option>'+m+'</option>';}).join('');
-var years=[...new Set(AL.map(function(l){return l.year;}).filter(Boolean))].sort(function(a,b){return b-a;});
-document.getElementById('yearFilter').innerHTML='<option value="">Any year</option>'+years.map(function(y){return'<option>'+y+'</option>';}).join('');
-render();
-})
-.catch(function(){
-document.getElementById('grid').innerHTML='<div class="empty"><p>Could not load listings. Please refresh.</p></div>';
-document.getElementById('countLabel').textContent='';
-});
-document.getElementById('clearBtn').addEventListener('click',function(){
-['makeFilter','modelFilter','yearFilter','priceFilter','condFilter'].forEach(function(id){document.getElementById(id).value='';});
-render();
-});
-['makeFilter','modelFilter','yearFilter','priceFilter','condFilter','sortSelect'].forEach(function(id){
-document.getElementById(id).addEventListener('change',render);
-});
-document.getElementById('makeFilter').addEventListener('change',function(){
-var mk=this.value;
-document.getElementById('modelFilter').innerHTML='<option value="">All models</option>'+
-(mk?[...new Set(AL.filter(function(l){return l.make===mk;}).map(function(l){return l.model;}).filter(Boolean))].sort().map(function(m){return'<option>'+m+'</option>';}).join(''):'');
-render();
-});
-
-var CALC_PRICE = 0, CALC_MONTHS = 60;
-function calcPayment(){
-  var down = parseInt(document.getElementById('calcDown').value) || 0;
-  var rate = parseFloat(document.getElementById('calcRate').value) || 7.5;
-  var n = CALC_MONTHS;
-  var principal = Math.max(0, CALC_PRICE - down);
-  var r = rate / 100 / 12;
-  var mo = r === 0 ? principal / n : principal * r * Math.pow(1+r,n) / (Math.pow(1+r,n)-1);
-  document.getElementById('calcMo').textContent = isFinite(mo) && mo > 0 ? '
-</body>
-</html>
- + Math.round(mo).toLocaleString() : '--';
-  document.getElementById('calcDownLabel').textContent = '
-</body>
-</html>
- + down.toLocaleString();
-  document.getElementById('calcRateLabel').textContent = rate + '%';
-  var total = Math.round(mo) * n;
-  var interest = Math.max(0, total - principal);
-  document.getElementById('calcNote').textContent = '
-</body>
-</html>
- + (CALC_PRICE - down).toLocaleString() + ' financed  -  ' + n + ' months  -  ' + rate + '% APR  -  ~
-</body>
-</html>
- + Math.round(interest).toLocaleString() + ' total interest';
-}
-function initCalc(price, vin){
-  CALC_PRICE = price || 0;
-  CALC_MONTHS = 60;
-  // Reset sliders
-  var downEl = document.getElementById('calcDown');
-  var rateEl = document.getElementById('calcRate');
-  if(downEl){ downEl.max = Math.floor(price * 0.4 / 500) * 500; downEl.value = Math.min(2000, downEl.max); }
-  if(rateEl) rateEl.value = 7.5;
-  // Reset term buttons
-  document.querySelectorAll('.calc-term').forEach(function(b){ b.classList.toggle('active', b.dataset.months==='60'); });
-  // Update AutoFi link with price+vin
-  var cta = document.getElementById('calcCta');
-  if(cta) cta.href = 'https://www.autofi.com/?utm_source=12below&utm_medium=listing&utm_campaign=calculator&price='+price+(vin?'&vin='+vin:'');
-  calcPayment();
-}
-// Wire up events once DOM is ready (delegated)
-document.addEventListener('input', function(e){ if(e.target.id==='calcDown'||e.target.id==='calcRate') calcPayment(); });
-document.addEventListener('click', function(e){
-  var btn = e.target.closest('.calc-term');
-  if(!btn) return;
-  document.querySelectorAll('.calc-term').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active');
-  CALC_MONTHS = parseInt(btn.dataset.months);
-  calcPayment();
-});
+fetch('/.netlify/functions/listings').then(function(r){return r.json();}).then(function(data){AL=Array.isArray(data)?data:(data.listings||[]);var makes=[...new Set(AL.map(function(l){return l.make;}).filter(Boolean))].sort();document.getElementById('makeFilter').innerHTML='<option value="">All makes</option>'+makes.map(function(m){return'<option>'+m+'</option>';}).join('');var years=[...new Set(AL.map(function(l){return l.year;}).filter(Boolean))].sort(function(a,b){return b-a;});document.getElementById('yearFilter').innerHTML='<option value="">Any year</option>'+years.map(function(y){return'<option>'+y+'</option>';}).join('');render();}).catch(function(){document.getElementById('grid').innerHTML='<div class="empty"><p>Could not load listings. Please refresh.</p></div>';document.getElementById('countLabel').textContent='';});
+document.getElementById('clearBtn').addEventListener('click',function(){['makeFilter','modelFilter','yearFilter','priceFilter','condFilter'].forEach(function(id){document.getElementById(id).value='';});render();});
+['makeFilter','modelFilter','yearFilter','priceFilter','condFilter','sortSelect'].forEach(function(id){document.getElementById(id).addEventListener('change',render);});
+document.getElementById('makeFilter').addEventListener('change',function(){var mk=this.value;document.getElementById('modelFilter').innerHTML='<option value="">All models</option>'+(mk?[...new Set(AL.filter(function(l){return l.make===mk;}).map(function(l){return l.model;}).filter(Boolean))].sort().map(function(m){return'<option>'+m+'</option>';}).join(''):'');render();});
 </script>
 </body>
 </html>
