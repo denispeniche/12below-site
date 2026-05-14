@@ -119,6 +119,25 @@ select.fbtn{appearance:none;padding-right:28px;}
 .calc-cta{display:block;background:linear-gradient(135deg,#1a3afa,#6366f1);color:#fff;text-align:center;padding:12px;border-radius:10px;font-weight:700;font-size:13px;text-decoration:none;margin-top:12px;}
 .est-mo{font-size:13px;color:#555;margin-top:3px;}
 .est-mo b{font-weight:700;color:#1a3afa;}
+.est-mo-wrap{display:flex;align-items:center;gap:6px;margin-top:3px;margin-bottom:2px;}
+.est-mo-wrap .est-mo{margin:0;}
+.info-btn{background:none;border:1.5px solid #aaa;color:#666;border-radius:50%;width:18px;height:18px;font-size:11px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1;padding:0;font-family:inherit;}
+.info-btn:hover{border-color:#1a3afa;color:#1a3afa;}
+.fin-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:3000;align-items:center;justify-content:center;padding:20px;}
+.fin-popup.open{display:flex;}
+.fin-box{background:#fff;border-radius:16px;max-width:480px;width:100%;padding:28px 28px 24px;box-shadow:0 20px 60px rgba(0,0,0,.25);}
+.fin-box h3{font-size:18px;font-weight:800;color:#1a1a2e;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;}
+.fin-close{background:none;border:none;font-size:22px;cursor:pointer;color:#aaa;line-height:1;}
+.fin-close:hover{color:#333;}
+.fin-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f0f0f5;font-size:14px;}
+.fin-row:last-of-type{border-bottom:none;}
+.fin-row .label{color:#555;}
+.fin-row .val{font-weight:700;color:#1a1a2e;}
+.fin-total{display:flex;justify-content:space-between;align-items:center;padding:14px 0 4px;font-size:16px;font-weight:800;color:#1a1a2e;border-top:2px solid #e8e9ed;margin-top:4px;}
+.fin-total .val{color:#1a3afa;font-size:18px;}
+.fin-disclaimer{font-size:11px;color:#999;line-height:1.5;margin-top:14px;margin-bottom:16px;}
+.fin-cta{display:block;background:#1a3afa;color:#fff;text-align:center;padding:13px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;transition:background .2s;}
+.fin-cta:hover{background:#1228c8;}
 </style>
 </head>
 <body>
@@ -216,7 +235,7 @@ function proxyPhoto(url){if(!url)return '';var m=url.match(/bunnycdn\.com\/[^\/]
 function sp(label,val){
 return '<div class="spec"><div class="spec-label">'+label+'</div><div class="spec-val">'+val+'</div></div>';
 }
-function estMo(p){var d=2000,r=7/100/12,n=60,pr=Math.max(0,p-d);var mo=pr*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);return isFinite(mo)&&mo>0?"Est. <b>$"+Math.round(mo).toLocaleString()+" /mo</b>":"";}
+function estMo(p){var d=2000,r=7/100/12,n=60,pr=Math.max(0,p-d);var mo=pr*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);if(!isFinite(mo)||mo<=0)return "";var moRnd=Math.round(mo);return "<span class=\"est-mo-wrap\"><span class=\"est-mo\">Est. <b>$"+moRnd.toLocaleString()+" /mo</b></span><button class=\"info-btn\" onclick=\"openFinPopup("+p+","+moRnd+")\" title=\"Payment details\">i</button></span>";}
 function render(){
 var mk=document.getElementById('makeFilter').value;
 var mo=document.getElementById('modelFilter').value;
@@ -404,6 +423,31 @@ btn.textContent="Check Recalls";btn.disabled=false;
 res.innerHTML="<div style=\"font-size:12px;color:#888;text-align:center;padding:8px\">Could not load data. <a href=\"https://www.nhtsa.gov/recalls\" target=\"_blank\" style=\"color:#1a3afa\">Check NHTSA.gov</a></div>";
 });
 }
+function openFinPopup(price,mo){
+var d=2000;
+document.getElementById("finDown").textContent="$"+d.toLocaleString();
+document.getElementById("finMo").textContent="$"+mo.toLocaleString();
+document.getElementById("finApr").textContent="7%";
+var cta=document.getElementById("finCtaLink");
+if(cta)cta.href="https://www.autofi.com/?utm_source=12below&utm_medium=listing&utm_campaign=finpopup&price="+price;
+document.getElementById("finPopup").classList.add("open");
+document.body.style.overflow="hidden";
+}
+function closeFinPopup(){
+document.getElementById("finPopup").classList.remove("open");
+document.body.style.overflow="";
+}
 </script>
+<div class="fin-popup" id="finPopup" onclick="if(event.target===this)closeFinPopup()">
+<div class="fin-box">
+<h3>Summary <button class="fin-close" onclick="closeFinPopup()">&#10005;</button></h3>
+<div class="fin-row"><span class="label">Credit Score</span><span class="val">Good (661-780)</span></div>
+<div class="fin-row"><span class="label">APR</span><span class="val" id="finApr">7%</span></div>
+<div class="fin-row"><span class="label">Term Length</span><span class="val">60 months</span></div>
+<div class="fin-row"><span class="label">Down Payment</span><span class="val" id="finDown">$2,000</span></div>
+<div class="fin-total"><span>Estimated Monthly Payment</span><span class="val" id="finMo">--</span></div>
+<p class="fin-disclaimer">Estimated values are for illustration purposes only and do not constitute an offer of specific credit terms. APR and terms used may vary based on vehicle, state of purchase, or your credit profile. Your ability to obtain financing will require a credit application and review of creditworthiness.</p>
+<a class="fin-cta" id="finCtaLink" href="https://www.autofi.com" target="_blank" rel="noopener">Get Pre-Qualified</a>
+</div></div>
 </body>
 </html>
