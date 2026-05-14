@@ -326,6 +326,7 @@ document.getElementById('contact').innerHTML=
 (l.phone?'<a class="call-btn" href="tel:'+l.phone+'">&#128222; Call Seller</a>':
 l.email?'<a class="call-btn" href="mailto:'+l.email+'">&#9993; Email Seller</a>':'');
 document.getElementById('buyBtn').href='/buy?id='+l.id;
+RECALL_MAKE=l.make;RECALL_MODEL=l.model;RECALL_YEAR=l.year;RECALL_VIN=l.vin||'';document.getElementById('recallResult').innerHTML='';document.getElementById('recallBtn').textContent='Check Recalls';document.getElementById('recallBtn').disabled=false;
 document.getElementById('ov').classList.add('open');
 document.body.style.overflow='hidden';
 }
@@ -401,12 +402,13 @@ calcUpdate();
 document.addEventListener("input",function(e){if(e.target.id==="calcDown"||e.target.id==="calcRate")calcUpdate();});
 document.addEventListener("click",function(e){var btn=e.target.closest(".calc-term");if(!btn)return;document.querySelectorAll(".calc-term").forEach(function(b){b.classList.remove("sel");});btn.classList.add("sel");CM=parseInt(btn.dataset.m);calcUpdate();});
 var RECALL_MAKE="",RECALL_MODEL="",RECALL_YEAR=0;
+var RECALL_MAKE="",RECALL_MODEL="",RECALL_YEAR=0,RECALL_VIN="";
 function checkRecalls(){
 var btn=document.getElementById("recallBtn");
 var res=document.getElementById("recallResult");
 if(!RECALL_MAKE)return;
 btn.textContent="Checking...";btn.disabled=true;
-fetch("https://api.nhtsa.gov/recalls/recallsByVehicle?make="+encodeURIComponent(RECALL_MAKE)+"&model="+encodeURIComponent(RECALL_MODEL)+"&modelYear="+RECALL_YEAR)
+fetch(RECALL_VIN?"https://api.nhtsa.gov/recalls/recallsByVehicle?vin="+encodeURIComponent(RECALL_VIN):"https://api.nhtsa.gov/recalls/recallsByVehicle?make="+encodeURIComponent(RECALL_MAKE)+"&model="+encodeURIComponent(RECALL_MODEL)+"&modelYear="+RECALL_YEAR)
 .then(function(r){return r.json();})
 .then(function(data){
 btn.textContent="Check Recalls";btn.disabled=false;
