@@ -184,7 +184,7 @@ select.fbtn{appearance:none;padding-right:28px;}
 <div class="calc-title">Est. Monthly Payment</div>
 <div class="calc-payment"><div class="calc-mo" id="calcMo">--</div><div class="calc-lbl">per month</div></div>
 <div class="calc-row"><div class="calc-rl">Down Payment <span id="calcDownLbl">$2,000</span></div><input class="calc-slider" id="calcDown" type="range" min="0" max="10000" step="500" value="2000"></div>
-<div class="calc-row"><div class="calc-rl">Est. APR <span id="calcRateLbl">7.5%</span></div><input class="calc-slider" id="calcRate" type="range" min="4" max="18" step="0.5" value="7.5"></div>
+<div class="calc-row"><div class="calc-rl">Est. APR <span id="calcRateLbl">8.5%</span></div><input class="calc-slider" id="calcRate" type="range" min="5" max="22" step="0.5" value="8.5"></div>
 <div class="calc-row"><div class="calc-rl">Loan Term</div><div class="calc-terms">
 <button class="calc-term" data-m="36">36 mo</button><button class="calc-term" data-m="48">48 mo</button><button class="calc-term sel" data-m="60">60 mo</button><button class="calc-term" data-m="72">72 mo</button>
 </div></div>
@@ -353,7 +353,7 @@ render();
 var CM=60,CP=0;
 function calcUpdate(){
 var down=parseInt(document.getElementById("calcDown").value)||0;
-var rate=parseFloat(document.getElementById("calcRate").value)||7.5;
+var rate=parseFloat(document.getElementById("calcRate").value)||8.5;
 var n=CM;var principal=Math.max(0,CP-down);var r=rate/100/12;
 var mo=r===0?principal/n:principal*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
 var moRound=isFinite(mo)&&mo>0?Math.round(mo):0;
@@ -368,7 +368,7 @@ CP=price||0;CM=60;
 var downEl=document.getElementById("calcDown");
 var maxDown=Math.min(Math.floor(price*0.4/500)*500,10000);
 if(downEl){downEl.max=maxDown;downEl.value=Math.min(2000,maxDown);}
-var rateEl=document.getElementById("calcRate");if(rateEl)rateEl.value=7.5;
+var rateEl=document.getElementById("calcRate");if(rateEl)rateEl.value=8.5;
 document.querySelectorAll(".calc-term").forEach(function(b){b.classList.toggle("sel",b.dataset.m==="60");});
 var cta=document.getElementById("calcCta");
 if(cta)cta.href="https://www.autofi.com/?utm_source=12below&utm_medium=listing&utm_campaign=calc&price="+price+(vin?"&vin="+vin:"");
