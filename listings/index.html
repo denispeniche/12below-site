@@ -314,7 +314,7 @@ document.getElementById('clearBtn').addEventListener('click',function(){
 render();
 });
 ['makeFilter','modelFilter','yearFilter','priceFilter','condFilter','sortSelect'].forEach(function(id){
-document.getElementById(id).addEventListener('change'render);
+document.getElementById(id).addEventListener('change',render);
 });
 document.getElementById('makeFilter').addEventListener('change',function(){
 var mk=this.value;
