@@ -235,7 +235,7 @@ return '<div class="card" onclick="openModal(\''+l.id+'\')">'+
 }).join('');
 }
 function openModal(id){
-var l=AL.find(function(x){return x.id===id;});
+var l=AL.find(function(x){return String(x.id)===String(id);});
 if(!l)return;
 PH=l.photos&&l.photos.length?l.photos:[''];
 PI=0;
