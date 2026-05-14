@@ -1,20 +1,258 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>12Below Admin</title><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}:root{--blue:#1a3c6e;--blue-light:#3b82f6;--blue-pale:#eff6ff;--dark:#0f172a;--gray:#64748b;--light:#f8fafc;--border:#e2e8f0;--green:#10b981;--red:#ef4444;--amber:#f59e0b}body{font-family:'Montserrat',sans-serif;background:var(--light);color:var(--dark);-webkit-font-smoothing:antialiased;min-height:100vh}.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a3c6e,#2356a0)}.login-card{background:#fff;border-radius:20px;padding:40px;width:100%;max-width:380px;box-shadow:0 24px 64px rgba(0,0,0,0.2)}.login-logo{font-size:24px;font-weight:900;color:var(--blue);text-align:center;margin-bottom:8px}.login-logo span{color:var(--blue-light)}.login-sub{font-size:13px;color:var(--gray);text-align:center;margin-bottom:28px}.lfield{margin-bottom:14px}.lfield label{display:block;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:6px}.lfield input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'Montserrat',sans-serif;font-size:14px;outline:none}.btn-login{width:100%;padding:14px;background:var(--blue);color:#fff;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;border:none;border-radius:10px;cursor:pointer;text-transform:uppercase;margin-top:8px}.login-err{color:var(--red);font-size:12px;font-weight:700;text-align:center;margin-top:8px;display:none}.dash{display:none}.dash-nav{background:var(--blue);padding:0 6%;height:64px;display:flex;align-items:center;justify-content:space-between}.dash-logo{font-size:20px;font-weight:900;color:#fff}.dash-logo span{color:#93c5fd}.dash-nav-right{display:flex;align-items:center;gap:16px}.dash-nav a{font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);text-decoration:none;padding:8px 14px;border-radius:8px}.dash-nav a:hover{color:#fff;background:rgba(255,255,255,0.1)}.btn-logout{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;padding:8px 16px;border-radius:8px;cursor:pointer}.dash-body{padding:40px 6%}.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:36px}.stat-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px}.stat-card-label{font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--gray);margin-bottom:8px}.stat-card-val{font-size:32px;font-weight:900;color:var(--blue);letter-spacing:-1px}.stat-card-sub{font-size:12px;color:var(--gray);margin-top:4px}.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}.section-title{font-size:18px;font-weight:800;color:var(--blue)}.filter-row{display:flex;gap:8px}.filter-btn{padding:7px 14px;border:1px solid var(--border);border-radius:8px;background:#fff;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;color:var(--gray);cursor:pointer}.filter-btn.active,.filter-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}.listings-table{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden}.table-header{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 160px;background:var(--light);border-bottom:1px solid var(--border);padding:12px 20px}.th{font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray)}.listing-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 160px;padding:14px 20px;border-bottom:1px solid var(--border);align-items:center}.listing-row:hover{background:var(--light)}.car-name{font-size:14px;font-weight:800;color:var(--blue)}.car-meta{font-size:11px;color:var(--gray);margin-top:2px}.price-tag{font-size:14px;font-weight:800;color:var(--dark)}.below-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;margin-top:3px}.below-badge.good{background:var(--green);color:#fff}.below-badge.ok{background:var(--amber);color:#fff}.status-badge{display:inline-flex;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px}.status-badge.new{background:#dbeafe;color:#1d4ed8}.status-badge.published{background:#d1fae5;color:#065f46}.status-badge.sold{background:#f3f4f6;color:#6b7280}.action-btn{padding:5px 9px;border:1px solid var(--border);border-radius:7px;background:#fff;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:var(--blue);cursor:pointer;margin-right:4px;white-space:nowrap}.action-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}.action-btn.pub{background:var(--green);color:#fff;border-color:var(--green)}.action-btn.unpub{background:#d1fae5;color:#065f46;border-color:#6ee7b7}.empty-state{text-align:center;padding:60px 20px}.empty-icon{font-size:48px;margin-bottom:16px}.empty-title{font-size:18px;font-weight:800;color:var(--blue);margin-bottom:8px}.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:center;justify-content:center;padding:20px}.modal-overlay.show{display:flex}.modal{background:#fff;border-radius:20px;padding:32px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;position:relative}.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--gray)}.modal-title{font-size:20px;font-weight:900;color:var(--blue);margin-bottom:4px}.modal-sub{font-size:13px;color:var(--gray);margin-bottom:24px}.detail-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}.detail-row:last-child{border-bottom:none}.detail-label{color:var(--gray);font-weight:600}.detail-val{color:var(--dark);font-weight:700;text-align:right;max-width:60%}.modal-actions{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}.btn-status{padding:10px 18px;border:none;border-radius:9px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:800;cursor:pointer;text-transform:uppercase}.btn-publish{background:var(--green);color:#fff}.btn-unpublish{background:#d1fae5;color:#065f46;border:1.5px solid #6ee7b7}.btn-sold{background:var(--gray);color:#fff}</style></head><body>
-<div class="login-wrap" id="loginWrap"><div class="login-card"><div class="login-logo">12<span>Below</span></div><div class="login-sub">Admin Dashboard</div><div class="lfield"><label>Password</label><input type="password" id="pw" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()"></div><button class="btn-login" onclick="doLogin()">Sign in</button><div class="login-err" id="loginErr">Incorrect password</div></div></div>
-<div class="dash" id="dash"><div class="dash-nav"><div class="dash-logo">12<span>Below</span> Admin</div><div class="dash-nav-right"><a href="/">Live site</a><a href="/listings/">🚗 /listings</a><button class="btn-logout" onclick="logout()">Sign out</button></div></div>
-<div class="dash-body"><div class="stats-row"><div class="stat-card"><div class="stat-card-label">Total</div><div class="stat-card-val" id="statTotal">-</div></div><div class="stat-card"><div class="stat-card-label">New</div><div class="stat-card-val" id="statNew" style="color:var(--blue-light)">-</div></div><div class="stat-card"><div class="stat-card-label">Published</div><div class="stat-card-val" id="statActive" style="color:var(--green)">-</div><div class="stat-card-sub">Live on /listings</div></div><div class="stat-card"><div class="stat-card-label">Sold</div><div class="stat-card-val" id="statSold" style="color:var(--gray)">-</div></div></div>
-<div class="section-header"><div class="section-title">Listings</div><div class="filter-row"><button class="filter-btn active" onclick="filt('all',this)">All</button><button class="filter-btn" onclick="filt('new',this)">New</button><button class="filter-btn" onclick="filt('active',this)">Published</button><button class="filter-btn" onclick="filt('sold',this)">Sold</button></div></div>
-<div class="listings-table"><div class="table-header"><div class="th">Vehicle</div><div class="th">Price</div><div class="th">Market</div><div class="th">Status</div><div class="th">Actions</div></div><div id="lb"><div class="empty-state"><div class="empty-icon">🔄</div><div class="empty-title">Loading...</div></div></div></div></div></div>
-<div class="modal-overlay" id="mo" onclick="if(event.target.id==='mo')cm()"><div class="modal"><button class="modal-close" onclick="cm()">✕</button><div class="modal-title" id="mt">-</div><div class="modal-sub" id="ms">-</div><div id="md"></div><div class="modal-actions" id="ma"></div></div></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>12Below Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Montserrat',sans-serif;background:#f4f5f7;color:#1a1a2e;min-height:100vh;}
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#1a3afa 0%,#1228c8 100%);}
+.login-card{background:#fff;border-radius:20px;padding:40px 36px;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.25);}
+.login-logo{font-size:28px;font-weight:800;color:#1a3afa;text-align:center;margin-bottom:4px;}
+.login-logo span{color:#1a1a2e;}
+.login-sub{text-align:center;color:#888;font-size:13px;margin-bottom:28px;}
+.lfield{margin-bottom:16px;}
+.lfield label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;}
+.lfield input{width:100%;border:1.5px solid #e0e2ec;border-radius:10px;padding:12px 14px;font-size:14px;font-family:inherit;transition:border-color .2s;outline:none;}
+.lfield input:focus{border-color:#1a3afa;}
+.btn-login{width:100%;background:#1a3afa;color:#fff;border:none;padding:14px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-login:hover{background:#1228c8;}
+.login-err{color:#dc2626;font-size:12px;text-align:center;margin-top:10px;display:none;}
+.login-err.show{display:block;}
+.dash{display:none;}
+.dash.show{display:block;}
+.dash-nav{background:#fff;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 4px rgba(0,0,0,.08);position:sticky;top:0;z-index:100;}
+.dash-logo{font-size:18px;font-weight:800;color:#1a3afa;}
+.dash-logo span{color:#1a1a2e;}
+.dash-nav-right{display:flex;align-items:center;gap:16px;}
+.dash-nav-right a{font-size:13px;color:#555;text-decoration:none;font-weight:500;}
+.dash-nav-right a:hover{color:#1a3afa;}
+.btn-logout{background:none;border:1.5px solid #e0e2ec;color:#555;padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
+.btn-logout:hover{border-color:#dc2626;color:#dc2626;}
+.dash-body{max-width:1100px;margin:0 auto;padding:28px 24px;}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
+.stat-card{background:#fff;border-radius:14px;padding:20px 22px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.stat-label{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.stat-val{font-size:28px;font-weight:800;color:#1a1a2e;}
+.stat-val.blue{color:#1a3afa;}
+.stat-val.green{color:#22c55e;}
+.stat-val.yellow{color:#d97706;}
+.filter-bar{background:#fff;border-radius:12px;padding:14px 18px;display:flex;gap:10px;align-items:center;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.filter-btn{border:1.5px solid #e0e2ec;background:#fff;color:#555;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
+.filter-btn.active{background:#1a3afa;color:#fff;border-color:#1a3afa;}
+.section-title{font-size:16px;font-weight:700;color:#1a1a2e;margin-bottom:16px;}
+.listing-grid{display:flex;flex-direction:column;gap:12px;}
+.lcard{background:#fff;border-radius:14px;padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,.06);display:grid;grid-template-columns:80px 1fr auto;gap:16px;align-items:center;transition:opacity .3s;}
+.lcard-thumb{width:80px;height:60px;border-radius:8px;overflow:hidden;background:#e8ecff;}
+.lcard-thumb img{width:100%;height:100%;object-fit:cover;}
+.lcard-info{min-width:0;}
+.lcard-title{font-size:15px;font-weight:700;color:#1a1a2e;margin-bottom:3px;}
+.lcard-meta{font-size:12px;color:#888;margin-bottom:6px;}
+.lcard-badges{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+.badge-active{background:#dcfce7;color:#16a34a;}
+.badge-pending{background:#fef9c3;color:#a16207;}
+.badge-inactive{background:#f1f5f9;color:#64748b;}
+.badge-price{background:#e8f0ff;color:#1a3afa;}
+.badge-saving{background:#dcfce7;color:#16a34a;}
+.lcard-actions{display:flex;gap:8px;flex-shrink:0;align-items:center;}
+.act-btn{border:none;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;}
+.act-publish{background:#dcfce7;color:#16a34a;}
+.act-publish:hover{background:#16a34a;color:#fff;}
+.act-unpublish{background:#fef9c3;color:#a16207;}
+.act-unpublish:hover{background:#d97706;color:#fff;}
+.act-delete{background:#fee2e2;color:#dc2626;}
+.act-delete:hover{background:#dc2626;color:#fff;}
+.act-view{background:#e8f0ff;color:#1a3afa;}
+.act-view:hover{background:#1a3afa;color:#fff;}
+.lcard-date{font-size:11px;color:#bbb;margin-top:4px;}
+.loading-state,.empty-state{text-align:center;padding:60px;color:#888;}
+.spin{width:32px;height:32px;border:3px solid #e8e9ed;border-top-color:#1a3afa;border-radius:50%;animation:sp .8s linear infinite;margin:0 auto 12px;}
+@keyframes sp{to{transform:rotate(360deg);}}
+.toast{position:fixed;bottom:24px;right:24px;background:#1a1a2e;color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.green{background:#16a34a;}
+.toast.red{background:#dc2626;}
+.confirm-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000;align-items:center;justify-content:center;}
+.confirm-ov.open{display:flex;}
+.confirm-box{background:#fff;border-radius:16px;padding:28px;max-width:380px;width:90%;text-align:center;}
+.confirm-box h3{font-size:18px;font-weight:800;margin-bottom:10px;}
+.confirm-box p{font-size:13px;color:#666;margin-bottom:22px;line-height:1.6;}
+.confirm-btns{display:flex;gap:10px;justify-content:center;}
+.confirm-cancel{background:#f1f5f9;color:#555;border:none;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
+.confirm-ok{background:#dc2626;color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
+@media(max-width:640px){
+.stats-row{grid-template-columns:1fr 1fr;}
+.lcard{grid-template-columns:60px 1fr;gap:12px;}
+.lcard-actions{grid-column:1/-1;flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+<div class="login-wrap" id="loginWrap">
+<div class="login-card">
+<div class="login-logo">12<span>Below</span></div>
+<div class="login-sub">Admin Dashboard</div>
+<div class="lfield"><label>Password</label>
+<input type="password" id="pw" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+</div>
+<button class="btn-login" onclick="doLogin()">Sign in</button>
+<div class="login-err" id="loginErr">Incorrect password. Try again.</div>
+</div>
+</div>
+<div class="dash" id="dash">
+<div class="dash-nav">
+<div class="dash-logo">12<span>Below</span> Admin</div>
+<div class="dash-nav-right">
+<a href="/listings/" target="_blank">View live site</a>
+<button class="btn-logout" onclick="logout()">Sign out</button>
+</div>
+</div>
+<div class="dash-body">
+<div class="stats-row">
+<div class="stat-card"><div class="stat-label">Total Listings</div><div class="stat-val blue" id="statTotal">-</div></div>
+<div class="stat-card"><div class="stat-label">Active</div><div class="stat-val green" id="statActive">-</div></div>
+<div class="stat-card"><div class="stat-label">Pending Review</div><div class="stat-val yellow" id="statPending">-</div></div>
+<div class="stat-card"><div class="stat-label">Avg Below Market</div><div class="stat-val blue" id="statAvg">-</div></div>
+</div>
+<div class="filter-bar">
+<button class="filter-btn active" id="fbAll" onclick="setFilter('all')">All</button>
+<button class="filter-btn" id="fbActive" onclick="setFilter('active')">Active</button>
+<button class="filter-btn" id="fbPending" onclick="setFilter('pending')">Pending</button>
+<button class="filter-btn" id="fbInactive" onclick="setFilter('inactive')">Inactive</button>
+</div>
+<div class="section-title" id="listingCount">Loading...</div>
+<div class="listing-grid" id="listingGrid">
+<div class="loading-state"><div class="spin"></div><p>Loading listings...</p></div>
+</div>
+</div>
+</div>
+<div class="confirm-ov" id="confirmOv">
+<div class="confirm-box">
+<h3>Delete Listing?</h3>
+<p>This will permanently remove the listing. This cannot be undone.</p>
+<div class="confirm-btns">
+<button class="confirm-cancel" onclick="closeConfirm()">Cancel</button>
+<button class="confirm-ok" id="confirmOkBtn">Delete</button>
+</div>
+</div>
+</div>
+<div class="toast" id="toast"></div>
 <script>
-var P='12below2026',listings=[],cf='all';
-function doLogin(){if(document.getElementById('pw').value===P){document.getElementById('loginWrap').style.display='none';document.getElementById('dash').style.display='block';load();}else document.getElementById('loginErr').style.display='block';}
-function logout(){document.getElementById('loginWrap').style.display='flex';document.getElementById('dash').style.display='none';document.getElementById('pw').value='';}
-async function load(){try{var r=await fetch('/.netlify/functions/listings');var d=await r.json();if(Array.isArray(d)){listings=d;rd();}else err('API: '+JSON.stringify(d).substring(0,80));}catch(e){err(e.message);}}
-function err(m){document.getElementById('lb').innerHTML='<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-title">'+m+'</div></div>';}
-function rd(){var s=document.getElementById;s('statTotal').textContent=listings.length;s('statNew').textContent=listings.filter(function(l){return l.status==='new';}).length;s('statActive').textContent=listings.filter(function(l){return l.status==='active';}).length;s('statSold').textContent=listings.filter(function(l){return l.status==='sold';}).length;rl();}
-function filt(f,btn){cf=f;document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');rl();}
-function rl(){var fl=cf==='all'?listings:listings.filter(function(l){return l.status===cf;});var body=document.getElementById('lb');if(!fl.length){body.innerHTML='<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-title">No listings</div></div>';return;}body.innerHTML=fl.map(function(l){var pct=l.marketValue?((1-(l.askingPrice/l.marketValue))*100).toFixed(1):null;var sc={new:'new',active:'published',sold:'sold'}[l.status]||'new';var sm={new:'New',active:'Published ✓',sold:'Sold'}[l.status]||l.status;return'<div class="listing-row"><div><div class="car-name">'+l.year+' '+l.make+' '+l.model+'</div><div class="car-meta">'+(l.mileage||'-')+' mi · '+l.condition+' · '+new Date(l.createdAt).toLocaleDateString()+'</div></div><div><div class="price-tag">$'+(l.askingPrice||0).toLocaleString()+'</div>'+(pct?'<div class="below-badge '+(pct>=12?'good':'ok')+'">'+pct+'% below</div>':'')+'</div><div class="price-tag">$'+(l.marketValue||0).toLocaleString()+'</div><div><span class="status-badge '+sc+'">'+sm+'</span></div><div style="display:flex;gap:4px">'+(l.status!=='active'?'<button class="action-btn pub" onclick="act(''+l.id+'','publish')">Publish</button>':'<button class="action-btn unpub" onclick="act(''+l.id+'','unpublish')">Unpublish</button>')+'<button class="action-btn" onclick="ol(''+l.id+'')">View</button></div></div>'  ;}).join('');}
-async function act(id,action){try{await fetch('/.netlify/functions/listings?id='+encodeURIComponent(id)+'&action='+action+'&adminKey=12below2026admin');await load();}catch(e){alert(e.message);}}
-function ol(id){var l=listings.find(function(x){return String(x.id)===String(id);});if(!l)return;document.getElementById('mt').textContent=l.year+' '+l.make+' '+l.model;document.getElementById('ms').textContent='Submitted '+new Date(l.createdAt).toLocaleString();var pct=l.marketValue?((1-(l.askingPrice/l.marketValue))*100).toFixed(1):'N/A';document.getElementById('md').innerHTML='<div class="detail-row"><span class="detail-label">Seller</span><span class="detail-val">'+(l.name||'-')+'</span></div><div class="detail-row"><span class="detail-label">Email</span><span class="detail-val">'+(l.email||'-')+'</span></div><div class="detail-row"><span class="detail-label">Phone</span><span class="detail-val">'+(l.phone||'-')+'</span></div><div class="detail-row"><span class="detail-label">Mileage</span><span class="detail-val">'+(l.mileage||'-')+' mi</span></div><div class="detail-row"><span class="detail-label">Condition</span><span class="detail-val">'+l.condition+'</span></div><div class="detail-row"><span class="detail-label">VIN</span><span class="detail-val">'+(l.vin||'Not provided')+'</span></div><div class="detail-row"><span class="detail-label">Price</span><span class="detail-val" style="color:var(--blue);font-size:16px">$'+(l.askingPrice||0).toLocaleString()+'</span></div><div class="detail-row"><span class="detail-label">Market</span><span class="detail-val">$'+(l.marketValue||0).toLocaleString()+'</span></div><div class="detail-row"><span class="detail-label">Below mkt</span><span class="detail-val" style="color:var(--green)">'+pct+'%</span></div><div class="detail-row"><span class="detail-label">Location</span><span class="detail-val">'+(l.location||'-')+'</span></div><div class="detail-row"><span class="detail-label">Notes</span><span class="detail-val">'+(l.notes||'None')+'</span></div>';document.getElementById('ma').innerHTML=(l.status!=='active'?'<button class="btn-status btn-publish" onclick="act(''+l.id+'','publish');cm()">✓ Publish to /listings</button>':'<button class="btn-status btn-unpublish" onclick="act(''+l.id+'','unpublish');cm()">Unpublish</button>')+'<button class="btn-status btn-sold" onclick="act(''+l.id+'','sold');cm()">Mark Sold</button>';document.getElementById('mo').classList.add('show');}
-function cm(){document.getElementById('mo').classList.remove('show');}
-</script></body></html>
+var ADMIN_KEY="12below2026admin",ALL_LISTINGS=[],CURRENT_FILTER="all",SESSION_KEY="12below_admin_auth";
+function doLogin(){
+var pw=document.getElementById("pw").value.trim();
+if(pw===ADMIN_KEY){
+sessionStorage.setItem(SESSION_KEY,"1");
+document.getElementById("loginWrap").style.display="none";
+document.getElementById("dash").classList.add("show");
+loadListings();
+}else{
+document.getElementById("loginErr").classList.add("show");
+document.getElementById("pw").value="";
+}
+}
+function logout(){
+sessionStorage.removeItem(SESSION_KEY);
+document.getElementById("loginWrap").style.display="";
+document.getElementById("dash").classList.remove("show");
+document.getElementById("pw").value="";
+}
+function showToast(msg,type){
+var t=document.getElementById("toast");
+t.textContent=msg;t.className="toast show "+(type||"");
+setTimeout(function(){t.className="toast";},3000);
+}
+function askDelete(id,name){
+document.getElementById("confirmOkBtn").onclick=function(){closeConfirm();doDelete(id,name);};
+document.getElementById("confirmOv").classList.add("open");
+}
+function closeConfirm(){document.getElementById("confirmOv").classList.remove("open");}
+function setFilter(f){
+CURRENT_FILTER=f;
+["all","active","pending","inactive"].forEach(function(x){
+var el=document.getElementById("fb"+x.charAt(0).toUpperCase()+x.slice(1));
+if(el)el.classList.toggle("active",x===f);
+});
+renderListings();
+}
+function loadListings(){
+fetch("/.netlify/functions/listings?all=true",{headers:{"x-admin-key":ADMIN_KEY}})
+.then(function(r){return r.json();})
+.then(function(data){ALL_LISTINGS=Array.isArray(data)?data:[];updateStats();renderListings();})
+.catch(function(){document.getElementById("listingGrid").innerHTML="<div class='empty-state'><p>Failed to load listings.</p></div>";});
+}
+function updateStats(){
+var total=ALL_LISTINGS.length;
+var active=ALL_LISTINGS.filter(function(l){return l.status==="active";}).length;
+var pending=ALL_LISTINGS.filter(function(l){return l.status==="pending"||!l.status;}).length;
+var sav=ALL_LISTINGS.filter(function(l){return l.marketValue&&l.askingPrice;}).map(function(l){return Math.round((1-l.askingPrice/l.marketValue)*100);});
+var avg=sav.length?Math.round(sav.reduce(function(a,b){return a+b;},0)/sav.length):0;
+document.getElementById("statTotal").textContent=total;
+document.getElementById("statActive").textContent=active;
+document.getElementById("statPending").textContent=pending;
+document.getElementById("statAvg").textContent=avg?avg+"%":"-";
+}
+function proxyThumb(url){
+if(!url)return "";
+var m=url.match(/bunnycdn\.com\/[^\/]+\/(.+)/);
+return m?"/.netlify/functions/img?p="+encodeURIComponent(m[1]):url;
+}
+function renderListings(){
+var list=ALL_LISTINGS.slice();
+if(CURRENT_FILTER!=="all")list=list.filter(function(l){
+if(CURRENT_FILTER==="active")return l.status==="active";
+if(CURRENT_FILTER==="pending")return l.status==="pending"||!l.status;
+if(CURRENT_FILTER==="inactive")return l.status==="inactive";
+return true;
+});
+list.sort(function(a,b){return(b.createdAt||0)-(a.createdAt||0);});
+var grid=document.getElementById("listingGrid");
+var lbl=document.getElementById("listingCount");
+lbl.textContent=list.length+" listing"+(list.length!==1?"s":"")+(CURRENT_FILTER!=="all"?" ("+CURRENT_FILTER+")":"");
+if(!list.length){grid.innerHTML="<div class='empty-state'><p>No listings here.</p></div>";return;}
+grid.innerHTML=list.map(function(l){
+var thumb=l.photos&&l.photos.length?proxyThumb(l.photos[0]):"";
+var status=l.status||"pending";
+var date=l.createdAt?new Date(l.createdAt).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}):"";
+var saving=l.marketValue&&l.askingPrice?Math.round((1-l.askingPrice/l.marketValue)*100):0;
+var sbadge=status==="active"?"<span class='badge badge-active'>Active</span>":status==="inactive"?"<span class='badge badge-inactive'>Inactive</span>":"<span class='badge badge-pending'>Pending Review</span>";
+var abtn=status==="active"?"<button class='act-btn act-unpublish' onclick='toggleStatus(""+l.id+"","inactive")'>Unpublish</button>":"<button class='act-btn act-publish' onclick='toggleStatus(""+l.id+"","active")'>Publish</button>";
+return "<div class='lcard' id='lcard-"+l.id+"'>"+
+"<div class='lcard-thumb'>"+(thumb?"<img src='"+thumb+"' alt='car' onerror='this.style.display="none"'>":"")+"</div>"+
+"<div class='lcard-info'>"+
+"<div class='lcard-title'>"+l.year+" "+l.make+" "+l.model+(l.trim?" "+l.trim:"")+"</div>"+
+"<div class='lcard-meta'>"+Number(l.mileage).toLocaleString()+" mi - "+(l.condition||"-")+(l.location?" - "+l.location:"")+"</div>"+
+"<div class='lcard-badges'>"+sbadge+"<span class='badge badge-price'>$"+Number(l.askingPrice).toLocaleString()+"</span>"+(saving?"<span class='badge badge-saving'>"+saving+"% below</span>":"")+(l.vin?"<span class='badge badge-inactive' style='font-family:monospace'>"+l.vin+"</span>":"")+"</div>"+
+"<div class='lcard-date'>"+(date?"Listed "+date+" | ":"")+(l.name||"")+" "+(l.email?"| "+l.email:"")+(l.phone?" | "+l.phone:"")+"</div>"+
+"</div>"+
+"<div class='lcard-actions'>"+
+"<a class='act-btn act-view' href='/listings/' target='_blank'>View site</a>"+
+abtn+
+"<button class='act-btn act-delete' onclick='askDelete(""+l.id+"",""+l.year+" "+l.make+" "+l.model+"")'>Delete</button>"+
+"</div></div>";
+}).join("");
+}
+function toggleStatus(id,newStatus){
+var l=ALL_LISTINGS.find(function(x){return String(x.id)===String(id);});
+if(!l)return;
+var card=document.getElementById("lcard-"+id);
+if(card)card.style.opacity="0.4";
+fetch("/.netlify/functions/listings",{method:"PUT",headers:{"Content-Type":"application/json","x-admin-key":ADMIN_KEY},body:JSON.stringify(Object.assign({},l,{status:newStatus}))})
+.then(function(r){return r.json();})
+.then(function(){l.status=newStatus;updateStats();renderListings();showToast(newStatus==="active"?"Published!":"Unpublished",newStatus==="active"?"green":"");})
+.catch(function(){if(card)card.style.opacity="1";showToast("Error updating","red");});
+}
+function doDelete(id,name){
+fetch("/.netlify/functions/listings",{method:"DELETE",headers:{"Content-Type":"application/json","x-admin-key":ADMIN_KEY},body:JSON.stringify({id:id})})
+.then(function(r){return r.json();})
+.then(function(){ALL_LISTINGS=ALL_LISTINGS.filter(function(x){return String(x.id)!==String(id);});updateStats();renderListings();showToast("Deleted: "+name,"red");})
+.catch(function(){showToast("Error deleting","red");});
+}
+if(sessionStorage.getItem(SESSION_KEY)==="1"){document.getElementById("loginWrap").style.display="none";document.getElementById("dash").classList.add("show");loadListings();}
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeConfirm();});
+</script>
+</body>
+</html>
