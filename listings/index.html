@@ -303,6 +303,7 @@ document.getElementById('contact').innerHTML=
 (l.phone?'<a class="call-btn" href="tel:'+l.phone+'">&#128222; Call Seller</a>':
 l.email?'<a class="call-btn" href="mailto:'+l.email+'">&#9993; Email Seller</a>':'');
 document.getElementById('buyBtn').href='/buy?id='+l.id;
+RECALL_MAKE=l.make;RECALL_MODEL=l.model;RECALL_YEAR=l.year;document.getElementById('recallResult').innerHTML='';document.getElementById('recallBtn').textContent='Check Recalls';document.getElementById('recallBtn').disabled=false;
 document.getElementById('ov').classList.add('open');
 document.body.style.overflow='hidden';
 }
