@@ -183,6 +183,7 @@ if(!l.marketValue||!l.askingPrice)return 12;
 return Math.round((1-l.askingPrice/l.marketValue)*100);
 }
 function cp(c){return c?c.charAt(0).toUpperCase()+c.slice(1):'-';}
+function proxyPhoto(url){if(!url)return '';var m=url.match(/bunnycdn\.com\/[^\/]+\/(.+)/);if(m)return'/.netlify/functions/img?p='+encodeURIComponent(m[1]);return url;}
 function sp(label,val){
 return '<div class="spec"><div class="spec-label">'+label+'</div><div class="spec-val">'+val+'</div></div>';
 }
@@ -217,7 +218,7 @@ g.innerHTML=list.map(function(l){
 var imgs=l.photos&&l.photos.length?l.photos:[''];
 return '<div class="card" onclick="openModal(\''+l.id+'\')">'+
 '<div class="card-img">'+
-'<img src="'+imgs[0]+'" alt="'+l.year+' '+l.make+' '+l.model+'" loading="lazy" onerror="this.style.display=\'none\'">'+
+'<img src="'+proxyPhoto(imgs[0])+'" alt="'+l.year+' '+l.make+' '+l.model+'" loading="lazy" onerror="this.style.display=\'none\'">'+
 '<span class="stag">'+pct(l)+'% below market</span>'+
 (imgs.length>1?'<span class="pcnt">1/'+imgs.length+' photos</span>':'')+
 '</div>'+
@@ -239,7 +240,7 @@ if(!l)return;
 PH=l.photos&&l.photos.length?l.photos:[''];
 PI=0;
 var gal=document.getElementById('gallery');
-var imgs=PH.map(function(u,i){return'<img src="'+u+'" class="'+(i===0?'active':'')+'" alt="photo '+(i+1)+'">';}).join('');
+var imgs=PH.map(function(u,i){return'<img src="'+proxyPhoto(u)+'" class="'+(i===0?'active':'')+'" alt="photo '+(i+1)+'">';}).join('');
 var nav=PH.length>1?
 '<button class="gnav gprev" onclick="gph(PI-1)">&#8249;</button>'+
 '<button class="gnav gnext" onclick="gph(PI+1)">&#8250;</button>'+
