@@ -219,22 +219,24 @@ var status=l.status||"pending";
 var date=l.createdAt?new Date(l.createdAt).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}):"";
 var saving=l.marketValue&&l.askingPrice?Math.round((1-l.askingPrice/l.marketValue)*100):0;
 var sbadge=status==="active"?"<span class='badge badge-active'>Active</span>":status==="inactive"?"<span class='badge badge-inactive'>Inactive</span>":"<span class='badge badge-pending'>Pending Review</span>";
-var abtn=status==="active"?"<button class='act-btn act-unpublish' onclick='toggleStatus(""+l.id+"","inactive")'>Unpublish</button>":"<button class='act-btn act-publish' onclick='toggleStatus(""+l.id+"","active")'>Publish</button>";
+var abtn=status==="active"?"<button class='act-btn act-unpublish' data-id='"+l.id+"' data-status='inactive'>Unpublish</button>":"<button class='act-btn act-publish' data-id='"+l.id+"' data-status='active'>Publish</button>";
+var vin=l.vin?"<span class='badge badge-inactive' style='font-family:monospace'>"+l.vin+"</span>":"";
 return "<div class='lcard' id='lcard-"+l.id+"'>"+
-"<div class='lcard-thumb'>"+(thumb?"<img src='"+thumb+"' alt='car' onerror='this.style.display="none"'>":"")+"</div>"+
+"<div class='lcard-thumb'>"+(thumb?"<img src='"+thumb+"' alt='car' onerror='this.style.display=\"none\"'>":"")+"</div>"+
 "<div class='lcard-info'>"+
 "<div class='lcard-title'>"+l.year+" "+l.make+" "+l.model+(l.trim?" "+l.trim:"")+"</div>"+
 "<div class='lcard-meta'>"+Number(l.mileage).toLocaleString()+" mi - "+(l.condition||"-")+(l.location?" - "+l.location:"")+"</div>"+
-"<div class='lcard-badges'>"+sbadge+"<span class='badge badge-price'>$"+Number(l.askingPrice).toLocaleString()+"</span>"+(saving?"<span class='badge badge-saving'>"+saving+"% below</span>":"")+(l.vin?"<span class='badge badge-inactive' style='font-family:monospace'>"+l.vin+"</span>":"")+"</div>"+
-"<div class='lcard-date'>"+(date?"Listed "+date+" | ":"")+(l.name||"")+" "+(l.email?"| "+l.email:"")+(l.phone?" | "+l.phone:"")+"</div>"+
+"<div class='lcard-badges'>"+sbadge+"<span class='badge badge-price'>$"+Number(l.askingPrice).toLocaleString()+"</span>"+(saving?"<span class='badge badge-saving'>"+saving+"% below</span>":"")+vin+"</div>"+
+"<div class='lcard-date'>"+(date?"Listed "+date+" | ":"")+(l.name||"")+(l.email?" | "+l.email:"")+(l.phone?" | "+l.phone:"")+"</div>"+
 "</div>"+
 "<div class='lcard-actions'>"+
 "<a class='act-btn act-view' href='/listings/' target='_blank'>View site</a>"+
 abtn+
-"<button class='act-btn act-delete' onclick='askDelete(""+l.id+"",""+l.year+" "+l.make+" "+l.model+"")'>Delete</button>"+
+"<button class='act-btn act-delete' data-del-id='"+l.id+"' data-del-name='"+l.year+" "+l.make+" "+l.model+"'>Delete</button>"+
 "</div></div>";
 }).join("");
 }
+
 function toggleStatus(id,newStatus){
 var l=ALL_LISTINGS.find(function(x){return String(x.id)===String(id);});
 if(!l)return;
@@ -253,6 +255,13 @@ fetch("/.netlify/functions/listings",{method:"DELETE",headers:{"Content-Type":"a
 }
 if(sessionStorage.getItem(SESSION_KEY)==="1"){document.getElementById("loginWrap").style.display="none";document.getElementById("dash").classList.add("show");loadListings();}
 document.addEventListener("keydown",function(e){if(e.key==="Escape")closeConfirm();});
+
+document.addEventListener("click",function(e){
+var publishBtn=e.target.closest("[data-status]");
+if(publishBtn){var id=publishBtn.dataset.id;var st=publishBtn.dataset.status;if(id&&st)toggleStatus(id,st);}
+var deleteBtn=e.target.closest("[data-del-id]");
+if(deleteBtn){var did=deleteBtn.dataset.delId;var dname=deleteBtn.dataset.delName;if(did)askDelete(did,dname||"this listing");}
+});
 </script>
 </body>
 </html>
