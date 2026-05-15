@@ -338,14 +338,14 @@ async function getMarketPrice() {
     document.getElementById('priceSection').style.display = 'block';
     document.getElementById('priceSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch(e) { err.textContent = 'Error: ' + e.message; err.classList.add('show'); }
-  btn.disabled = false; btn.textContent = 'Get my real market price ÃÂ¢ÃÂÃÂ';
+  btn.disabled = false; btn.textContent = 'Get my real market price ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ';
 }
 
 function validateAsk() {
   var v = parseInt(document.getElementById('askPrice').value);
   var err = document.getElementById('askErr');
   if (!v || !currentMax) { err.style.display = 'none'; return; }
-  if (v > currentMax) { err.textContent = 'Price must be ÃÂ¢ÃÂÃÂ¤ ' + fmt(currentMax) + '.'; err.style.display = 'block'; }
+  if (v > currentMax) { err.textContent = 'Price must be ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¤ ' + fmt(currentMax) + '.'; err.style.display = 'block'; }
   else err.style.display = 'none';
 }
 
@@ -376,7 +376,7 @@ function handleFiles(files) {
 function handleDrop(e) { e.preventDefault(); document.getElementById('dropZone').classList.remove('drag'); handleFiles(e.dataTransfer.files); }
 function renderPhotos() {
   var g = document.getElementById('photosGrid');
-  g.innerHTML = photos.map(function(p, i) { return '<div class="photo-thumb"><img src="' + p.url + '"><button class="photo-rm" onclick="removePhoto('+i+')">ÃÂÃÂ</button></div>'; }).join('');
+  g.innerHTML = photos.map(function(p, i) { return '<div class="photo-thumb"><img src="' + p.url + '"><button class="photo-rm" onclick="removePhoto('+i+')">ÃÂÃÂÃÂÃÂ</button></div>'; }).join('');
   document.getElementById('uploadStatus').textContent = photos.length ? photos.length + ' photo' + (photos.length > 1 ? 's' : '') + ' selected' : '';
 }
 function removePhoto(i) { photos.splice(i, 1); renderPhotos(); }
@@ -426,7 +426,7 @@ async function submitListing() {
     await fetch('/.netlify/functions/listings', {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(listing)
     });
-  } catch(e) { /* still show success ÃÂ¢ÃÂÃÂ email will notify Denis */ }
+  } catch(e) { /* still show success ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ email will notify Denis */ }
   // Email notification
   var fd = new FormData();
   fd.append('_subject', 'New 12Below Listing: ' + vinData.year + ' ' + vinData.make + ' ' + vinData.model);
@@ -450,7 +450,7 @@ async function submitListing() {
     '<div class="ls-row"><span class="ls-label">Market value</span><span class="ls-val">' + fmt(currentMV) + '</span></div>' +
     '<div class="ls-row"><span class="ls-label">Your asking price</span><span class="ls-val">' + fmt(ask) + '</span></div>' +
     '<div class="ls-row"><span class="ls-label">Photos</span><span class="ls-val">' + (photoUrls.length || photos.length) + ' uploaded</span></div>' +
-    '<div class="ls-row"><span class="ls-label">Status</span><span class="ls-val" style="color:var(--amber)">ÃÂ¢ÃÂÃÂ³ Pending review (1-4 hrs)</span></div>';
+    '<div class="ls-row"><span class="ls-label">Status</span><span class="ls-val" style="color:var(--amber)">ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ³ Pending review (1-4 hrs)</span></div>';
   goStep(4);
 }
 
@@ -474,69 +474,7 @@ async function submitListing() {
       var rows = '';
       if(year||make||model) rows += '<div class="review-row"><span class="label">Vehicle</span><span class="val">'+year+' '+make+' '+model+'</span></div>';
       if(mileage) rows += '<div class="review-row"><span class="label">Mileage</span><span class="val">'+Number(mileage).toLocaleString()+' miles</span></div>';
-      if(price) rows += '<div class="review-row"><span class="label">Asking Price</span><span class="val">
-
-<div class="review-overlay" id="reviewOverlay">
-  <div class="review-box">
-    <div class="review-header">
-      <h2>Almost done!</h2>
-      <p>Review your listing before it goes live</p>
-    </div>
-    <div class="review-body">
-      <div class="review-summary" id="reviewSummary"></div>
-      <div class="fee-box">
-        <div class="fee-amount">$299</div>
-        <div class="fee-label">Success fee ÃÂ¢ÃÂÃÂ only charged when your car sells</div>
-        <div class="fee-note">No sale? No fee. Zero risk to list.</div>
-      </div>
-      <div class="review-actions">
-        <button class="btn-back" onclick="document.getElementById('reviewOverlay').classList.remove('open')">&#8592; Edit</button>
-        <button class="btn-confirm" id="confirmSubmitBtn">List My Car Free &#8594;</button>
-      </div>
-    </div>
-  </div>
-</div>
-</body>
-</html>+Number(price).toLocaleString()+'</span></div>';
-      if(name) rows += '<div class="review-row"><span class="label">Seller</span><span class="val">'+name+'</span></div>';
-      
-      document.getElementById('reviewSummary').innerHTML = rows || '<p style="color:#888;text-align:center">Review your listing details above</p>';
-      document.getElementById('reviewOverlay').classList.add('open');
-      
-      return false;
-    }
-    
-    if(submitBtn) {
-      submitBtn.addEventListener('click', showReview, true);
-    }
-    if(form) {
-      form.addEventListener('submit', showReview, true);
-    }
-    
-    // Confirm button does the actual submit
-    document.getElementById('confirmSubmitBtn').addEventListener('click', function() {
-      document.getElementById('reviewOverlay').classList.remove('open');
-      // Trigger the actual form submission
-      var form = document.querySelector('form');
-      if(form) {
-        // Remove our interceptor temporarily
-        var clone = form.cloneNode(true);
-        form.parentNode.replaceChild(clone, form);
-        clone.submit();
-      } else {
-        // If no form, trigger the original submit button
-        var btn = document.getElementById('submitBtn') || document.querySelector('[type="submit"]');
-        if(btn) btn.click();
-      }
-    });
-  }
-  
-  if(document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', interceptSubmit);
-  } else {
-    interceptSubmit();
-  }
-})();
+      if(price) rows += '<div class="review-row"><span class="label">Asking Price</span><span class="val">' + '$'+Number(price).toLocaleString()+'</span></div>';
 </script>
 
 <div class="review-overlay" id="reviewOverlay">
@@ -549,7 +487,7 @@ async function submitListing() {
       <div class="review-summary" id="reviewSummary"></div>
       <div class="fee-box">
         <div class="fee-amount">$299</div>
-        <div class="fee-label">Success fee ÃÂ¢ÃÂÃÂ only charged when your car sells</div>
+        <div class="fee-label">Success fee ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ only charged when your car sells</div>
         <div class="fee-note">No sale? No fee. Zero risk to list.</div>
       </div>
       <div class="review-actions">
