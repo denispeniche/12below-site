@@ -42,42 +42,94 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
 .footer h3{font-size:20px;font-weight:700;margin-bottom:8px}
 .footer p{opacity:.7;font-size:14px;margin-bottom:20px}
 .fbtn2{background:#1a3afa;color:#fff;border:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-block}
-.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:2000;overflow-y:auto}
+
+/* Modal overlay */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:2000;overflow-y:auto;backdrop-filter:blur(4px)}
 .ov.open{display:flex;align-items:flex-start;justify-content:center;padding:20px}
-.modal{background:#fff;border-radius:20px;max-width:700px;width:100%;margin:20px auto;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3)}
-.gallery{position:relative;background:#111;height:340px}
-.gallery img{width:100%;height:100%;object-fit:contain}
-.gallery .nav-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.6);color:#fff;border:none;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center}
-.gallery .nav-arrow.prev{left:12px}
-.gallery .nav-arrow.next{right:12px}
-.gallery .dots{position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:center;gap:6px}
-.gallery .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer}
-.gallery .dot.active{background:#fff}
-.mclose{position:absolute;top:12px;right:12px;background:rgba(0,0,0,.6);color:#fff;border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px;z-index:10}
-.mbody{padding:24px}
-.mtitle{font-size:22px;font-weight:800;margin-bottom:4px}
-.mmeta{color:#666;font-size:14px;margin-bottom:16px}
+.modal{background:#fff;border-radius:20px;max-width:760px;width:100%;margin:20px auto;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);animation:slideUp .25s ease-out}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+/* Gallery */
+.gallery{position:relative;background:#0a0a14;height:440px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.gallery .frame{width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:opacity .25s}
+.gallery img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.gallery .nav-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.55);color:#fff;border:none;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:20px;font-weight:600;display:flex;align-items:center;justify-content:center;transition:background .15s;z-index:5}
+.gallery .nav-arrow:hover{background:rgba(0,0,0,.85)}
+.gallery .nav-arrow.prev{left:16px}
+.gallery .nav-arrow.next{right:16px}
+.gallery .counter{position:absolute;top:16px;left:16px;background:rgba(0,0,0,.6);color:#fff;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600}
+.gallery .dots{position:absolute;bottom:16px;left:0;right:0;display:flex;justify-content:center;gap:8px;z-index:5}
+.gallery .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:all .2s}
+.gallery .dot.active{background:#fff;width:24px;border-radius:4px}
+.mclose{position:absolute;top:16px;right:16px;background:rgba(0,0,0,.6);color:#fff;border:none;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:18px;z-index:10;transition:background .15s}
+.mclose:hover{background:rgba(0,0,0,.9)}
+
+/* Modal body */
+.mbody{padding:28px}
+.mtitle{font-size:24px;font-weight:800;margin-bottom:4px;line-height:1.2}
+.mmeta{color:#666;font-size:14px;margin-bottom:20px}
 .mprice-row{display:flex;align-items:baseline;gap:12px;margin-bottom:20px;flex-wrap:wrap}
-.mprice{font-size:32px;font-weight:800;color:#1a3afa}
-.mmarket{color:#888;text-decoration:line-through;font-size:16px}
-.msavings{background:#16a34a;color:#fff;padding:4px 10px;border-radius:6px;font-size:13px;font-weight:700}
-.mspecs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
-.mspec{background:#f4f5f7;padding:10px 14px;border-radius:8px;font-size:13px}
-.mspec b{display:block;color:#666;font-weight:600;font-size:11px;text-transform:uppercase;margin-bottom:2px}
-.mactions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.mbtn{padding:12px;border-radius:10px;font-weight:700;cursor:pointer;border:none;font-family:inherit;font-size:14px;text-decoration:none;text-align:center;display:block}
-.mbtn.primary{background:#1a3afa;color:#fff}
-.mbtn.secondary{background:#f4f5f7;color:#1a1a2e;border:1px solid #d4d6dc}
-.mbtn:hover{opacity:.9}
-.mseller{background:#f4f5f7;padding:14px;border-radius:10px;font-size:13px;line-height:1.6}
-.mseller b{display:block;margin-bottom:4px;font-size:14px}
+.mprice{font-size:36px;font-weight:800;color:#1a3afa;line-height:1}
+.mmarket{color:#888;text-decoration:line-through;font-size:17px}
+.msavings{background:#16a34a;color:#fff;padding:5px 12px;border-radius:6px;font-size:13px;font-weight:700}
+
+/* Payment calculator */
+.calc{background:linear-gradient(135deg,#f0f4ff 0%,#e8edff 100%);border:1px solid #d8e0ff;border-radius:14px;padding:20px;margin-bottom:20px}
+.calc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.calc-label{font-size:13px;font-weight:600;color:#3a3a5e;display:flex;align-items:center;gap:6px}
+.info-i{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#a0a8d0;color:#fff;font-size:11px;font-weight:700;cursor:help;font-style:italic;font-family:Georgia,serif;position:relative}
+.info-i:hover .tooltip{visibility:visible;opacity:1}
+.tooltip{visibility:hidden;opacity:0;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;font-style:normal;font-family:inherit;font-size:11px;font-weight:400;padding:8px 12px;border-radius:8px;width:240px;text-align:center;transition:opacity .15s;z-index:20;line-height:1.4;pointer-events:none}
+.tooltip:after{content:'';position:absolute;top:100%;left:50%;margin-left:-5px;border-width:5px;border-style:solid;border-color:#1a1a2e transparent transparent transparent}
+.calc-value{font-size:28px;font-weight:800;color:#1a3afa}
+.calc-sub{font-size:11px;color:#666;font-weight:500}
+.calc-sliders{display:grid;gap:12px}
+.calc-slider-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px}
+.calc-slider-label{font-size:12px;color:#3a3a5e;font-weight:600}
+.calc-slider-val{font-size:13px;color:#1a3afa;font-weight:700;min-width:70px;text-align:right}
+.calc-range{grid-column:1/-1;-webkit-appearance:none;appearance:none;width:100%;height:5px;background:#d0d8f0;border-radius:5px;outline:none;cursor:pointer}
+.calc-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;background:#1a3afa;border-radius:50%;cursor:pointer;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.calc-range::-moz-range-thumb{width:18px;height:18px;background:#1a3afa;border-radius:50%;cursor:pointer;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+
+/* Specs grid */
+.mspecs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.mspec{background:#f4f5f7;padding:12px 14px;border-radius:10px;font-size:13px}
+.mspec b{display:block;color:#666;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
+.mspec span{font-weight:600;color:#1a1a2e}
+.mspec.loading-spec span{color:#aaa;font-style:italic}
+
+/* Buy button - hero CTA */
+.buy-cta{display:block;width:100%;padding:18px;background:linear-gradient(135deg,#16a34a 0%,#15803d 100%);color:#fff;border:none;border-radius:12px;font-size:17px;font-weight:800;cursor:pointer;font-family:inherit;text-decoration:none;text-align:center;margin-bottom:14px;box-shadow:0 4px 14px rgba(22,163,74,.35);transition:transform .12s,box-shadow .12s}
+.buy-cta:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(22,163,74,.45)}
+.buy-cta .arr{display:inline-block;margin-left:6px;transition:transform .15s}
+.buy-cta:hover .arr{transform:translateX(3px)}
+
+/* Action grid - 2x2 */
+.mactions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.mbtn{padding:13px;border-radius:10px;font-weight:700;cursor:pointer;border:1px solid #d4d6dc;background:#f4f5f7;color:#1a1a2e;font-family:inherit;font-size:14px;text-decoration:none;text-align:center;display:block;transition:all .12s}
+.mbtn:hover{border-color:#1a3afa;color:#1a3afa;background:#fff}
+
+/* Seller block */
+.mseller{background:#f4f5f7;padding:16px;border-radius:12px;margin-bottom:18px;font-size:14px;line-height:1.6}
+.mseller b{display:block;font-size:11px;text-transform:uppercase;color:#666;letter-spacing:.4px;margin-bottom:6px}
+.mseller .sname{font-weight:700;color:#1a1a2e;font-size:15px}
+.mseller .sloc{color:#666;font-size:13px}
+
+/* Why good deal */
+.mwhy{background:#fffbeb;border:1px solid #fde68a;padding:16px;border-radius:12px;font-size:13px;line-height:1.6;color:#7a5f10}
+.mwhy b{display:block;font-size:11px;text-transform:uppercase;color:#a86e10;letter-spacing:.4px;margin-bottom:6px}
+
 @media(max-width:600px){
   nav{padding:12px 16px}
   .hero{padding:32px 16px 28px}
   .filters{padding:12px 16px}
   .grid{padding:16px}
+  .mbody{padding:20px}
+  .gallery{height:280px}
+  .mspecs{grid-template-columns:1fr 1fr}
   .mactions{grid-template-columns:1fr}
-  .gallery{height:240px}
+  .mtitle{font-size:20px}
+  .mprice{font-size:28px}
 }
 </style>
 </head>
@@ -141,15 +193,13 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
   var filtered = [];
   var currentPhoto = 0;
   var modalListing = null;
+  var vinDecodeCache = {};
 
-  function fixPhoto(url){
-    if(!url) return '';
-    if(url.indexOf('storage.bunnycdn.com') >= 0){
-      var m = url.match(/storage\.bunnycdn\.com\/[^/]+\/(.+)$/);
-      if(m) return '/.netlify/functions/photo?path=' + encodeURIComponent(m[1]);
-    }
-    return url;
-  }
+  // Payment calc state
+  var calcDown = 0;
+  var calcApr = 7.5;
+  var calcTerm = 60;
+
   function money(n){ return '$' + Number(n||0).toLocaleString('en-US'); }
   function pct(market, price){
     if(!market || !price) return 0;
@@ -158,6 +208,23 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
   function escHtml(s){
     if(s == null) return '';
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+  function fixPhoto(url){
+    if(!url) return '';
+    if(url.indexOf('storage.bunnycdn.com') >= 0){
+      var m = url.match(/storage\.bunnycdn\.com\/[^/]+\/(.+)$/);
+      if(m) return '/.netlify/functions/photo?path=' + encodeURIComponent(m[1]);
+    }
+    return url;
+  }
+  function calcMonthly(price, down, apr, termMonths){
+    var p = Math.max(0, Number(price) - Number(down));
+    var r = (Number(apr) / 100) / 12;
+    var n = Number(termMonths);
+    if(p <= 0 || n <= 0) return 0;
+    if(r === 0) return p / n;
+    var m = (p * r) / (1 - Math.pow(1 + r, -n));
+    return Math.round(m);
   }
 
   function loadListings(){
@@ -224,7 +291,7 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
     if(sort === 'price-low') filtered.sort(function(a,b){return a.askingPrice - b.askingPrice;});
     else if(sort === 'price-high') filtered.sort(function(a,b){return b.askingPrice - a.askingPrice;});
     else if(sort === 'savings') filtered.sort(function(a,b){return pct(b.marketValue,b.askingPrice) - pct(a.marketValue,a.askingPrice);});
-    else filtered.sort(function(a,b){return (b.id||0) - (a.id||0);});
+    else filtered.sort(function(a,b){return new Date(b.createdAt||0) - new Date(a.createdAt||0);});
 
     renderGrid();
   }
@@ -265,8 +332,58 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
     if(!l) return;
     modalListing = l;
     currentPhoto = 0;
+    // Reset calc to defaults based on this car
+    calcDown = Math.round((l.askingPrice || 0) * 0.1);
+    calcApr = 7.5;
+    calcTerm = 60;
     renderModal();
     document.getElementById('ov').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // Fetch VIN decode for drivetrain/transmission
+    if(l.vin) decodeVin(l.vin);
+  }
+
+  function decodeVin(vin){
+    if(vinDecodeCache[vin]) {
+      updateSpecs(vinDecodeCache[vin]);
+      return;
+    }
+    fetch('https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVin/' + encodeURIComponent(vin) + '?format=json')
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        var info = {};
+        (data.Results || []).forEach(function(r){
+          if(r.Variable === 'Drive Type') info.drivetrain = r.Value;
+          if(r.Variable === 'Transmission Style') info.transmission = r.Value;
+        });
+        vinDecodeCache[vin] = info;
+        // Only update if modal is still showing this car
+        if(modalListing && modalListing.vin === vin) updateSpecs(info);
+      })
+      .catch(function(){ /* silent */ });
+  }
+
+  function updateSpecs(info){
+    var dt = document.getElementById('spec-drivetrain');
+    var tx = document.getElementById('spec-transmission');
+    if(dt){
+      dt.parentElement.classList.remove('loading-spec');
+      dt.textContent = info.drivetrain || 'N/A';
+    }
+    if(tx){
+      tx.parentElement.classList.remove('loading-spec');
+      tx.textContent = info.transmission || 'N/A';
+    }
+  }
+
+  function whyGoodDeal(l){
+    var savings = pct(l.marketValue, l.askingPrice);
+    var diff = Number(l.marketValue || 0) - Number(l.askingPrice || 0);
+    if(savings <= 0 || diff <= 0) return '';
+    var vehicleName = (l.year || '') + ' ' + (l.make || '') + ' ' + (l.model || '');
+    return 'This ' + vehicleName.trim() + ' is priced at ' + money(l.askingPrice) +
+      ' - that is ' + savings + '% (' + money(diff) + ') below the ' + money(l.marketValue) +
+      ' market value. Comparable ' + (l.model || 'vehicles') + 's with similar mileage typically list higher in the DMV area, especially at dealers who add markup on top of market price.';
   }
 
   function renderModal(){
@@ -274,15 +391,18 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
     if(!l) return;
     var savings = pct(l.marketValue, l.askingPrice);
     var photos = (l.photos && l.photos.length) ? l.photos : [];
+    var monthly = calcMonthly(l.askingPrice, calcDown, calcApr, calcTerm);
+    var cached = vinDecodeCache[l.vin] || {};
 
     var galleryHtml = '';
     if(photos.length){
       galleryHtml = '<div class="gallery">';
-      galleryHtml += '<button class="mclose" id="m-close">x</button>';
-      galleryHtml += '<img src="' + escHtml(fixPhoto(photos[currentPhoto])) + '" alt="">';
+      galleryHtml += '<button class="mclose" id="m-close" aria-label="Close">x</button>';
+      galleryHtml += '<div class="counter">' + (currentPhoto+1) + ' / ' + photos.length + '</div>';
+      galleryHtml += '<div class="frame"><img src="' + escHtml(fixPhoto(photos[currentPhoto])) + '" alt=""></div>';
       if(photos.length > 1){
-        galleryHtml += '<button class="nav-arrow prev" id="m-prev">&lt;</button>';
-        galleryHtml += '<button class="nav-arrow next" id="m-next">&gt;</button>';
+        galleryHtml += '<button class="nav-arrow prev" id="m-prev" aria-label="Previous">&lt;</button>';
+        galleryHtml += '<button class="nav-arrow next" id="m-next" aria-label="Next">&gt;</button>';
         galleryHtml += '<div class="dots">';
         photos.forEach(function(_, i){
           galleryHtml += '<div class="dot' + (i === currentPhoto ? ' active' : '') + '" data-photo="' + i + '"></div>';
@@ -296,10 +416,14 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
 
     var html = galleryHtml;
     html += '<div class="mbody">';
+
+    // 2. Title + location
     html += '<div class="mtitle">' + escHtml(l.year) + ' ' + escHtml(l.make) + ' ' + escHtml(l.model);
     if(l.trim) html += ' ' + escHtml(l.trim);
     html += '</div>';
     html += '<div class="mmeta">' + escHtml(l.location || 'DMV area') + '</div>';
+
+    // 3. Price + savings
     html += '<div class="mprice-row">';
     html += '<div class="mprice">' + money(l.askingPrice) + '</div>';
     if(l.marketValue && l.marketValue > l.askingPrice){
@@ -307,38 +431,102 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
       if(savings > 0) html += '<div class="msavings">' + savings + '% off</div>';
     }
     html += '</div>';
-    html += '<div class="mspecs">';
-    html += '<div class="mspec"><b>Mileage</b>' + Number(l.mileage||0).toLocaleString() + ' mi</div>';
-    html += '<div class="mspec"><b>Condition</b>' + escHtml(l.condition || '-') + '</div>';
-    html += '<div class="mspec"><b>VIN</b>' + escHtml(l.vin || '-') + '</div>';
-    html += '<div class="mspec"><b>Year</b>' + escHtml(l.year || '-') + '</div>';
+
+    // 4. Payment calculator with (i) icon
+    html += '<div class="calc">';
+    html += '<div class="calc-top">';
+    html += '<div>';
+    html += '<div class="calc-label">Est. Monthly Payment <span class="info-i">i<span class="tooltip">Calculated from your down payment, APR, and loan term. Actual rates depend on credit. Adjust the sliders to see different scenarios.</span></span></div>';
+    html += '<div class="calc-sub">' + money(calcDown) + ' down - ' + calcApr.toFixed(1) + '% APR - ' + calcTerm + ' months</div>';
     html += '</div>';
+    html += '<div class="calc-value" id="calc-value">' + money(monthly) + '/mo</div>';
+    html += '</div>';
+    html += '<div class="calc-sliders">';
+    html += '<div class="calc-slider-row"><div class="calc-slider-label">Down Payment</div><div class="calc-slider-val" id="calc-down-val">' + money(calcDown) + '</div>';
+    html += '<input type="range" class="calc-range" id="calc-down" min="0" max="' + Math.round((l.askingPrice||0)*0.5) + '" step="500" value="' + calcDown + '"></div>';
+    html += '<div class="calc-slider-row"><div class="calc-slider-label">APR</div><div class="calc-slider-val" id="calc-apr-val">' + calcApr.toFixed(1) + '%</div>';
+    html += '<input type="range" class="calc-range" id="calc-apr" min="30" max="150" step="1" value="' + Math.round(calcApr*10) + '"></div>';
+    html += '<div class="calc-slider-row"><div class="calc-slider-label">Loan Term</div><div class="calc-slider-val" id="calc-term-val">' + calcTerm + ' months</div>';
+    html += '<input type="range" class="calc-range" id="calc-term" min="12" max="84" step="12" value="' + calcTerm + '"></div>';
+    html += '</div></div>';
+
+    // 5. Specs grid - 6 specs
+    var dtClass = cached.drivetrain ? 'mspec' : 'mspec loading-spec';
+    var txClass = cached.transmission ? 'mspec' : 'mspec loading-spec';
+    var dtVal = cached.drivetrain || 'Loading...';
+    var txVal = cached.transmission || 'Loading...';
+    html += '<div class="mspecs">';
+    html += '<div class="mspec"><b>Mileage</b><span>' + Number(l.mileage||0).toLocaleString() + ' mi</span></div>';
+    html += '<div class="mspec"><b>Condition</b><span>' + escHtml(l.condition || '-') + '</span></div>';
+    html += '<div class="mspec"><b>VIN</b><span>' + escHtml(l.vin || '-') + '</span></div>';
+    html += '<div class="mspec"><b>Year</b><span>' + escHtml(l.year || '-') + '</span></div>';
+    html += '<div class="' + dtClass + '"><b>Drivetrain</b><span id="spec-drivetrain">' + escHtml(dtVal) + '</span></div>';
+    html += '<div class="' + txClass + '"><b>Transmission</b><span id="spec-transmission">' + escHtml(txVal) + '</span></div>';
+    html += '</div>';
+
+    // 6. Buy CTA - links to /buy?id=
+    html += '<a href="/buy/?id=' + encodeURIComponent(l.id) + '" class="buy-cta">Buy This Car Securely<span class="arr">-&gt;</span></a>';
+
+    // 7. Action row - 2x2: Call, Financing, Recalls, Vehicle History
     html += '<div class="mactions">';
     if(l.phone){
-      html += '<a href="tel:' + escHtml(l.phone) + '" class="mbtn primary">Call Seller</a>';
+      html += '<a href="tel:' + escHtml(l.phone) + '" class="mbtn">Call Seller</a>';
     } else {
-      html += '<a href="mailto:' + escHtml(l.email || '') + '" class="mbtn primary">Email Seller</a>';
+      html += '<a href="mailto:' + escHtml(l.email || '') + '" class="mbtn">Email Seller</a>';
     }
-    html += '<button class="mbtn secondary" id="m-financing">Get Financing</button>';
+    html += '<button class="mbtn" id="m-financing">Get Financing</button>';
+    html += '<button class="mbtn" id="m-recalls">Check Recalls</button>';
+    html += '<a href="https://www.vinaudit.com/?vin=' + escHtml(l.vin || '') + '" target="_blank" rel="noopener" class="mbtn">Vehicle History</a>';
     html += '</div>';
-    html += '<div class="mactions" style="margin-bottom:14px">';
-    html += '<button class="mbtn secondary" id="m-recalls">Check Recalls</button>';
-    html += '<a href="https://www.vinaudit.com/?vin=' + escHtml(l.vin || '') + '" target="_blank" rel="noopener" class="mbtn secondary">Vehicle History</a>';
-    html += '</div>';
+
+    // 8. Seller block
     html += '<div class="mseller"><b>Seller</b>';
-    html += escHtml(l.name || 'Private seller');
-    if(l.location) html += ' - ' + escHtml(l.location);
+    html += '<div class="sname">' + escHtml(l.name || 'Private seller') + '</div>';
+    if(l.location) html += '<div class="sloc">' + escHtml(l.location) + '</div>';
     html += '</div>';
+
+    // 9. Why this is a good deal
+    var why = whyGoodDeal(l);
+    if(why){
+      html += '<div class="mwhy"><b>Why this is a good deal</b>' + escHtml(why) + '</div>';
+    }
+
     html += '</div>';
     document.getElementById('modal').innerHTML = html;
+
+    // Wire calculator sliders
+    var downSlider = document.getElementById('calc-down');
+    var aprSlider = document.getElementById('calc-apr');
+    var termSlider = document.getElementById('calc-term');
+    if(downSlider) downSlider.addEventListener('input', function(){ calcDown = Number(this.value); updateCalc(); });
+    if(aprSlider) aprSlider.addEventListener('input', function(){ calcApr = Number(this.value) / 10; updateCalc(); });
+    if(termSlider) termSlider.addEventListener('input', function(){ calcTerm = Number(this.value); updateCalc(); });
+  }
+
+  function updateCalc(){
+    var l = modalListing;
+    if(!l) return;
+    var monthly = calcMonthly(l.askingPrice, calcDown, calcApr, calcTerm);
+    var dv = document.getElementById('calc-down-val');
+    var av = document.getElementById('calc-apr-val');
+    var tv = document.getElementById('calc-term-val');
+    var cv = document.getElementById('calc-value');
+    if(dv) dv.textContent = money(calcDown);
+    if(av) av.textContent = calcApr.toFixed(1) + '%';
+    if(tv) tv.textContent = calcTerm + ' months';
+    if(cv) cv.textContent = money(monthly) + '/mo';
+    // Update sub line
+    var sub = document.querySelector('.calc-sub');
+    if(sub) sub.textContent = money(calcDown) + ' down - ' + calcApr.toFixed(1) + '% APR - ' + calcTerm + ' months';
   }
 
   function closeModal(){
     document.getElementById('ov').classList.remove('open');
+    document.body.style.overflow = '';
     modalListing = null;
   }
 
-  // Event delegation - this is the safe pattern that won't break
+  // Event delegation
   document.addEventListener('click', function(e){
     var t = e.target;
 
@@ -349,7 +537,7 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
       return;
     }
 
-    // Modal close
+    // Modal close (X button or click outside modal)
     if(t.id === 'm-close' || t.id === 'ov'){
       closeModal();
       return;
