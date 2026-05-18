@@ -286,6 +286,7 @@ var photos = [], currentMV = 0, currentMax = 0, vinData = {};
 var fmt = function(n){ return '$' + Math.round(n).toLocaleString('en-US'); };
 
 async function lookupVIN() {
+  if(window.gtag)gtag('event','vin_lookup_started');
   var vin = document.getElementById('vinInput').value.trim().toUpperCase();
   var btn = document.getElementById('lookupBtn');
   var conf = document.getElementById('vinConfirm');
@@ -413,6 +414,7 @@ async function uploadPhotos() {
 }
 
 async function submitListing() {
+  if(window.gtag)gtag('event','listing_submitted');
   var name = document.getElementById('sellerName').value.trim();
   var phone = document.getElementById('sellerPhone').value.trim();
   var email = document.getElementById('sellerEmail').value.trim();
