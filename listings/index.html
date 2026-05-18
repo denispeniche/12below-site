@@ -211,8 +211,8 @@ select.fbtn{appearance:none;padding-right:28px;}
 </div>
 <div class="est-mo" id="mesmo" style="margin-bottom:4px"></div><div class="msaving" id="msaving"></div>
 <div class="action-row">
-<button class="action-btn btn-recall" id="recallBtn" onclick="checkRecalls()">Check Recalls</button>
-<a class="action-btn btn-finance" id="financeBtn" href="https://www.autofi.com" target="_blank" rel="noopener">Get Financing</a>
+<button class="action-btn btn-recall" id="recallBtn" onclick="if(window.gtag)gtag('event','check_recalls');checkRecalls()">Check Recalls</button>
+<a class="action-btn btn-finance" id="financeBtn" onclick="if(window.gtag)gtag('event','click_get_financing')" href="https://www.autofi.com" target="_blank" rel="noopener">Get Financing</a>
 </div>
 <div id="recallResult" style="margin-bottom:12px"></div>
 <div class="specs" id="specs"></div>
