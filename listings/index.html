@@ -131,7 +131,7 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
   .mtitle{font-size:20px}
   .mprice{font-size:28px}
 }
-.nav-links{display:flex;gap:18px;align-items:center}.nav-link{color:#1a1a2e;text-decoration:none;font-weight:600;font-size:14px;padding:8px 4px}.nav-link:hover{color:#1a3afa}</style>
+.nav-links{display:flex;gap:18px;align-items:center}.nav-link{color:#1a1a2e;text-decoration:none;font-weight:600;font-size:14px;padding:8px 4px}.nav-link:hover{color:#1a3afa}.mp-chip{grid-column:1/-1;background:#eff6ff;border:1px solid #c7d8f5;color:#1a3c6e;padding:12px 18px;border-radius:10px;font-size:14px;font-weight:600;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.mp-clear{color:#1a3afa;text-decoration:underline;font-weight:600;font-size:13px}</style>
 </head>
 <body>
 <nav>
@@ -191,6 +191,7 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
 (function(){
   var all = [];
   var filtered = [];
+  var urlMaxPrice = (function(){ try { var u = new URL(window.location.href); var v = u.searchParams.get('maxPrice'); return v ? Number(v) : null; } catch(e){ return null; } })();
   var currentPhoto = 0;
   var modalListing = null;
   var vinDecodeCache = {};
@@ -285,6 +286,7 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
         var p = Number(l.askingPrice);
         if(p < lo || p > hi) return false;
       }
+      if(urlMaxPrice && Number(l.askingPrice) > urlMaxPrice) return false;
       return true;
     });
 
@@ -298,8 +300,10 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
 
   function renderGrid(){
     var g = document.getElementById('grid');
+    var chipHtml = '';
+    if(urlMaxPrice){ chipHtml = '<div class="mp-chip">Showing cars under ' + '$' + Number(urlMaxPrice).toLocaleString() + ' <a href="/listings/" class="mp-clear">Clear</a></div>'; }
     if(filtered.length === 0){
-      g.innerHTML = '<div class="empty"><p>No cars match your filters.</p></div>';
+      g.innerHTML = chipHtml + '<div class="empty"><p>No cars match your filters.</p></div>';
       return;
     }
     var html = '';
@@ -324,7 +328,7 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
       html += '<div class="card-footer"><span>' + escHtml(l.location || 'DMV') + '</span><span>View details</span></div>';
       html += '</div></div>';
     });
-    g.innerHTML = html;
+    g.innerHTML = chipHtml + html;
   }
 
   function openModal(idx){
