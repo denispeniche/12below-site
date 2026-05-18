@@ -197,7 +197,7 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
 
   // Payment calc state
   var calcDown = 0;
-  var calcApr = 7.5;
+  var calcApr = 5.0;
   var calcTerm = 60;
 
   function money(n){ return '$' + Number(n||0).toLocaleString('en-US'); }
@@ -334,7 +334,7 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
     currentPhoto = 0;
     // Reset calc to defaults based on this car
     calcDown = Math.round((l.askingPrice || 0) * 0.1);
-    calcApr = 7.5;
+    calcApr = 5.0;
     calcTerm = 60;
     renderModal();
     document.getElementById('ov').classList.add('open');
@@ -467,7 +467,7 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
     // 6. Buy CTA - links to /buy?id=
     html += '<a href="/buy/?id=' + encodeURIComponent(l.id) + '" class="buy-cta">Buy This Car Securely<span class="arr">-&gt;</span></a>';
 
-    // 7. Action row - 2x2: Call, Financing, Recalls, Vehicle History
+    // 7. Action row: Call Seller + Get Financing
     html += '<div class="mactions">';
     if(l.phone){
       html += '<a href="tel:' + escHtml(l.phone) + '" class="mbtn">Call Seller</a>';
@@ -475,8 +475,6 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
       html += '<a href="mailto:' + escHtml(l.email || '') + '" class="mbtn">Email Seller</a>';
     }
     html += '<button class="mbtn" id="m-financing">Get Financing</button>';
-    html += '<button class="mbtn" id="m-recalls">Check Recalls</button>';
-    html += '<a href="https://www.vinaudit.com/?vin=' + escHtml(l.vin || '') + '" target="_blank" rel="noopener" class="mbtn">Vehicle History</a>';
     html += '</div>';
 
     // 8. Seller block
@@ -570,15 +568,6 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
       return;
     }
 
-    // Recalls
-    if(t.id === 'm-recalls'){
-      if(modalListing && modalListing.vin){
-        window.open('https://www.nhtsa.gov/recalls?vin=' + encodeURIComponent(modalListing.vin), '_blank', 'noopener');
-      } else {
-        window.open('https://www.nhtsa.gov/recalls', '_blank', 'noopener');
-      }
-      return;
-    }
   });
 
   // Filter changes
