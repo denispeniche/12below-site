@@ -35,9 +35,9 @@ nav{background:#fff;padding:18px 40px;display:flex;justify-content:space-between
 
 /* Left side: car image with payment card overlay */
 .hero-left{position:relative}
-.hero-car-wrap{position:relative;width:100%;height:480px;display:flex;align-items:center;justify-content:center}
-.hero-car{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:drop-shadow(0 30px 40px rgba(0,0,0,.35))}
-.pay-card{position:absolute;top:80px;left:0;background:linear-gradient(135deg,rgba(10,30,90,.7) 0%,rgba(26,58,250,.5) 100%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid rgba(255,255,255,.2);border-radius:14px;padding:18px 24px;color:#fff;z-index:5;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+.hero-car-wrap{position:relative;width:100%;height:420px;display:flex;align-items:center;justify-content:center;padding-top:40px}
+.hero-car{width:110%;max-width:680px;height:auto;filter:drop-shadow(0 18px 24px rgba(10,26,61,.25))}
+.pay-card{position:absolute;top:100px;left:20px;background:linear-gradient(135deg,rgba(10,30,90,.7) 0%,rgba(26,58,250,.5) 100%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid rgba(255,255,255,.2);border-radius:14px;padding:18px 24px;color:#fff;z-index:5;box-shadow:0 12px 30px rgba(0,0,0,.25)}
 .pay-card-top{font-size:12px;font-weight:500;opacity:.85;margin-bottom:6px;display:flex;align-items:center;gap:6px}
 .pay-card-lock{font-size:11px}
 .pay-card-amount{display:flex;align-items:baseline;gap:2px}
@@ -183,7 +183,131 @@ footer a:hover{color:#fff}
 
       <div class="hero-left">
         <div class="hero-car-wrap">
-          <img class="hero-car" src="/.netlify/functions/photo?path=photos/1778869564488_photo_1778869563407_0.jpg" alt="2019 BMW X3 - real listing on 12Below">
+          <svg class="hero-car" viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2c4dff"/>
+      <stop offset="0.5" stop-color="#1a3afa"/>
+      <stop offset="1" stop-color="#0d2399"/>
+    </linearGradient>
+    <linearGradient id="windowGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dde7ff"/>
+      <stop offset="1" stop-color="#7a96d4"/>
+    </linearGradient>
+    <radialGradient id="groundShadow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#0a1a3d" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#0a1a3d" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="headlight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffce0"/>
+      <stop offset="1" stop-color="#fde68a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ground shadow -->
+  <ellipse cx="380" cy="295" rx="320" ry="14" fill="url(#groundShadow)"/>
+
+  <!-- Main body -->
+  <path d="M 60 235
+           Q 62 200 105 192
+           L 200 178
+           Q 235 110 320 100
+           L 430 100
+           Q 515 105 555 178
+           L 660 192
+           Q 695 197 695 230
+           L 695 258
+           Q 695 268 685 268
+           L 625 268
+           Q 625 220 575 220
+           Q 525 220 525 268
+           L 230 268
+           Q 230 220 180 220
+           Q 130 220 130 268
+           L 70 268
+           Q 60 268 60 258 Z"
+        fill="url(#bodyGrad)"/>
+
+  <!-- Top highlight on roof curve -->
+  <path d="M 200 178 Q 235 110 320 100 L 430 100 Q 515 105 555 178"
+        stroke="#5a7eff" stroke-width="2" fill="none" opacity="0.5"/>
+
+  <!-- Cabin/window glass -->
+  <path d="M 248 175
+           Q 270 122 332 115
+           L 418 115
+           Q 480 122 508 175
+           L 470 175
+           Q 455 138 415 132
+           L 335 132
+           Q 295 138 280 175 Z"
+        fill="url(#windowGrad)"/>
+
+  <!-- B-pillar between windows -->
+  <rect x="372" y="115" width="3.5" height="60" fill="#1a3afa"/>
+
+  <!-- Door cut line -->
+  <line x1="375" y1="178" x2="375" y2="240" stroke="#0a1c8a" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Door handles -->
+  <rect x="295" y="205" width="22" height="3" rx="1.5" fill="#0a1a3d" opacity="0.55"/>
+  <rect x="438" y="205" width="22" height="3" rx="1.5" fill="#0a1a3d" opacity="0.55"/>
+
+  <!-- Lower side accent line -->
+  <line x1="135" y1="250" x2="620" y2="250" stroke="#0a1c8a" stroke-width="1" opacity="0.35"/>
+
+  <!-- Front headlight cluster -->
+  <ellipse cx="82" cy="220" rx="22" ry="10" fill="url(#headlight)"/>
+  <ellipse cx="82" cy="220" rx="14" ry="6" fill="#fff" opacity="0.85"/>
+
+  <!-- Front grill -->
+  <path d="M 60 240 L 105 235 L 105 252 L 60 252 Z" fill="#0a1a3d" opacity="0.4"/>
+
+  <!-- Rear taillight -->
+  <rect x="668" y="208" width="24" height="14" rx="3" fill="#ff5252"/>
+  <rect x="670" y="210" width="20" height="10" rx="2" fill="#ff7a7a"/>
+
+  <!-- FRONT WHEEL -->
+  <g transform="translate(180, 268)">
+    <circle r="48" fill="#0a1424"/>
+    <circle r="40" fill="#1a2236"/>
+    <circle r="32" fill="#0a1424"/>
+    <circle r="22" fill="#3a4868"/>
+    <circle r="8" fill="#0a1424"/>
+    <g stroke="#5a6c92" stroke-width="2.8" stroke-linecap="round">
+      <line x1="-26" y1="0" x2="-15" y2="0"/>
+      <line x1="26" y1="0" x2="15" y2="0"/>
+      <line x1="0" y1="-26" x2="0" y2="-15"/>
+      <line x1="0" y1="26" x2="0" y2="15"/>
+      <line x1="-18" y1="-18" x2="-10" y2="-10"/>
+      <line x1="18" y1="18" x2="10" y2="10"/>
+      <line x1="18" y1="-18" x2="10" y2="-10"/>
+      <line x1="-18" y1="18" x2="-10" y2="10"/>
+    </g>
+  </g>
+
+  <!-- REAR WHEEL -->
+  <g transform="translate(575, 268)">
+    <circle r="48" fill="#0a1424"/>
+    <circle r="40" fill="#1a2236"/>
+    <circle r="32" fill="#0a1424"/>
+    <circle r="22" fill="#3a4868"/>
+    <circle r="8" fill="#0a1424"/>
+    <g stroke="#5a6c92" stroke-width="2.8" stroke-linecap="round">
+      <line x1="-26" y1="0" x2="-15" y2="0"/>
+      <line x1="26" y1="0" x2="15" y2="0"/>
+      <line x1="0" y1="-26" x2="0" y2="-15"/>
+      <line x1="0" y1="26" x2="0" y2="15"/>
+      <line x1="-18" y1="-18" x2="-10" y2="-10"/>
+      <line x1="18" y1="18" x2="10" y2="10"/>
+      <line x1="18" y1="-18" x2="10" y2="-10"/>
+      <line x1="-18" y1="18" x2="-10" y2="10"/>
+    </g>
+  </g>
+
+  <!-- Subtle body reflection (long horizontal highlight) -->
+  <path d="M 100 230 Q 200 222 380 220 Q 560 222 660 230" stroke="#fff" stroke-width="1.2" fill="none" opacity="0.25"/>
+</svg>
           <div class="pay-card">
             <div class="pay-card-top"><span class="pay-card-lock">&#128274;</span> Monthly Payment*</div>
             <div class="pay-card-amount"><span class="pay-card-dollar">$</span><span class="pay-card-num">374</span><span class="pay-card-mo">/mo</span></div>
