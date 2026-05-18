@@ -56,3 +56,22 @@
   from = "/confirm/"
   to = "/confirm/index.html"
   status = 200
+
+# === Canonical domain redirects (force 12below.net + www.* -> 12belowcars.com) ===
+[[redirects]]
+  from = "https://12below.net/*"
+  to = "https://12belowcars.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.12below.net/*"
+  to = "https://12belowcars.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.12belowcars.com/*"
+  to = "https://12belowcars.com/:splat"
+  status = 301
+  force = true
