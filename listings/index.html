@@ -142,6 +142,14 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
   var currentPhoto = 0;
   var modalListing = null;
 
+  function fixPhoto(url){
+    if(!url) return '';
+    if(url.indexOf('storage.bunnycdn.com') >= 0){
+      var m = url.match(/storage\.bunnycdn\.com\/[^/]+\/(.+)$/);
+      if(m) return '/.netlify/functions/photo?path=' + encodeURIComponent(m[1]);
+    }
+    return url;
+  }
   function money(n){ return '$' + Number(n||0).toLocaleString('en-US'); }
   function pct(market, price){
     if(!market || !price) return 0;
@@ -230,7 +238,7 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
     var html = '';
     filtered.forEach(function(l, idx){
       var savings = pct(l.marketValue, l.askingPrice);
-      var photo = (l.photos && l.photos[0]) ? l.photos[0] : '';
+      var photo = (l.photos && l.photos[0]) ? fixPhoto(l.photos[0]) : '';
       var imgStyle = photo ? 'background-image:url(' + escHtml(photo) + ')' : '';
       var imgClass = photo ? 'card-img' : 'card-img placeholder';
       var imgInner = photo ? '' : 'No photo';
@@ -271,7 +279,7 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
     if(photos.length){
       galleryHtml = '<div class="gallery">';
       galleryHtml += '<button class="mclose" id="m-close">x</button>';
-      galleryHtml += '<img src="' + escHtml(photos[currentPhoto]) + '" alt="">';
+      galleryHtml += '<img src="' + escHtml(fixPhoto(photos[currentPhoto])) + '" alt="">';
       if(photos.length > 1){
         galleryHtml += '<button class="nav-arrow prev" id="m-prev">&lt;</button>';
         galleryHtml += '<button class="nav-arrow next" id="m-next">&gt;</button>';
