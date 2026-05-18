@@ -28,29 +28,18 @@ nav{background:#fff;padding:18px 40px;display:flex;justify-content:space-between
 
 /* Hero with blue ribbon background */
 .hero{position:relative;background:#fff;padding:0;overflow:hidden}
-.hero-ribbon{position:absolute;top:0;left:0;right:0;height:340px;background:linear-gradient(135deg,#1a3afa 0%,#0a1e5a 100%);z-index:1}
+.hero-ribbon{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#1a3afa 0%,#0a1e5a 100%);z-index:1}
 .hero-ribbon:after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.08) 60%,transparent 80%);pointer-events:none}
 .hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 40px}
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;min-height:560px;padding-top:60px}
+.hero-centered{max-width:780px;margin:0 auto;text-align:center;padding:90px 0 110px}
 
-/* Left side: car image with payment card overlay */
-.hero-left{position:relative}
-.hero-car-wrap{position:relative;width:100%;height:420px;display:flex;align-items:center;justify-content:center;padding-top:40px}
-.hero-car{width:110%;max-width:680px;height:auto;filter:drop-shadow(0 18px 24px rgba(10,26,61,.25))}
-.pay-card{position:absolute;top:100px;left:20px;background:linear-gradient(135deg,rgba(10,30,90,.7) 0%,rgba(26,58,250,.5) 100%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid rgba(255,255,255,.2);border-radius:14px;padding:18px 24px;color:#fff;z-index:5;box-shadow:0 12px 30px rgba(0,0,0,.25)}
-.pay-card-top{font-size:12px;font-weight:500;opacity:.85;margin-bottom:6px;display:flex;align-items:center;gap:6px}
-.pay-card-lock{font-size:11px}
-.pay-card-amount{display:flex;align-items:baseline;gap:2px}
-.pay-card-dollar{font-size:30px;font-weight:800;line-height:1}
-.pay-card-num{font-size:38px;font-weight:800;line-height:1;letter-spacing:-1px}
-.pay-card-mo{font-size:17px;opacity:.75;font-weight:600;margin-left:2px}
+/* (car + payment-card styles removed - hero is now text-only) */
 
-/* Right side: heading + CTA */
-.hero-right{padding-top:30px}
-.hero-right h1{font-size:clamp(36px,4.5vw,56px);font-weight:900;line-height:1.02;color:#fff;letter-spacing:-1.5px;margin-bottom:18px}
-.hero-right .accent{color:#7BB6FF}
-.hero-right .lead{font-size:16px;color:rgba(255,255,255,.92);margin-bottom:36px;max-width:480px;line-height:1.55}
-.hero-right .lead b{font-weight:700;color:#fff}
+/* Hero content styles */
+.hero-centered h1{font-size:clamp(36px,5.5vw,64px);font-weight:900;line-height:1.02;color:#fff;letter-spacing:-1.5px;margin-bottom:22px}
+.hero-centered .accent{color:#7BB6FF}
+.hero-centered .lead{font-size:17px;color:rgba(255,255,255,.92);margin:0 auto 40px;max-width:580px;line-height:1.6}
+.hero-centered .lead b{font-weight:700;color:#fff}
 .hero-cta{display:inline-flex;align-items:center;gap:10px;background:#1a3afa;color:#fff;padding:18px 44px;border-radius:30px;font-size:16px;font-weight:700;font-family:inherit;transition:all .15s;box-shadow:0 8px 24px rgba(26,58,250,.35);border:none;cursor:pointer}
 .hero-cta:hover{background:#1228c8;transform:translateY(-1px);box-shadow:0 10px 28px rgba(26,58,250,.45)}
 .hero-fineprint{margin-top:30px;font-size:12px;color:#5c6680}
@@ -148,16 +137,7 @@ footer a:hover{color:#fff}
   nav{padding:14px 20px}
   .nav-links{gap:16px}
   .nav-link{font-size:13px}
-  .hero-ribbon{height:auto;bottom:auto;top:0;height:480px}
-  .hero-inner{padding:0 20px}
-  .hero-grid{grid-template-columns:1fr;gap:0;padding-top:30px;min-height:auto}
-  .hero-right{padding-top:0;padding-bottom:24px;text-align:left;order:1}
-  .hero-left{order:2}
-  .hero-car-wrap{height:300px}
-  .pay-card{top:10px}
-  .pay-card-num{font-size:28px}
-  .pay-card-dollar{font-size:22px}
-  .hero-right h1{font-size:36px}
+  .hero-centered{padding:60px 0 80px}.hero-centered h1{font-size:36px}
   .welcome,.how,.why,.faq,.real-pay{padding:64px 20px}
   .welcome-grid,.how-grid,.why-grid{grid-template-columns:1fr;gap:20px}
   .real-pay-cards{grid-template-columns:1fr}
@@ -179,149 +159,11 @@ footer a:hover{color:#fff}
 <section class="hero">
   <div class="hero-ribbon"></div>
   <div class="hero-inner">
-    <div class="hero-grid">
-
-      <div class="hero-left">
-        <div class="hero-car-wrap">
-          <svg class="hero-car" viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <defs>
-    <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#2c4dff"/>
-      <stop offset="0.5" stop-color="#1a3afa"/>
-      <stop offset="1" stop-color="#0d2399"/>
-    </linearGradient>
-    <linearGradient id="windowGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#dde7ff"/>
-      <stop offset="1" stop-color="#7a96d4"/>
-    </linearGradient>
-    <radialGradient id="groundShadow" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#0a1a3d" stop-opacity="0.35"/>
-      <stop offset="1" stop-color="#0a1a3d" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="headlight" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#fffce0"/>
-      <stop offset="1" stop-color="#fde68a"/>
-    </linearGradient>
-  </defs>
-
-  <!-- Ground shadow -->
-  <ellipse cx="380" cy="295" rx="320" ry="14" fill="url(#groundShadow)"/>
-
-  <!-- Main body -->
-  <path d="M 60 235
-           Q 62 200 105 192
-           L 200 178
-           Q 235 110 320 100
-           L 430 100
-           Q 515 105 555 178
-           L 660 192
-           Q 695 197 695 230
-           L 695 258
-           Q 695 268 685 268
-           L 625 268
-           Q 625 220 575 220
-           Q 525 220 525 268
-           L 230 268
-           Q 230 220 180 220
-           Q 130 220 130 268
-           L 70 268
-           Q 60 268 60 258 Z"
-        fill="url(#bodyGrad)"/>
-
-  <!-- Top highlight on roof curve -->
-  <path d="M 200 178 Q 235 110 320 100 L 430 100 Q 515 105 555 178"
-        stroke="#5a7eff" stroke-width="2" fill="none" opacity="0.5"/>
-
-  <!-- Cabin/window glass -->
-  <path d="M 248 175
-           Q 270 122 332 115
-           L 418 115
-           Q 480 122 508 175
-           L 470 175
-           Q 455 138 415 132
-           L 335 132
-           Q 295 138 280 175 Z"
-        fill="url(#windowGrad)"/>
-
-  <!-- B-pillar between windows -->
-  <rect x="372" y="115" width="3.5" height="60" fill="#1a3afa"/>
-
-  <!-- Door cut line -->
-  <line x1="375" y1="178" x2="375" y2="240" stroke="#0a1c8a" stroke-width="1.5" opacity="0.6"/>
-
-  <!-- Door handles -->
-  <rect x="295" y="205" width="22" height="3" rx="1.5" fill="#0a1a3d" opacity="0.55"/>
-  <rect x="438" y="205" width="22" height="3" rx="1.5" fill="#0a1a3d" opacity="0.55"/>
-
-  <!-- Lower side accent line -->
-  <line x1="135" y1="250" x2="620" y2="250" stroke="#0a1c8a" stroke-width="1" opacity="0.35"/>
-
-  <!-- Front headlight cluster -->
-  <ellipse cx="82" cy="220" rx="22" ry="10" fill="url(#headlight)"/>
-  <ellipse cx="82" cy="220" rx="14" ry="6" fill="#fff" opacity="0.85"/>
-
-  <!-- Front grill -->
-  <path d="M 60 240 L 105 235 L 105 252 L 60 252 Z" fill="#0a1a3d" opacity="0.4"/>
-
-  <!-- Rear taillight -->
-  <rect x="668" y="208" width="24" height="14" rx="3" fill="#ff5252"/>
-  <rect x="670" y="210" width="20" height="10" rx="2" fill="#ff7a7a"/>
-
-  <!-- FRONT WHEEL -->
-  <g transform="translate(180, 268)">
-    <circle r="48" fill="#0a1424"/>
-    <circle r="40" fill="#1a2236"/>
-    <circle r="32" fill="#0a1424"/>
-    <circle r="22" fill="#3a4868"/>
-    <circle r="8" fill="#0a1424"/>
-    <g stroke="#5a6c92" stroke-width="2.8" stroke-linecap="round">
-      <line x1="-26" y1="0" x2="-15" y2="0"/>
-      <line x1="26" y1="0" x2="15" y2="0"/>
-      <line x1="0" y1="-26" x2="0" y2="-15"/>
-      <line x1="0" y1="26" x2="0" y2="15"/>
-      <line x1="-18" y1="-18" x2="-10" y2="-10"/>
-      <line x1="18" y1="18" x2="10" y2="10"/>
-      <line x1="18" y1="-18" x2="10" y2="-10"/>
-      <line x1="-18" y1="18" x2="-10" y2="10"/>
-    </g>
-  </g>
-
-  <!-- REAR WHEEL -->
-  <g transform="translate(575, 268)">
-    <circle r="48" fill="#0a1424"/>
-    <circle r="40" fill="#1a2236"/>
-    <circle r="32" fill="#0a1424"/>
-    <circle r="22" fill="#3a4868"/>
-    <circle r="8" fill="#0a1424"/>
-    <g stroke="#5a6c92" stroke-width="2.8" stroke-linecap="round">
-      <line x1="-26" y1="0" x2="-15" y2="0"/>
-      <line x1="26" y1="0" x2="15" y2="0"/>
-      <line x1="0" y1="-26" x2="0" y2="-15"/>
-      <line x1="0" y1="26" x2="0" y2="15"/>
-      <line x1="-18" y1="-18" x2="-10" y2="-10"/>
-      <line x1="18" y1="18" x2="10" y2="10"/>
-      <line x1="18" y1="-18" x2="10" y2="-10"/>
-      <line x1="-18" y1="18" x2="-10" y2="10"/>
-    </g>
-  </g>
-
-  <!-- Subtle body reflection (long horizontal highlight) -->
-  <path d="M 100 230 Q 200 222 380 220 Q 560 222 660 230" stroke="#fff" stroke-width="1.2" fill="none" opacity="0.25"/>
-</svg>
-          <div class="pay-card">
-            <div class="pay-card-top"><span class="pay-card-lock">&#128274;</span> Monthly Payment*</div>
-            <div class="pay-card-amount"><span class="pay-card-dollar">$</span><span class="pay-card-num">374</span><span class="pay-card-mo">/mo</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-right">
-        <h1>Financing on cars <span class="accent">12% below market</span></h1>
-        <p class="lead">Get pre-qualified for an auto loan in 2 minutes. <b>No hit to your credit.</b> Pair smart financing with our below-market prices so every dollar goes toward the car &mdash; not dealer markup.</p>
-        <a href="https://www.autofi.com/?utm_source=12below&utm_medium=financing_page&utm_campaign=hero_cta" target="_blank" rel="noopener" class="hero-cta" id="hero-cta">Get pre-qualified</a>
-        <p class="hero-fineprint">*Real payment on a 2019 BMW X3 listed at $22,000. 60-month term, 10% down, 5% APR. Values shown are illustrative.</p>
-      </div>
-
+    <div class="hero-centered">
+      <h1>Financing on cars <span class="accent">12% below market</span></h1>
+      <p class="lead">Get pre-qualified for an auto loan in 2 minutes. <b>No hit to your credit.</b> Pair smart financing with our below-market prices so every dollar goes toward the car &mdash; not dealer markup.</p>
+      <a href="https://www.autofi.com/?utm_source=12below&utm_medium=financing_page&utm_campaign=hero_cta" target="_blank" rel="noopener" class="hero-cta" id="hero-cta">Get pre-qualified</a>
+      <p class="hero-fineprint">Soft credit pull only &middot; No impact on your score</p>
     </div>
   </div>
 </section>
