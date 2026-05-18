@@ -228,7 +228,7 @@ select.fbtn{appearance:none;padding-right:28px;}
 <div class="calc-note" id="calcNote"></div>
 <a class="calc-cta" id="calcCta" href="https://www.autofi.com" target="_blank" rel="noopener">Get Pre-Qualified - Takes 2 minutes</a>
 </div>
-<a class="buy-btn" id="buyBtn" href="#">Start Secure Purchase</a>
+<a class="buy-btn" onclick="if(window.gtag)gtag('event','buy_clicked')" id="buyBtn" href="#">Start Secure Purchase</a>
 </div>
 </div>
 </div>
@@ -294,6 +294,7 @@ return '<div class="card" onclick="openModal(\''+l.id+'\')">'+
 }).join('');
 }
 function openModal(id){
+  if(window.gtag)gtag('event','view_listing',{listing_id:id||'unknown'});
 var l=AL.find(function(x){return String(x.id)===String(id);});
 if(!l)return;
 PH=l.photos&&l.photos.length?l.photos:[''];
@@ -332,8 +333,8 @@ document.getElementById('contact').innerHTML=
 (l.phone?'<div class="cdetail"><span>&#128222;</span><a href="tel:'+l.phone+'">'+l.phone+'</a></div>':'')+
 (l.email?'<div class="cdetail"><span>&#9993;</span><a href="mailto:'+l.email+'">'+l.email+'</a></div>':'')+
 (l.notes&&l.notes.trim()&&l.notes!=='None'?'<div class="cdetail" style="flex-direction:column;align-items:flex-start;gap:4px"><span style="color:#888;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Notes</span><span>'+l.notes+'</span></div>':'')+
-(l.phone?'<a class="call-btn" href="tel:'+l.phone+'">&#128222; Call Seller</a>':
-l.email?'<a class="call-btn" href="mailto:'+l.email+'">&#9993; Email Seller</a>':'');
+(l.phone?'<a class="call-btn" onclick="if(window.gtag)gtag('event','click_call_seller',{listing_id:(document.querySelector('.modal-vin')||{}).textContent||''})" href="tel:'+l.phone+'">&#128222; Call Seller</a>':
+l.email?'<a class="call-btn" onclick="if(window.gtag)gtag('event','click_call_seller',{listing_id:(document.querySelector('.modal-vin')||{}).textContent||''})" href="mailto:'+l.email+'">&#9993; Email Seller</a>':'');
 document.getElementById('buyBtn').href='/buy?id='+l.id;
 RECALL_MAKE=l.make;RECALL_MODEL=l.model;RECALL_YEAR=l.year;RECALL_VIN=l.vin||'';document.getElementById('recallResult').innerHTML='';document.getElementById('recallBtn').textContent='Check Recalls';document.getElementById('recallBtn').disabled=false;
 document.getElementById('ov').classList.add('open');
