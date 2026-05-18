@@ -475,8 +475,10 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
     html += '<div class="mactions">';
     if(l.phone){
       html += '<a href="tel:' + escHtml(l.phone) + '" class="mbtn">Call Seller</a>';
-    } else {
-      html += '<a href="mailto:' + escHtml(l.email || '') + '" class="mbtn">Email Seller</a>';
+      html += '<a href="sms:' + escHtml(l.phone) + '" class="mbtn">Text Seller</a>';
+    }
+    if(l.email){
+      html += '<a href="mailto:' + escHtml(l.email) + '?subject=' + encodeURIComponent('Interested in your ' + (l.year||'') + ' ' + (l.make||'') + ' ' + (l.model||'')) + '" class="mbtn">Email Seller</a>';
     }
     html += '<button class="mbtn" id="m-financing">Get Financing</button>';
     html += '</div>';
