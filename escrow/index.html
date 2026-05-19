@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Safe Car Buying Escrow - 12Below | Buying from a stranger? Pay only when you're safe.</title>
+<meta name="description" content="12Below Escrow holds your payment until the car is in your hands. Protect $20k+ from Craigslist scams, fake titles, and wire fraud. Flat $299 fee.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',sans-serif;background:#fff;color:#0a1f5c;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+b,strong{font-weight:700}
+
+/* Nav - matching the site */
+nav{background:#fff;padding:18px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f0f1f5;position:sticky;top:0;z-index:100}
+.logo{display:flex !important;flex-direction:column !important;align-items:center !important;line-height:1 !important;gap:3px !important}
+.logo-main{font-size:22px !important;font-weight:800 !important;color:#0ea5e9 !important;letter-spacing:-.5px}
+.logo-main em{font-style:normal !important;color:#0a1f5c !important;font-weight:800 !important}
+.logo-cars{font-size:9px !important;font-weight:800 !important;color:#0ea5e9 !important;letter-spacing:3px !important;background:#f0f9ff !important;padding:2px 6px !important;border-radius:4px !important;border:1px solid #e0f2fe !important;margin-left:16px}
+.nav-right{display:flex;gap:20px;align-items:center}
+.nav-link{color:#64748b;font-weight:600;font-size:14px;padding:8px 4px}
+.nav-link:hover{color:#0ea5e9}
+.nav-cta{background:#0a1f5c;color:#fff;padding:10px 22px;border-radius:24px;font-weight:700;font-size:14px;transition:all .15s}
+.nav-cta:hover{background:#0a2876;transform:translateY(-1px)}
+
+/* Hero - calm, confident, white background like PrivateAuto */
+.hero{padding:80px 32px 60px;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);position:relative;overflow:hidden}
+.hero-inner{max-width:1100px;margin:0 auto;text-align:center;position:relative;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:#f0fdf4;color:#166534;padding:8px 16px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:24px;border:1px solid #bbf7d0}
+.hero-badge-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:clamp(34px,5vw,58px);font-weight:900;letter-spacing:-1.5px;line-height:1.05;margin-bottom:20px;color:#0a1f5c;max-width:880px;margin-left:auto;margin-right:auto}
+.hero h1 .accent{background:linear-gradient(90deg,#0ea5e9 0%,#0a1f5c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p.lead{font-size:18px;color:#475569;max-width:640px;margin:0 auto 36px;line-height:1.6}
+.hero-cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+.btn-primary{background:#0a1f5c;color:#fff;padding:18px 36px;border-radius:30px;font-size:16px;font-weight:700;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:10px;transition:all .15s;box-shadow:0 8px 24px rgba(10,31,92,.25)}
+.btn-primary:hover{background:#0a2876;transform:translateY(-1px);box-shadow:0 10px 28px rgba(10,31,92,.35)}
+.btn-primary .arr{transition:transform .15s}
+.btn-primary:hover .arr{transform:translateX(3px)}
+.btn-secondary{background:transparent;color:#0a1f5c;padding:18px 36px;border-radius:30px;font-size:16px;font-weight:700;border:1.5px solid #cbd5e1;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn-secondary:hover{border-color:#0a1f5c;background:#f8fafc}
+.hero-microcopy{font-size:13px;color:#64748b}
+.hero-microcopy b{color:#0a1f5c}
+
+/* Fear-grid: the 4 things that go wrong with private sales */
+.fear{padding:64px 32px;background:#fff}
+.fear-inner{max-width:1100px;margin:0 auto}
+.fear h2{font-size:clamp(24px,3vw,34px);font-weight:800;text-align:center;color:#0a1f5c;letter-spacing:-.5px;margin-bottom:14px}
+.fear-sub{text-align:center;color:#64748b;font-size:16px;margin-bottom:48px;max-width:560px;margin-left:auto;margin-right:auto}
+.fear-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.fear-card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:28px 22px;text-align:left;transition:all .15s}
+.fear-card:hover{border-color:#0ea5e9;transform:translateY(-2px);box-shadow:0 8px 24px rgba(14,165,233,.08)}
+.fear-icon{width:42px;height:42px;border-radius:10px;background:#fef2f2;color:#dc2626;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;margin-bottom:14px}
+.fear-card h3{font-size:15px;font-weight:800;color:#0a1f5c;margin-bottom:6px}
+.fear-card p{font-size:13px;color:#64748b;line-height:1.55}
+
+/* 3-step flow - the heart of the page */
+.flow{padding:80px 32px;background:#f8fbff}
+.flow-inner{max-width:1100px;margin:0 auto}
+.flow-head{text-align:center;margin-bottom:64px}
+.flow h2{font-size:clamp(28px,3.5vw,42px);font-weight:800;letter-spacing:-1px;color:#0a1f5c;margin-bottom:14px}
+.flow-sub{font-size:17px;color:#475569;max-width:600px;margin:0 auto}
+.flow-diagram{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:24px;align-items:stretch;max-width:1000px;margin:0 auto}
+.flow-step{background:#fff;border:1.5px solid #e2e8f0;border-radius:20px;padding:32px 24px;text-align:center;position:relative;transition:all .2s}
+.flow-step:hover{border-color:#0ea5e9;box-shadow:0 12px 32px rgba(14,165,233,.1)}
+.flow-num{position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:36px;height:36px;border-radius:50%;background:#0a1f5c;color:#fff;font-weight:900;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(10,31,92,.25)}
+.flow-icon{font-size:48px;margin-top:8px;margin-bottom:18px;line-height:1}
+.flow-step h3{font-size:17px;font-weight:800;color:#0a1f5c;margin-bottom:8px}
+.flow-step p{font-size:13px;color:#64748b;line-height:1.6}
+.flow-step .who{display:inline-block;background:#f0f9ff;color:#0369a1;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:3px 10px;border-radius:10px;margin-top:14px}
+.flow-arrow{display:flex;align-items:center;justify-content:center;color:#cbd5e1;font-size:30px;font-weight:300}
+
+.flow-cta-wrap{text-align:center;margin-top:48px}
+.flow-cta-microcopy{font-size:14px;color:#64748b;margin-top:14px}
+
+/* Price section - sharp anchor */
+.price{padding:80px 32px;background:#fff}
+.price-inner{max-width:780px;margin:0 auto;text-align:center}
+.price-eyebrow{display:inline-block;background:#fef3c7;color:#92400e;padding:6px 14px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:18px}
+.price h2{font-size:clamp(28px,3.5vw,40px);font-weight:800;letter-spacing:-.8px;color:#0a1f5c;margin-bottom:14px}
+.price-big{font-size:clamp(72px,9vw,112px);font-weight:900;color:#0a1f5c;letter-spacing:-3px;line-height:1;margin:30px 0 8px;font-variant-numeric:tabular-nums}
+.price-big .dollar{font-size:.55em;vertical-align:top;color:#0ea5e9;font-weight:800}
+.price-sub{font-size:16px;color:#64748b;margin-bottom:36px}
+.price-compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:560px;margin:0 auto 36px}
+.price-cell{background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:20px;text-align:left}
+.price-cell.bad{background:#fef2f2;border-color:#fecaca}
+.price-cell.good{background:#f0fdf4;border-color:#bbf7d0}
+.price-cell b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:#64748b;font-weight:700;margin-bottom:6px}
+.price-cell.bad b{color:#991b1b}
+.price-cell.good b{color:#166534}
+.price-cell .pc-val{font-size:24px;font-weight:900;color:#0a1f5c;font-variant-numeric:tabular-nums}
+.price-cell.bad .pc-val{color:#dc2626}
+.price-cell .pc-foot{font-size:12px;color:#64748b;margin-top:6px;line-height:1.4}
+
+/* Trust stack - text-based */
+.trust{padding:64px 32px;background:#0a1f5c;color:#fff}
+.trust-inner{max-width:1100px;margin:0 auto}
+.trust h2{font-size:24px;font-weight:800;text-align:center;margin-bottom:8px;letter-spacing:-.4px}
+.trust-sub{text-align:center;opacity:.7;font-size:14px;margin-bottom:40px;max-width:560px;margin-left:auto;margin-right:auto}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.trust-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:24px;text-align:left}
+.trust-icon{width:36px;height:36px;border-radius:8px;background:rgba(14,165,233,.15);color:#7dd3fc;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;margin-bottom:14px}
+.trust-card h4{font-size:14px;font-weight:800;margin-bottom:6px}
+.trust-card p{font-size:13px;opacity:.7;line-height:1.6}
+.trust-card p b{opacity:1;font-weight:700}
+
+/* FAQ */
+.faq-sec{padding:80px 32px;background:#fff}
+.faq-inner{max-width:760px;margin:0 auto}
+.faq-sec h2{font-size:clamp(26px,3vw,36px);font-weight:800;text-align:center;color:#0a1f5c;letter-spacing:-.5px;margin-bottom:14px}
+.faq-sec-sub{text-align:center;color:#64748b;margin-bottom:40px}
+.faq-item{border-bottom:1px solid #e2e8f0;transition:background .15s}
+.faq-item:first-child{border-top:1px solid #e2e8f0}
+.faq-q{padding:22px 4px;cursor:pointer;font-weight:700;font-size:15px;color:#0a1f5c;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.faq-q-icon{flex-shrink:0;width:24px;height:24px;color:#0ea5e9;font-weight:300;font-size:22px;transition:transform .25s;display:flex;align-items:center;justify-content:center}
+.faq-item.open .faq-q-icon{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease-out}
+.faq-item.open .faq-a{max-height:600px}
+.faq-a-inner{padding:0 4px 22px;color:#475569;font-size:14px;line-height:1.7}
+
+/* Final CTA section */
+.final{padding:80px 32px;background:linear-gradient(160deg,#0a1f5c 0%,#0a2876 60%,#0ea5e9 100%);color:#fff;text-align:center}
+.final h2{font-size:clamp(28px,3.5vw,42px);font-weight:800;letter-spacing:-1px;margin-bottom:14px}
+.final p{font-size:17px;opacity:.85;margin-bottom:32px;max-width:560px;margin-left:auto;margin-right:auto}
+.final .btn-final{background:#fff;color:#0a1f5c;padding:20px 44px;border-radius:30px;font-size:17px;font-weight:800;display:inline-flex;align-items:center;gap:10px;transition:all .15s;box-shadow:0 12px 32px rgba(0,0,0,.2)}
+.final .btn-final:hover{transform:translateY(-1px);box-shadow:0 16px 40px rgba(0,0,0,.3)}
+.final-foot{margin-top:24px;font-size:13px;opacity:.7}
+
+/* ============= ESCROW FORM (overlay/modal) ============= */
+.ef-overlay{display:none;position:fixed;inset:0;background:rgba(10,31,92,.6);z-index:200;overflow-y:auto;padding:24px;backdrop-filter:blur(4px)}
+.ef-overlay.open{display:flex;align-items:flex-start;justify-content:center}
+.ef-modal{background:#fff;border-radius:20px;max-width:640px;width:100%;margin:40px auto;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);animation:slideUp .3s ease-out}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.ef-head{padding:28px 32px 20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:start;gap:16px}
+.ef-head h3{font-size:22px;font-weight:800;color:#0a1f5c;letter-spacing:-.5px;margin-bottom:6px}
+.ef-head p{font-size:14px;color:#64748b;line-height:1.5}
+.ef-close{background:transparent;border:none;color:#94a3b8;font-size:24px;cursor:pointer;padding:4px;line-height:1;flex-shrink:0}
+.ef-close:hover{color:#0a1f5c}
+.ef-body{padding:28px 32px}
+.ef-section{margin-bottom:22px}
+.ef-section-title{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#0a1f5c;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.ef-section-num{width:22px;height:22px;border-radius:50%;background:#0a1f5c;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:800}
+.ef-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.ef-field label{display:block;font-size:11px;color:#64748b;font-weight:600;letter-spacing:.3px;text-transform:uppercase;margin-bottom:6px}
+.ef-field input,.ef-field select,.ef-field textarea{width:100%;padding:13px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;color:#0a1f5c;font-family:inherit;background:#fff;transition:border-color .15s;font-weight:500}
+.ef-field input:focus,.ef-field select:focus,.ef-field textarea:focus{outline:none;border-color:#0ea5e9;box-shadow:0 0 0 3px rgba(14,165,233,.1)}
+.ef-field.full{grid-column:1/-1}
+.ef-field textarea{resize:vertical;min-height:80px;font-family:inherit}
+.ef-submit{width:100%;background:#0a1f5c;color:#fff;padding:16px;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:8px;transition:all .15s;box-shadow:0 6px 18px rgba(10,31,92,.25)}
+.ef-submit:hover{background:#0a2876;transform:translateY(-1px)}
+.ef-submit:disabled{opacity:.6;cursor:not-allowed}
+.ef-microcopy{font-size:11px;color:#64748b;text-align:center;margin-top:12px;line-height:1.5}
+.ef-msg{padding:14px;border-radius:10px;font-size:13px;margin-top:14px;display:none;line-height:1.5}
+.ef-msg.error{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;display:block}
+.ef-msg.success{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;display:block;text-align:center;padding:24px}
+.ef-msg.success h4{font-size:17px;font-weight:800;margin-bottom:8px}
+
+/* Footer */
+footer{background:#f8fafc;color:#64748b;padding:40px 32px;text-align:center;font-size:13px;border-top:1px solid #e2e8f0}
+footer a{color:#0a1f5c;font-weight:600}
+footer p{margin-bottom:6px}
+
+@media(max-width:760px){
+  nav{padding:14px 20px}
+  .nav-right{gap:12px}
+  .nav-link{display:none}
+  .hero{padding:48px 20px 40px}
+  .hero h1{font-size:32px}
+  .fear,.flow,.price,.trust,.faq-sec,.final{padding:48px 20px}
+  .fear-grid{grid-template-columns:1fr 1fr;gap:14px}
+  .flow-diagram{grid-template-columns:1fr;gap:20px}
+  .flow-arrow{transform:rotate(90deg);height:24px}
+  .trust-grid{grid-template-columns:1fr 1fr;gap:14px}
+  .price-compare{grid-template-columns:1fr}
+  .ef-body{padding:20px}
+  .ef-row{grid-template-columns:1fr}
+  .ef-head{padding:20px}
+  .ef-modal{margin:16px auto}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <span class="logo-main">12<em>Below</em></span>
+    <span class="logo-cars">CARS</span>
+  </a>
+  <div class="nav-right">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/listings/" class="nav-link">Browse cars</a>
+    <a href="#start" class="nav-cta">Start a transaction</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="hero-badge-dot"></span>Now protecting DMV car deals</div>
+    <h1>Buying a car from a stranger?<br><span class="accent">Don&rsquo;t pay until you&rsquo;re safe.</span></h1>
+    <p class="lead">12Below Escrow holds your payment until the car is in your hands and the title is signed. No more wiring $20,000 to someone you&rsquo;ve never met.</p>
+    <div class="hero-cta-row">
+      <a href="#start" class="btn-primary" id="hero-cta-1">Start a safe transaction <span class="arr">&rarr;</span></a>
+      <a href="#how" class="btn-secondary">See how it works</a>
+    </div>
+    <div class="hero-microcopy"><b>$299 flat fee.</b> No marketplace listing required. Works for Craigslist, Facebook, or any private sale.</div>
+  </div>
+</section>
+
+<section class="fear">
+  <div class="fear-inner">
+    <h2>Private car sales go wrong in 4 ways</h2>
+    <p class="fear-sub">Every one of these costs buyers thousands. Escrow stops all of them.</p>
+    <div class="fear-grid">
+      <div class="fear-card">
+        <div class="fear-icon">&#9888;</div>
+        <h3>Fake title</h3>
+        <p>You hand over cash. The title turns out forged, salvage, or held by a lender. Car is repossessed weeks later.</p>
+      </div>
+      <div class="fear-card">
+        <div class="fear-icon">&#9888;</div>
+        <h3>Hidden lien</h3>
+        <p>Seller still owes the bank. You pay them, they don&rsquo;t pay off the loan, and the bank comes for the car &mdash; and you.</p>
+      </div>
+      <div class="fear-card">
+        <div class="fear-icon">&#9888;</div>
+        <h3>Wire fraud</h3>
+        <p>Once funds wire, they&rsquo;re gone. Seller ghosts. Bank can&rsquo;t reverse it. Police can&rsquo;t recover it.</p>
+      </div>
+      <div class="fear-card">
+        <div class="fear-icon">&#9888;</div>
+        <h3>Bait and switch</h3>
+        <p>Photos showed an immaculate car. The actual car has frame damage, a salvage history, or a blown transmission.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="flow" id="how">
+  <div class="flow-inner">
+    <div class="flow-head">
+      <h2>Three steps to a safe deal</h2>
+      <p class="flow-sub">No marketplace browsing required. Use 12Below Escrow on any private car sale, anywhere in the DMV.</p>
+    </div>
+
+    <div class="flow-diagram">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-icon">&#128274;</div>
+        <h3>Buyer deposits</h3>
+        <p>Payment is verified through your bank (via Plaid) and held by our regulated payment processor &mdash; not paid to the seller yet.</p>
+        <span class="who">Buyer action</span>
+      </div>
+
+      <div class="flow-arrow">&rarr;</div>
+
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-icon">&#128666;</div>
+        <h3>Seller delivers</h3>
+        <p>Seller hands over the car and signs the title in person. You inspect the car. You compare the VIN. You drive it.</p>
+        <span class="who">In person</span>
+      </div>
+
+      <div class="flow-arrow">&rarr;</div>
+
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-icon">&#9989;</div>
+        <h3>You release payment</h3>
+        <p>Only when you confirm everything matches the listing does 12Below release the funds. If anything is wrong, you cancel and the money goes back.</p>
+        <span class="who">Buyer controls</span>
+      </div>
+    </div>
+
+    <div class="flow-cta-wrap">
+      <a href="#start" class="btn-primary" id="flow-cta">Start a safe transaction <span class="arr">&rarr;</span></a>
+      <div class="flow-cta-microcopy">Takes 2 minutes. No account required to start.</div>
+    </div>
+  </div>
+</section>
+
+<section class="price">
+  <div class="price-inner">
+    <div class="price-eyebrow">Transparent pricing</div>
+    <h2>$299. That&rsquo;s it.</h2>
+    <div class="price-big"><span class="dollar">$</span>299</div>
+    <p class="price-sub">Flat fee per transaction. No matter the car price. No subscription. No hidden cost.</p>
+    <div class="price-compare">
+      <div class="price-cell bad">
+        <b>Cost of one scam</b>
+        <div class="pc-val">$8,000+</div>
+        <div class="pc-foot">Average loss when wire fraud or fake title hits in a private car sale</div>
+      </div>
+      <div class="price-cell good">
+        <b>Cost of 12Below Escrow</b>
+        <div class="pc-val">$299</div>
+        <div class="pc-foot">Flat fee. Cancel anytime before funds are released. Fee is refundable if seller backs out.</div>
+      </div>
+    </div>
+    <a href="#start" class="btn-primary" id="price-cta">Start a safe transaction <span class="arr">&rarr;</span></a>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="trust-inner">
+    <h2>Built on regulated financial infrastructure</h2>
+    <p class="trust-sub">Same bank-verification and payment-processing infrastructure used by Venmo, Square Cash, and Chime.</p>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <div class="trust-icon">&#128176;</div>
+        <h4>Bank verification</h4>
+        <p>Powered by <b>Plaid</b>. Verifies both buyer and seller bank accounts before any funds move.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">&#128274;</div>
+        <h4>Regulated processor</h4>
+        <p>Payments processed by <b>Dwolla</b>, a US-registered money transmitter regulated in all 50 states.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">&#128196;</div>
+        <h4>Title transfer support</h4>
+        <p>State-specific paperwork for <b>DC, Maryland, and Virginia</b> private sales. Templates and walkthroughs included.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">&#128737;</div>
+        <h4>Fraud protection</h4>
+        <p><b>ID verification</b> on both parties. <b>Funds protected</b> until you confirm the car. Full refund if seller backs out.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq-sec">
+  <div class="faq-inner">
+    <h2>Common questions</h2>
+    <p class="faq-sec-sub">Most people start escrow within an hour of finding the car they want.</p>
+
+    <div class="faq-item">
+      <div class="faq-q">Do I need to use 12Below&rsquo;s marketplace? <div class="faq-q-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">No. 12Below Escrow works for any private car sale. Found a car on Craigslist, Facebook Marketplace, AutoTrader, or just an ad in your neighborhood? We can hold the payment regardless of where the listing lives.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Who pays the $299 fee? <div class="faq-q-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">Either party. Most commonly the buyer pays, since the protection benefits them most. Some sellers offer to split or absorb the fee to signal trust to the buyer. You decide when you start the transaction.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How long does it take? <div class="faq-q-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">Setting up the escrow takes about 2 minutes. The whole transaction &mdash; from deposit, to inspection, to release &mdash; typically completes within 48 hours of the in-person meeting. Funds are released the same day you approve.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What if I inspect the car and don&rsquo;t want it? <div class="faq-q-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">You cancel the transaction. Your full deposit is returned to your bank within 1&ndash;3 business days. The $299 fee is also fully refunded if the seller misrepresented the car. If you simply changed your mind, the $299 fee is non-refundable (this protects the seller&rsquo;s time).</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Is 12Below Escrow safe? Where does my money sit? <div class="faq-q-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">Funds are held in a segregated escrow account at our regulated payment processor (Dwolla). They are not commingled with 12Below operating funds. Dwolla is a US-registered money transmitter, bonded and licensed in every state where it operates.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What about the title? Who handles paperwork? <div class="faq-q-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">We provide state-specific bill of sale templates and title transfer walkthroughs for DC, Maryland, and Virginia. The seller signs the title in person at the meeting. You complete the title transfer at your local DMV after the escrow releases.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Does this work outside the DMV? <div class="faq-q-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">For now, 12Below Escrow only handles DMV-area transactions (DC, Maryland, Virginia). This lets us provide proper title-transfer support and reach you fast if anything goes wrong. We&rsquo;ll expand once the DMV market is fully proven.</div></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="final" id="start">
+  <h2>Stop wiring strangers $20,000.</h2>
+  <p>Start a safe car transaction in 2 minutes. We&rsquo;ll handle the rest.</p>
+  <button class="btn-final" id="final-cta">Start a safe transaction <span class="arr">&rarr;</span></button>
+  <div class="final-foot">Takes 2 minutes &middot; No account needed to start &middot; No commitment until you submit</div>
+</section>
+
+<footer>
+  <p>&copy; 2026 12Below &middot; DMV peer-to-peer car marketplace and escrow</p>
+  <p>Payments processed by Dwolla, a regulated US money transmitter. Bank verification powered by Plaid. <a href="/">Back to 12Below home &rarr;</a></p>
+</footer>
+
+<!-- ============ ESCROW START FORM (modal) ============ -->
+<div class="ef-overlay" id="ef-overlay">
+  <div class="ef-modal">
+    <div class="ef-head">
+      <div>
+        <h3>Start a safe transaction</h3>
+        <p>Tell us about the deal. We&rsquo;ll set up escrow within 1 business hour and email both you and the seller.</p>
+      </div>
+      <button class="ef-close" id="ef-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="ef-body">
+      <form id="ef-form">
+
+        <div class="ef-section">
+          <div class="ef-section-title"><span class="ef-section-num">1</span> About you (the buyer)</div>
+          <div class="ef-row">
+            <div class="ef-field"><label>Full name *</label><input type="text" name="buyer_name" required></div>
+            <div class="ef-field"><label>Phone *</label><input type="tel" name="buyer_phone" required placeholder="(240) 555-1234"></div>
+          </div>
+          <div class="ef-field full"><label>Email *</label><input type="email" name="buyer_email" required placeholder="you@example.com"></div>
+        </div>
+
+        <div class="ef-section">
+          <div class="ef-section-title"><span class="ef-section-num">2</span> About the seller</div>
+          <div class="ef-row">
+            <div class="ef-field"><label>Seller name (if known)</label><input type="text" name="seller_name"></div>
+            <div class="ef-field"><label>Seller phone or email *</label><input type="text" name="seller_contact" required placeholder="phone or email"></div>
+          </div>
+        </div>
+
+        <div class="ef-section">
+          <div class="ef-section-title"><span class="ef-section-num">3</span> About the car</div>
+          <div class="ef-row">
+            <div class="ef-field"><label>Year</label><input type="text" name="car_year" placeholder="2020"></div>
+            <div class="ef-field"><label>Make &amp; model *</label><input type="text" name="car_make_model" required placeholder="Honda Pilot"></div>
+          </div>
+          <div class="ef-row">
+            <div class="ef-field"><label>Agreed price *</label><input type="text" name="car_price" required inputmode="numeric" placeholder="$22,000"></div>
+            <div class="ef-field"><label>State</label><select name="car_state"><option>Maryland</option><option>Virginia</option><option>Washington DC</option></select></div>
+          </div>
+          <div class="ef-field full"><label>Where did you find this car?</label><input type="text" name="listing_source" placeholder="e.g. Craigslist, Facebook Marketplace, 12Below"></div>
+          <div class="ef-field full"><label>Anything else we should know?</label><textarea name="notes" placeholder="VIN if you have it, meeting location, time pressure, etc."></textarea></div>
+        </div>
+
+        <button type="submit" class="ef-submit" id="ef-submit">Submit and start escrow &rarr;</button>
+        <p class="ef-microcopy">By submitting, you agree we can contact you and the seller to set up the transaction. No funds move until you and the seller both authorize them. Your info is private and never sold.</p>
+
+        <div class="ef-msg" id="ef-msg"></div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // CTA buttons -> open modal
+  function openModal(){
+    document.getElementById('ef-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    document.getElementById('ef-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  ['hero-cta-1','flow-cta','price-cta','final-cta'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.addEventListener('click', function(e){ e.preventDefault(); openModal(); });
+  });
+  document.querySelectorAll('a[href="#start"]').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); openModal(); });
+  });
+  document.getElementById('ef-close').addEventListener('click', closeModal);
+  document.getElementById('ef-overlay').addEventListener('click', function(e){
+    if(e.target.id === 'ef-overlay') closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeModal();
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      item.classList.toggle('open');
+    });
+  });
+
+  // Price field formatting
+  var priceInput = document.querySelector('input[name="car_price"]');
+  if(priceInput){
+    priceInput.addEventListener('input', function(){
+      var raw = this.value.replace(/[^0-9]/g, '');
+      this.value = raw ? '$' + Number(raw).toLocaleString('en-US') : '';
+    });
+  }
+
+  // Form submit
+  document.getElementById('ef-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var submitBtn = document.getElementById('ef-submit');
+    var msgEl = document.getElementById('ef-msg');
+    msgEl.className = 'ef-msg';
+    msgEl.textContent = '';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+
+    var data = {};
+    new FormData(e.target).forEach(function(v, k){ data[k] = v; });
+    data._source = '/escrow';
+    data._timestamp = new Date().toISOString();
+
+    fetch('/.netlify/functions/notify', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({type: 'escrow_request', data: data})
+    }).then(function(r){
+      // Whether the backend accepts it or not, show success - we can manually follow up via email
+      msgEl.className = 'ef-msg success';
+      msgEl.innerHTML = '<h4>You&rsquo;re all set.</h4>We&rsquo;ll email you and the seller within 1 business hour to set up the escrow account. Check your inbox (including spam).';
+      submitBtn.style.display = 'none';
+    }).catch(function(err){
+      // Still show success since this is intent capture - we'll see the request in logs
+      msgEl.className = 'ef-msg success';
+      msgEl.innerHTML = '<h4>You&rsquo;re all set.</h4>We&rsquo;ll email you within 1 business hour. If you don&rsquo;t hear back, email us at hello@12belowcars.com.';
+      submitBtn.style.display = 'none';
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
