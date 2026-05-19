@@ -340,8 +340,8 @@
       }
 
       var market = Number(price.marketcheck_price);
-      // Dealer trade-in is typically ~20% below market
-      var dealerTradein = Math.round(market * 0.80);
+      // Dealer trade-in is typically ~35% below market (matches the "Two paths" comparison above)
+      var dealerTradein = Math.round(market * 0.65);
       // 12Below seller earns the asking price minus the 1.99% fee (post-launch). Pre-launch, no fee.
       // Asking price = market * 0.88 (12% below market), so seller gets that minus any fee.
       var twelveBelowAsk = Math.round(market * 0.88);
