@@ -36,6 +36,55 @@
 @media(max-width:440px){
   .bc-inputs{grid-template-columns:1fr}
 }
+
+/* What's my car worth section */
+.car-value{padding:80px 32px;background:#fff}
+.cv-inner{max-width:1100px;margin:0 auto}
+.cv-card{background:#fff;border:1px solid #e2e8f0;border-radius:24px;padding:48px;display:grid;grid-template-columns:1.2fr 1fr;gap:48px;box-shadow:0 4px 24px rgba(15,23,42,.04);align-items:stretch}
+.cv-eyebrow{display:inline-block;background:#ecfdf5;color:#065f46;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:6px 12px;border-radius:6px;margin-bottom:14px}
+.cv-left h2{font-size:clamp(24px,2.5vw,32px);font-weight:800;color:#0f172a;letter-spacing:-.6px;line-height:1.15;margin-bottom:10px}
+.cv-sub{color:#64748b;font-size:14px;line-height:1.55;margin-bottom:28px}
+.cv-form{display:flex;flex-direction:column;gap:14px}
+.cvf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cvf label{display:block;font-size:11px;color:#64748b;font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.3px}
+.cvf input{width:100%;padding:14px 16px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:15px;font-weight:600;color:#0f172a;font-family:inherit;background:#fff;transition:border-color .15s}
+.cvf input:focus{outline:none;border-color:#1a3afa;box-shadow:0 0 0 3px rgba(26,58,250,.1)}
+#cv-vin{letter-spacing:.05em;text-transform:uppercase}
+.cv-btn{background:#1a3afa;color:#fff;border:none;padding:16px;border-radius:10px;font-weight:700;font-size:15px;cursor:pointer;font-family:inherit;transition:all .15s;margin-top:4px;box-shadow:0 6px 18px rgba(26,58,250,.25)}
+.cv-btn:hover{background:#1228c8;transform:translateY(-1px);box-shadow:0 8px 22px rgba(26,58,250,.35)}
+.cv-err{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:12px 14px;border-radius:8px;font-size:13px;line-height:1.5}
+
+/* Right side - placeholder / result / loading */
+.cv-right{background:linear-gradient(160deg,#ecfdf5 0%,#d1fae5 100%);border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;justify-content:center;text-align:center;border:1px solid #a7f3d0;min-height:320px}
+.cv-placeholder{display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%;gap:18px}
+.cvp-icon{width:64px;height:64px;border-radius:50%;background:#10b981;color:#fff;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;box-shadow:0 8px 20px rgba(16,185,129,.3)}
+.cvp-text{color:#065f46;font-size:14px;line-height:1.55;max-width:280px}
+
+.cv-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:16px;color:#065f46;font-size:14px;font-weight:600}
+.cv-spinner{width:40px;height:40px;border:3px solid #a7f3d0;border-top-color:#10b981;border-radius:50%;animation:cv-sp .8s linear infinite}
+@keyframes cv-sp{to{transform:rotate(360deg)}}
+
+.cv-result{display:flex;flex-direction:column;align-items:stretch;gap:10px}
+.cvr-vehicle{font-size:13px;color:#065f46;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
+.cvr-label{font-size:12px;color:#475569;font-weight:600;margin-bottom:2px}
+.cvr-value{font-size:clamp(32px,3.5vw,46px);font-weight:900;color:#0f172a;letter-spacing:-1.5px;line-height:1;margin-bottom:14px;font-variant-numeric:tabular-nums}
+.cvr-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;text-align:left}
+.cvr-cell{background:rgba(255,255,255,.7);padding:12px 14px;border-radius:10px;border:1px solid rgba(16,185,129,.2)}
+.cvr-cell.cvr-cell-good{background:#fff;border-color:#10b981}
+.cvr-cell b{display:block;font-size:10px;color:#475569;text-transform:uppercase;letter-spacing:.4px;font-weight:700;margin-bottom:4px}
+.cvr-cell span{font-weight:800;color:#0f172a;font-size:18px;font-variant-numeric:tabular-nums}
+.cvr-cell.cvr-cell-good span{color:#065f46}
+.cvr-savings{background:#10b981;color:#fff;padding:10px 12px;border-radius:8px;font-size:13px;text-align:center;margin-bottom:6px}
+.cvr-savings b{font-weight:800}
+.cvr-cta{display:block;background:#0f172a;color:#fff;padding:14px;border-radius:10px;font-weight:700;text-decoration:none;font-size:14px;text-align:center;transition:all .15s}
+.cvr-cta:hover{background:#1a1a2e;transform:translateY(-1px)}
+.cvr-foot{font-size:11px;color:#475569;text-align:center;margin-top:4px}
+
+@media(max-width:760px){
+  .car-value{padding:48px 16px}
+  .cv-card{padding:28px;grid-template-columns:1fr;gap:24px;border-radius:18px}
+  .cv-right{min-height:260px}
+}
 </style></head><body>
 <nav><a href="https://12belowcars.com" class="logo">12<span>Below</span></a><div class="nav-menu"><a href="#how-it-works">How it works</a><a href="#faq">FAQ</a><a href="/listings/" class="btn-nav-browse">&#x1F697;  Browse cars</a><a href="/financing/" class="btn-nav-financing">Financing</a><a href="#car-value" class="btn-nav-value">Car value</a><a href="/list/" class="btn-nav">List my car</a></div></nav>
 <section class="hero" id="start"><div class="hero-pill"><span class="pill-dot"></span>Now live in the DMV area</div><h1>The smarter way to<br><span class="ab">buy</span> or <span class="as">sell</span> a car </h1><p class="hero-sub">Dealers mark up cars and lowball trade-ins. 12Below cuts out the dealer entirely &#8212; sellers earn 20% more, buyers pay 12% below market. Fair for everyone.</p><a href="/listings/" class="hero-browse-btn">&#x1F697;  Browse cars available now  &#8594;</a><div class="hero-stats"><div class="hstat"><span class="hstat-n">12%</span><span class="hstat-l">Below market</span></div><div class="hstat"><span class="hstat-n">~20%</span><span class="hstat-l">More than dealers pay</span></div></div>
@@ -162,6 +211,150 @@
   creditEl.addEventListener('change', compute);
   termEl.addEventListener('change', compute);
   compute();
+})();
+</script>
+<section class="car-value" id="car-value">
+  <div class="cv-inner">
+    <div class="cv-card">
+      <div class="cv-left">
+        <div class="cv-eyebrow">Free tool</div>
+        <h2>What is your car worth?</h2>
+        <p class="cv-sub">Enter your VIN and we will pull the live market value &mdash; the same number CarMax and dealers use to set trade-in offers. No signup, no spam.</p>
+        <div class="cv-form">
+          <div class="cvf">
+            <label>Your VIN</label>
+            <input id="cv-vin" maxlength="17" placeholder="17 characters" autocomplete="off" spellcheck="false">
+          </div>
+          <div class="cvf-row">
+            <div class="cvf">
+              <label>Mileage</label>
+              <input id="cv-miles" inputmode="numeric" placeholder="e.g. 45,000">
+            </div>
+            <div class="cvf">
+              <label>ZIP code</label>
+              <input id="cv-zip" inputmode="numeric" maxlength="5" placeholder="e.g. 21043">
+            </div>
+          </div>
+          <button id="cv-go" class="cv-btn">Get my value</button>
+          <div id="cv-err" class="cv-err" style="display:none"></div>
+        </div>
+      </div>
+      <div class="cv-right" id="cv-right">
+        <div class="cv-placeholder" id="cv-placeholder">
+          <div class="cvp-icon">$</div>
+          <div class="cvp-text">Enter your VIN to see what your car is worth on the open market today.</div>
+        </div>
+        <div class="cv-result" id="cv-result" style="display:none">
+          <div class="cvr-vehicle" id="cvr-vehicle">&mdash;</div>
+          <div class="cvr-label">Estimated market value</div>
+          <div class="cvr-value" id="cvr-value">&mdash;</div>
+          <div class="cvr-row">
+            <div class="cvr-cell"><b>Dealer trade-in</b><span id="cvr-dealer">&mdash;</span></div>
+            <div class="cvr-cell cvr-cell-good"><b>12Below seller earns</b><span id="cvr-12below">&mdash;</span></div>
+          </div>
+          <div class="cvr-savings" id="cvr-savings">&mdash;</div>
+          <a href="/list/" class="cvr-cta">List my car free &rarr;</a>
+          <div class="cvr-foot">Sell direct to a buyer. No dealer middleman.</div>
+        </div>
+        <div class="cv-loading" id="cv-loading" style="display:none">
+          <div class="cv-spinner"></div>
+          <div>Looking up your car...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var vinEl = document.getElementById('cv-vin');
+  var milesEl = document.getElementById('cv-miles');
+  var zipEl = document.getElementById('cv-zip');
+  var goEl = document.getElementById('cv-go');
+  var errEl = document.getElementById('cv-err');
+  var placeholderEl = document.getElementById('cv-placeholder');
+  var resultEl = document.getElementById('cv-result');
+  var loadingEl = document.getElementById('cv-loading');
+  if(!vinEl || !goEl) return;
+
+  function money(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function showErr(msg){ errEl.textContent = msg; errEl.style.display = 'block'; }
+  function clearErr(){ errEl.style.display = 'none'; errEl.textContent = ''; }
+  function showLoading(){ placeholderEl.style.display = 'none'; resultEl.style.display = 'none'; loadingEl.style.display = 'block'; }
+  function showResult(){ placeholderEl.style.display = 'none'; loadingEl.style.display = 'none'; resultEl.style.display = 'block'; }
+  function showPlaceholder(){ resultEl.style.display = 'none'; loadingEl.style.display = 'none'; placeholderEl.style.display = 'flex'; }
+
+  // Auto-format mileage with commas
+  milesEl.addEventListener('input', function(){
+    var raw = this.value.replace(/[^0-9]/g, '');
+    this.value = raw ? Number(raw).toLocaleString('en-US') : '';
+  });
+  vinEl.addEventListener('input', function(){ this.value = this.value.toUpperCase().replace(/[^A-HJ-NPR-Z0-9]/g, ''); });
+
+  function validate(){
+    var vin = vinEl.value.trim();
+    var miles = Number((milesEl.value || '').replace(/[^0-9]/g, ''));
+    var zip = (zipEl.value || '').trim();
+    if(vin.length !== 17){ showErr('VIN must be exactly 17 characters'); return null; }
+    if(!miles || miles < 1){ showErr('Enter the mileage'); return null; }
+    if(zip.length !== 5){ showErr('Enter a 5-digit ZIP code'); return null; }
+    clearErr();
+    return {vin: vin, miles: miles, zip: zip};
+  }
+
+  goEl.addEventListener('click', function(){
+    var data = validate();
+    if(!data) return;
+    showLoading();
+
+    // Parallel: NHTSA VIN decode + 12Below price function
+    var vinDecodeP = fetch('https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVin/' + encodeURIComponent(data.vin) + '?format=json')
+      .then(function(r){ return r.json(); })
+      .catch(function(){ return null; });
+
+    var priceP = fetch('/.netlify/functions/price?vin=' + encodeURIComponent(data.vin) + '&miles=' + data.miles + '&zip=' + data.zip)
+      .then(function(r){ return r.json(); })
+      .catch(function(){ return null; });
+
+    Promise.all([vinDecodeP, priceP]).then(function(results){
+      var decode = results[0];
+      var price = results[1];
+
+      // Build vehicle name from NHTSA
+      var year = '', make = '', model = '', trim = '';
+      if(decode && decode.Results){
+        decode.Results.forEach(function(r){
+          if(r.Variable === 'Model Year' && r.Value) year = r.Value;
+          if(r.Variable === 'Make' && r.Value) make = r.Value;
+          if(r.Variable === 'Model' && r.Value) model = r.Value;
+          if(r.Variable === 'Trim' && r.Value) trim = r.Value;
+        });
+      }
+      var vehicleName = [year, make, model, trim].filter(function(x){ return x; }).join(' ');
+      if(!vehicleName) vehicleName = 'Your car';
+
+      // Get market value from price function
+      if(!price || !price.marketcheck_price || price.marketcheck_price < 100){
+        showErr('We could not find pricing data for that VIN. Try double-checking the VIN, or list your car and we will price it for you.');
+        showPlaceholder();
+        return;
+      }
+
+      var market = Number(price.marketcheck_price);
+      // Dealer trade-in is typically ~20% below market
+      var dealerTradein = Math.round(market * 0.80);
+      // 12Below seller earns the asking price minus the 1.99% fee (post-launch). Pre-launch, no fee.
+      // Asking price = market * 0.88 (12% below market), so seller gets that minus any fee.
+      var twelveBelowAsk = Math.round(market * 0.88);
+      var savingsVsDealer = twelveBelowAsk - dealerTradein;
+
+      document.getElementById('cvr-vehicle').textContent = vehicleName;
+      document.getElementById('cvr-value').textContent = money(market);
+      document.getElementById('cvr-dealer').textContent = money(dealerTradein);
+      document.getElementById('cvr-12below').textContent = money(twelveBelowAsk);
+      document.getElementById('cvr-savings').innerHTML = 'You earn <b>' + money(savingsVsDealer) + ' more</b> selling on 12Below vs trading in';
+      showResult();
+    });
+  });
 })();
 </script>
 <section class="section section-bg" id="how-it-works"><div class="eyebrow">How it works</div><h2>Two paths. One fair market.</h2><div class="tracks"><div class="track"><div class="track-hdr sell"><span class="track-icon">&#10003;</span><div><div class="track-title">Selling your car</div><div class="track-sub">Get 20% more than any dealer will pay</div></div></div><div class="track-step"><div class="ts-num sell">1</div><div><div class="ts-title">Enter your VIN</div><div class="ts-desc">We look up your real market value using live data.</div></div></div><div class="track-step"><div class="ts-num sell">2</div><div><div class="ts-title">Set your price and upload photos</div><div class="ts-desc">We show your maximum listing price automatically.</div></div></div><div class="track-step"><div class="ts-num sell">3</div><div><div class="ts-title">Meet your buyer</div><div class="ts-desc">We connect verified buyers to you. You keep every dollar.</div></div></div></div><div class="track"><div class="track-hdr buy"><span class="track-icon">&#10003;</span><div><div class="track-title">Buying a car</div><div class="track-sub">Pay 12% below market  &#8212; always</div></div></div><div class="track-step"><div class="ts-num buy">1</div><div><div class="ts-title">Tell us what you want</div><div class="ts-desc">Make, model, year range, and budget. No account needed.</div></div></div><div class="track-step"><div class="ts-num buy">2</div><div><div class="ts-title">Get matched instantly</div><div class="ts-desc">When a matching car is listed we notify you first.</div></div></div><div class="track-step"><div class="ts-num buy">3</div><div><div class="ts-title">Buy with confidence</div><div class="ts-desc">Every seller is verified, every VIN is checked.</div></div></div></div></div></section>
