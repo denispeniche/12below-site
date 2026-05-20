@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>12Below for DMV Dealers &middot; 2026 Pilot</title>
+<meta name="description" content="A private disposition channel for DMV dealers. Move aged or wrong-fit inventory at near-retail prices without sending it to Manheim. Flat $299 per closed unit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#0a1f5c;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.mono{font-family:'JetBrains Mono',Menlo,monospace;font-variant-numeric:tabular-nums}
+
+/* Minimal nav - this is unlisted, so no main site nav */
+nav.top{background:#fff;padding:18px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f0f1f5}
+.logo{display:flex;flex-direction:column;align-items:center;line-height:1;gap:3px}
+.logo-main{font-size:22px;font-weight:800;color:#0ea5e9;letter-spacing:-.5px}
+.logo-main em{font-style:normal;color:#0a1f5c;font-weight:800}
+.logo-cars{font-size:9px;font-weight:800;color:#0ea5e9;letter-spacing:3px;background:#f0f9ff;padding:2px 6px;border-radius:4px;border:1px solid #e0f2fe;margin-left:16px}
+.nav-tag{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#64748b;border:1px solid #e2e8f0;padding:6px 12px;border-radius:6px}
+
+/* Hero — restrained, professional */
+.hero{padding:80px 32px 60px;border-bottom:1px solid #f0f1f5;background:#fff}
+.hero-inner{max-width:880px;margin:0 auto}
+.eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#0ea5e9;margin-bottom:20px;padding:6px 12px;background:#f0f9ff;border-radius:4px;border:1px solid #e0f2fe}
+.hero h1{font-size:clamp(32px,4.2vw,52px);font-weight:800;letter-spacing:-1.3px;line-height:1.1;color:#0a1f5c;margin-bottom:20px;max-width:780px}
+.hero .lead{font-size:18px;color:#475569;line-height:1.6;max-width:680px;margin-bottom:32px}
+.hero-cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{background:#0a1f5c;color:#fff;padding:14px 26px;border-radius:8px;font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:8px;transition:all .15s;letter-spacing:.2px}
+.btn-primary:hover{background:#0a2876}
+.btn-secondary{background:#fff;color:#0a1f5c;padding:14px 26px;border-radius:8px;font-size:14px;font-weight:700;border:1.5px solid #e2e8f0;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn-secondary:hover{border-color:#0a1f5c}
+.hero-foot{margin-top:32px;display:flex;gap:32px;flex-wrap:wrap;padding-top:24px;border-top:1px solid #f0f1f5}
+.hero-foot-stat{font-size:13px;color:#64748b}
+.hero-foot-stat b{display:block;color:#0a1f5c;font-size:22px;font-weight:800;letter-spacing:-.4px;margin-bottom:2px;font-family:'JetBrains Mono',monospace}
+
+/* The Math — centerpiece P&L comparison */
+.math{padding:80px 32px;background:#f8fafc;border-bottom:1px solid #f0f1f5}
+.math-inner{max-width:980px;margin:0 auto}
+.math-header{text-align:center;margin-bottom:48px}
+.math-header .label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#64748b;margin-bottom:10px}
+.math-header h2{font-size:clamp(26px,3vw,36px);font-weight:800;color:#0a1f5c;letter-spacing:-.6px;margin-bottom:10px}
+.math-header p{font-size:15px;color:#64748b;max-width:540px;margin:0 auto}
+
+.unit-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px 24px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.unit-card .unit-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#64748b;margin-bottom:6px}
+.unit-card .unit-spec{font-size:18px;font-weight:700;color:#0a1f5c}
+.unit-card .unit-spec span{color:#94a3b8;font-weight:500;font-size:14px;margin-left:8px}
+.unit-card .unit-price{font-size:28px;font-weight:800;color:#0a1f5c;font-family:'JetBrains Mono',monospace;letter-spacing:-.5px}
+
+.pnl{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.pnl-col{background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden}
+.pnl-col.winner{border:2px solid #16a34a;box-shadow:0 6px 20px rgba(22,163,74,.08)}
+.pnl-head{padding:20px 24px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center}
+.pnl-head .pnl-title{font-size:16px;font-weight:800;color:#0a1f5c}
+.pnl-head .pnl-sub{font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.6px;font-weight:600}
+.pnl-winner-tag{background:#dcfce7;color:#15803d;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;padding:4px 10px;border-radius:4px}
+.pnl-body{padding:8px 24px 16px}
+.pnl-row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid #f1f5f9;font-size:14px}
+.pnl-row:last-of-type{border-bottom:none}
+.pnl-row .label{color:#64748b}
+.pnl-row .value{font-family:'JetBrains Mono',monospace;font-weight:600;color:#0a1f5c}
+.pnl-row .value.neg{color:#dc2626}
+.pnl-row .value.pos{color:#16a34a}
+.pnl-net{background:#0a1f5c;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center}
+.pnl-col.winner .pnl-net{background:#16a34a}
+.pnl-net .label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.85}
+.pnl-net .value{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:24px;letter-spacing:-.5px}
+.pnl-foot{padding:14px 24px;background:#fafbfc;font-size:12px;color:#64748b;display:flex;justify-content:space-between}
+.pnl-foot span{font-weight:600;color:#0a1f5c}
+
+.math-result{margin-top:32px;padding:24px 28px;background:#0a1f5c;color:#fff;border-radius:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.math-result-label{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+.math-result-headline{font-size:18px;font-weight:700;letter-spacing:-.2px}
+.math-result-num{font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:900;letter-spacing:-1px;color:#7dd3fc;line-height:1}
+.math-result-num small{font-size:14px;font-weight:600;color:#cbd5e1;margin-left:8px;letter-spacing:0}
+
+.math-fineprint{margin-top:24px;font-size:12px;color:#94a3b8;text-align:center;max-width:680px;margin-left:auto;margin-right:auto;line-height:1.6}
+
+/* Three columns: how / vs auction / constraints */
+.three{padding:80px 32px;background:#fff;border-bottom:1px solid #f0f1f5}
+.three-inner{max-width:1080px;margin:0 auto}
+.three-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px}
+.tc{padding:0}
+.tc-eyebrow{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.tc.how .tc-eyebrow{color:#0ea5e9}
+.tc.vs .tc-eyebrow{color:#16a34a}
+.tc.req .tc-eyebrow{color:#d97706}
+.tc h3{font-size:20px;font-weight:800;letter-spacing:-.3px;margin-bottom:18px;color:#0a1f5c}
+.tc-list{list-style:none;padding:0;margin:0}
+.tc-list li{position:relative;padding:14px 0 14px 32px;border-bottom:1px solid #f1f5f9;font-size:14px;color:#334155;line-height:1.6}
+.tc-list li:last-child{border-bottom:none}
+.tc-list li .marker{position:absolute;left:0;top:14px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;font-family:'JetBrains Mono',monospace}
+.tc.how .marker{background:#f0f9ff;color:#0369a1;border:1px solid #bae6fd}
+.tc.vs .marker{background:#dcfce7;color:#15803d;border:1px solid #bbf7d0}
+.tc.req .marker{background:#fef3c7;color:#a16207;border:1px solid #fcd34d}
+.tc-list li b{color:#0a1f5c;font-weight:700;display:block;margin-bottom:2px}
+
+/* Pilot framing — separate block before form */
+.pilot{padding:60px 32px;background:#0a1f5c;color:#fff}
+.pilot-inner{max-width:880px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.pilot h2{font-size:32px;font-weight:800;letter-spacing:-.8px;line-height:1.15;margin-bottom:14px}
+.pilot p{font-size:15px;opacity:.85;line-height:1.6}
+.pilot-criteria{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:24px}
+.pilot-criteria-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#7dd3fc;margin-bottom:14px}
+.pilot-criteria ul{list-style:none;padding:0;margin:0}
+.pilot-criteria li{font-size:14px;padding:8px 0 8px 22px;position:relative;line-height:1.5}
+.pilot-criteria li::before{content:"\2713";position:absolute;left:0;top:8px;color:#7dd3fc;font-weight:900;font-size:13px}
+
+/* Form section */
+.apply{padding:80px 32px;background:#f8fafc}
+.apply-inner{max-width:680px;margin:0 auto}
+.apply-head{text-align:center;margin-bottom:36px}
+.apply-head .eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#d97706;background:#fef3c7;padding:6px 12px;border-radius:4px;border:1px solid #fcd34d;margin-bottom:14px}
+.apply-head h2{font-size:32px;font-weight:800;letter-spacing:-.7px;color:#0a1f5c;margin-bottom:10px}
+.apply-head p{font-size:15px;color:#64748b}
+.apply-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:32px}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.field-full{grid-column:1/-1}
+.field label{display:block;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#64748b;margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:14px;font-family:inherit;color:#0a1f5c;background:#fff;font-weight:500;transition:border-color .15s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:#0ea5e9;box-shadow:0 0 0 3px rgba(14,165,233,.08)}
+.field textarea{min-height:90px;resize:vertical;font-family:inherit}
+.apply-submit{width:100%;background:#0a1f5c;color:#fff;border:none;padding:16px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.2px;margin-top:6px;transition:all .15s}
+.apply-submit:hover{background:#0a2876}
+.apply-submit:disabled{opacity:.5;cursor:not-allowed}
+.apply-microcopy{font-size:12px;color:#64748b;text-align:center;margin-top:14px;line-height:1.6}
+.apply-msg{padding:14px;border-radius:8px;font-size:13px;margin-top:14px;display:none;line-height:1.5}
+.apply-msg.error{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;display:block}
+.apply-msg.success{background:#dcfce7;border:1px solid #86efac;color:#14532d;display:block;text-align:center;padding:28px}
+.apply-msg.success h4{font-size:18px;font-weight:800;margin-bottom:8px}
+
+/* Footer — sparse, no marketing links */
+footer{padding:36px 32px;background:#fff;text-align:center;font-size:12px;color:#94a3b8;border-top:1px solid #f0f1f5;line-height:1.6}
+
+@media(max-width:760px){
+  nav.top{padding:14px 20px}
+  .nav-tag{display:none}
+  .hero,.math,.three,.pilot,.apply{padding:48px 20px}
+  .hero h1{font-size:30px}
+  .pnl{grid-template-columns:1fr}
+  .three-grid{grid-template-columns:1fr;gap:32px}
+  .pilot-inner{grid-template-columns:1fr;gap:28px}
+  .pilot h2{font-size:26px}
+  .field-grid{grid-template-columns:1fr}
+  .apply-card{padding:24px 20px}
+  .math-result{flex-direction:column;align-items:flex-start}
+  .math-result-num{font-size:30px}
+  .unit-card{flex-direction:column;align-items:flex-start;text-align:left}
+  .unit-card .unit-price{font-size:24px}
+}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a href="/" class="logo">
+    <span class="logo-main">12<em>Below</em></span>
+    <span class="logo-cars">CARS</span>
+  </a>
+  <div class="nav-tag">For Dealers &middot; 2026 Pilot</div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">For DMV Dealers &middot; 2026 Pilot</div>
+    <h1>Move aged or wrong-fit inventory at near-retail prices, without sending it to Manheim.</h1>
+    <p class="lead">12Below is a private disposition channel for DMV dealers. We connect your back-row units &mdash; trades you do not want, off-make inventory, units aged past your tolerance &mdash; directly to qualified private buyers in MD, DC, and VA. <b>One flat fee. No transport. No reconditioning required.</b></p>
+    <div class="hero-cta-row">
+      <a href="#apply" class="btn-primary">Apply to the pilot &rarr;</a>
+      <a href="#math" class="btn-secondary">See the math</a>
+    </div>
+    <div class="hero-foot">
+      <div class="hero-foot-stat"><b>$299</b>flat per closed unit</div>
+      <div class="hero-foot-stat"><b>7&ndash;14d</b>typical cycle to close</div>
+      <div class="hero-foot-stat"><b>5&ndash;10</b>pilot dealers selected</div>
+      <div class="hero-foot-stat"><b>DMV</b>MD &middot; VA &middot; DC only</div>
+    </div>
+  </div>
+</section>
+
+<section class="math" id="math">
+  <div class="math-inner">
+    <div class="math-header">
+      <div class="label">Worked example</div>
+      <h2>A $15,000 wrong-fit unit, two ways</h2>
+      <p>Same car, same starting inventory cost. The disposition channel decides what you net.</p>
+    </div>
+
+    <div class="unit-card">
+      <div>
+        <div class="unit-label">Sample unit</div>
+        <div class="unit-spec">2019 Honda Civic LX <span>&middot; 58,000 mi &middot; clean title &middot; 67 days on lot</span></div>
+      </div>
+      <div>
+        <div class="unit-label" style="text-align:right">Your inventory cost</div>
+        <div class="unit-price">$15,000</div>
+      </div>
+    </div>
+
+    <div class="pnl">
+
+      <div class="pnl-col">
+        <div class="pnl-head">
+          <div>
+            <div class="pnl-title">Through Manheim</div>
+            <div class="pnl-sub">Auction lane disposition</div>
+          </div>
+        </div>
+        <div class="pnl-body">
+          <div class="pnl-row"><span class="label">Wholesale hammer price</span><span class="value">$11,500</span></div>
+          <div class="pnl-row"><span class="label">Auction seller fees</span><span class="value neg">&ndash;$700</span></div>
+          <div class="pnl-row"><span class="label">Transport to auction</span><span class="value neg">&ndash;$300</span></div>
+          <div class="pnl-row"><span class="label">Recon to meet lane standards</span><span class="value neg">&ndash;$400</span></div>
+        </div>
+        <div class="pnl-net">
+          <div class="label">Dealer net</div>
+          <div class="value">$10,100</div>
+        </div>
+        <div class="pnl-foot">
+          <span>Cycle time:</span><span>14&ndash;21 days</span>
+        </div>
+      </div>
+
+      <div class="pnl-col winner">
+        <div class="pnl-head">
+          <div>
+            <div class="pnl-title">Through 12Below</div>
+            <div class="pnl-sub">Private buyer disposition</div>
+          </div>
+          <div class="pnl-winner-tag">+27.7%</div>
+        </div>
+        <div class="pnl-body">
+          <div class="pnl-row"><span class="label">Private buyer pays (12% below retail)</span><span class="value">$13,200</span></div>
+          <div class="pnl-row"><span class="label">12Below fee (flat)</span><span class="value neg">&ndash;$299</span></div>
+          <div class="pnl-row"><span class="label">Transport</span><span class="value pos">$0</span></div>
+          <div class="pnl-row"><span class="label">Recon (sold as-is w/ disclosure)</span><span class="value pos">$0</span></div>
+        </div>
+        <div class="pnl-net">
+          <div class="label">Dealer net</div>
+          <div class="value">$12,901</div>
+        </div>
+        <div class="pnl-foot">
+          <span>Cycle time:</span><span>7&ndash;14 days</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="math-result">
+      <div>
+        <div class="math-result-label">Difference per unit</div>
+        <div class="math-result-headline">More money. Faster cycle. No transport headache.</div>
+      </div>
+      <div class="math-result-num">+$2,801 <small>per unit</small></div>
+    </div>
+
+    <p class="math-fineprint">Auction numbers based on Manheim DMV-area averages for sub-$20K compact units, Q4 2025. Recon estimate reflects typical light cosmetic and mechanical work to meet auction lane standards. 12Below private buyer price reflects our standard listing model (12% below retail market value). Actual results vary by unit condition, market, and buyer demand.</p>
+  </div>
+</section>
+
+<section class="three">
+  <div class="three-inner">
+    <div class="three-grid">
+
+      <div class="tc how">
+        <div class="tc-eyebrow">How it works</div>
+        <h3>From your lot to closed in 7&ndash;14 days</h3>
+        <ul class="tc-list">
+          <li><span class="marker">1</span><b>You list the unit</b>VIN, photos, asking price, and your honest condition write-up. Takes 5 minutes per unit.</li>
+          <li><span class="marker">2</span><b>We inspect it</b>A 12Below-Verified inspector visits your lot. Mandatory, no exceptions. We publish the report alongside the listing.</li>
+          <li><span class="marker">3</span><b>Private buyer pays direct</b>Buyer funds escrow via Plaid &amp; Dwolla. You pick up payment at your bank when the buyer takes the car.</li>
+          <li><span class="marker">4</span><b>$299 flat per closed unit</b>No subscription. No listing fees. No success fee on cars that do not sell. You pay only when the unit closes.</li>
+        </ul>
+      </div>
+
+      <div class="tc vs">
+        <div class="tc-eyebrow">vs Auction</div>
+        <h3>What changes when you skip the lane</h3>
+        <ul class="tc-list">
+          <li><span class="marker">&#8722;</span><b>No transport cost</b>The car never leaves your lot until the buyer takes it. Save $300&ndash;$500 per unit.</li>
+          <li><span class="marker">&#8722;</span><b>No reconditioning required</b>We sell as-is with full disclosure. No scramble to meet auction lane standards.</li>
+          <li><span class="marker">&#8722;</span><b>No opaque fees</b>One $299 line item per closed unit. That is the whole bill. Period.</li>
+          <li><span class="marker">&rarr;</span><b>Retail price exposure</b>Private buyers paying retail-minus-12% &mdash; not wholesale hammer.</li>
+          <li><span class="marker">&rarr;</span><b>Faster cycle</b>7&ndash;14 days typical vs 2&ndash;3 weeks through a lane.</li>
+        </ul>
+      </div>
+
+      <div class="tc req">
+        <div class="tc-eyebrow">What we require</div>
+        <h3>How we keep this professional</h3>
+        <ul class="tc-list">
+          <li><span class="marker">!</span><b>12Below-Verified inspection</b>Mandatory on every listed unit. Non-negotiable. This protects the buyer and protects your reputation.</li>
+          <li><span class="marker">!</span><b>As-is sale with disclosure</b>We provide standardized disclosure language. You sign off on accuracy. No surprises for the buyer.</li>
+          <li><span class="marker">!</span><b>Signed dealer agreement</b>Covers title transfer process, disclosure requirements, and dispute resolution. Reviewed once at onboarding.</li>
+          <li><span class="marker">!</span><b>Honest unit descriptions</b>We will reject listings where the condition write-up does not match the inspection. We are not building a dumping ground.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="pilot">
+  <div class="pilot-inner">
+    <div>
+      <h2>We are selecting 5&ndash;10 DMV dealers for the 2026 pilot.</h2>
+      <p>This is a deliberate, controlled rollout. We want partners who care about how the car gets to the buyer &mdash; not just how fast it leaves the lot. Pilot dealers get founding-partner pricing locked in, direct access to our team, and the chance to shape the product.</p>
+    </div>
+    <div class="pilot-criteria">
+      <div class="pilot-criteria-label">Who we are looking for</div>
+      <ul>
+        <li>Independent or franchise dealers in MD, VA, or DC</li>
+        <li>10+ trade-in or wrong-fit units disposed per month</li>
+        <li>Willing to commit to honest disclosure standards</li>
+        <li>Onboarding call + first 3 listed units within 30 days</li>
+        <li>Comfortable with as-is private buyer sales</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="apply" id="apply">
+  <div class="apply-inner">
+    <div class="apply-head">
+      <div class="eyebrow">Applications open through Q1 2026</div>
+      <h2>Apply to the pilot</h2>
+      <p>Takes 2 minutes. We respond within 1 business day with next steps.</p>
+    </div>
+    <div class="apply-card">
+      <form id="dealer-form">
+
+        <div class="field-grid">
+          <div class="field field-full">
+            <label>Dealership name *</label>
+            <input type="text" name="dealership_name" required>
+          </div>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label>Your name *</label>
+            <input type="text" name="contact_name" required>
+          </div>
+          <div class="field">
+            <label>Your title</label>
+            <input type="text" name="contact_title" placeholder="GM, Used Car Manager, etc.">
+          </div>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label>Email *</label>
+            <input type="email" name="contact_email" required>
+          </div>
+          <div class="field">
+            <label>Phone *</label>
+            <input type="tel" name="contact_phone" required placeholder="(240) 555-1234">
+          </div>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label>DMS</label>
+            <select name="dms">
+              <option value="">Select &mdash;</option>
+              <option>CDK Global</option>
+              <option>Reynolds &amp; Reynolds</option>
+              <option>DealerSocket</option>
+              <option>Dealertrack</option>
+              <option>VinSolutions</option>
+              <option>AutoMate</option>
+              <option>Other</option>
+              <option>None / Manual</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Monthly disposition volume</label>
+            <select name="monthly_volume">
+              <option value="">Select &mdash;</option>
+              <option>Under 10 units/mo</option>
+              <option>10&ndash;25 units/mo</option>
+              <option>25&ndash;50 units/mo</option>
+              <option>50&ndash;100 units/mo</option>
+              <option>100+ units/mo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-grid">
+          <div class="field field-full">
+            <label>Types of cars typically disposed</label>
+            <input type="text" name="car_types" placeholder="e.g. trade-ins under $20K, off-make units, aged 60+ days">
+          </div>
+        </div>
+
+        <div class="field-grid">
+          <div class="field field-full">
+            <label>Anything else we should know?</label>
+            <textarea name="notes" placeholder="Current disposition channels, biggest pain points, questions for us…"></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="apply-submit" id="apply-submit">Submit application &rarr;</button>
+        <p class="apply-microcopy">By submitting, you agree we can contact you about pilot inclusion. We respond within 1 business day. Your information is never shared with other dealers or third parties.</p>
+
+        <div class="apply-msg" id="apply-msg"></div>
+
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>12Below Cars &middot; DMV peer-to-peer car marketplace &amp; escrow</p>
+  <p style="margin-top:6px;">For dealer pilot inquiries: hello@12belowcars.com &middot; (240) 565-4169</p>
+</footer>
+
+<script>
+(function(){
+  document.getElementById('dealer-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = document.getElementById('apply-submit');
+    var msg = document.getElementById('apply-msg');
+    msg.className = 'apply-msg';
+    msg.textContent = '';
+    btn.disabled = true;
+    btn.textContent = 'Submitting\u2026';
+
+    var data = { type: 'dealer_application' };
+    new FormData(e.target).forEach(function(v, k){ data[k] = v; });
+    data.submitted_at = new Date().toISOString();
+    data.source = '/dealers';
+
+    fetch('/.netlify/functions/notify', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    }).then(function(r){
+      msg.className = 'apply-msg success';
+      msg.innerHTML = '<h4>Application received.</h4>We will review and respond within 1 business day. Look for an email from hello@12belowcars.com.';
+      btn.style.display = 'none';
+    }).catch(function(){
+      msg.className = 'apply-msg success';
+      msg.innerHTML = '<h4>Application received.</h4>We will respond within 1 business day. If you do not hear back, email hello@12belowcars.com directly.';
+      btn.style.display = 'none';
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
