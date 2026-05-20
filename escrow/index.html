@@ -501,10 +501,10 @@ footer p{margin-bottom:6px}
     data._source = '/escrow';
     data._timestamp = new Date().toISOString();
 
-    fetch('/.netlify/functions/notify', {
+    fetch('/.netlify/functions/escrow', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({type: 'escrow_request', data: data})
+      body: JSON.stringify(data)
     }).then(function(r){
       // Whether the backend accepts it or not, show success - we can manually follow up via email
       msgEl.className = 'ef-msg success';
