@@ -73,7 +73,7 @@ exports.handler = async function(event) {
         '<span style="font-weight:700;color:#1a1a2e;">You receive</span><span style="font-weight:800;color:#22c55e;font-size:18px;">$' + fmt(sellerReceives) + '</span></div></div>' +
         '<div style="background:#fff8e1;border-radius:10px;padding:14px;margin-bottom:24px;font-size:13px;color:#92400e;">' +
         '<strong>Note:</strong> Buyer pays Maryland title tax (6%) directly at MVA on title transfer.</div>' +
-        '<a href="' + confirmUrl + '&action=confirm" style="display:block;background:#22c55e;color:#fff;text-align:center;padding:16px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;margin-bottom:10px;">Confirm Sale Ã¢ÂÂ Receive $' + fmt(sellerReceives) + '</a>' +
+        '<a href="' + confirmUrl + '&action=confirm" style="display:block;background:#22c55e;color:#fff;text-align:center;padding:16px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;margin-bottom:10px;">Confirm Sale ÃÂ¢ÃÂÃÂ Receive $' + fmt(sellerReceives) + '</a>' +
         '<a href="' + confirmUrl + '&action=decline" style="display:block;background:#f4f5f7;color:#666;text-align:center;padding:14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;">Decline Offer</a>' +
         '<p style="font-size:12px;color:#aaa;text-align:center;margin-top:20px;">Questions? Contact hello@12below.net</p>' +
         '</div></div></body></html>';
@@ -98,7 +98,7 @@ exports.handler = async function(event) {
         '</div></div></body></html>';
 
       const r1 = await sendEmail(sellerEmail, 'You have an offer on your ' + car + '!', sellerHtml);
-      const r2 = await sendEmail(buyerEmail, 'Your funds are secured Ã¢ÂÂ ' + car, buyerHtml);
+      const r2 = await sendEmail(buyerEmail, 'Your funds are secured ÃÂ¢ÃÂÃÂ ' + car, buyerHtml);
 
       return {statusCode:200, headers:h, body:JSON.stringify({ok:true, seller:r1.status, buyer:r2.status})};
     }
@@ -115,7 +115,7 @@ exports.handler = async function(event) {
         '<p style="font-size:12px;color:#aaa;margin-top:20px;">Questions? hello@12below.net</p>' +
         '</div></div></body></html>';
 
-      const r1 = await sendEmail(buyerEmail, 'Sale confirmed Ã¢ÂÂ ' + car, confirmedHtml);
+      const r1 = await sendEmail(buyerEmail, 'Sale confirmed ÃÂ¢ÃÂÃÂ ' + car, confirmedHtml);
       return {statusCode:200, headers:h, body:JSON.stringify({ok:true, status:r1.status})};
     }
 
@@ -285,6 +285,49 @@ exports.handler = async function(event) {
       return {statusCode:200, headers:h, body:JSON.stringify({sent:true, type:type})};
     }
 
+
+    if(type === 'dealer_application') {
+      const adminEmail = process.env.ADMIN_EMAIL || 'denispeniche@gmail.com';
+      const dealerName = data.dealership_name || 'Unknown dealership';
+      const contactName = data.contact_name || '\u2014';
+      const dealerHtml = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>' +
+        '<body style="margin:0;padding:0;background:#f4f6fa;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;color:#0a1f5c;">' +
+        '<div style="max-width:600px;margin:0 auto;padding:32px 20px;">' +
+          '<div style="background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(10,31,92,.06),0 4px 16px rgba(10,31,92,.04);">' +
+            '<div style="background:#0a1f5c;padding:24px 28px;color:#ffffff;">' +
+              '<div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:6px;">12Below Pilot \u00B7 New dealer application</div>' +
+              '<h1 style="margin:0;font-size:22px;font-weight:800;letter-spacing:-.3px;">' + dealerName + '</h1>' +
+              '<div style="margin-top:6px;font-size:14px;color:#7dd3fc;">' + (data.monthly_volume || 'Volume not specified') + '</div>' +
+            '</div>' +
+            '<div style="padding:24px 28px 8px;">' +
+              '<p style="margin:0;color:#0a1f5c;font-size:14px;line-height:1.6;">Review and respond within 1 business day. Submitted ' + (data.submitted_at || 'just now') + '.</p>' +
+            '</div>' +
+            '<div style="padding:18px 28px;">' +
+              '<div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#94a3b8;margin-bottom:14px;">Contact</div>' +
+              '<table style="width:100%;border-collapse:collapse;background:#f8fafc;border-radius:10px;overflow:hidden;">' +
+                '<tr><td style="padding:10px 14px;color:#64748b;font-size:12px;width:120px;">Name</td><td style="padding:10px 14px;color:#0a1f5c;font-size:13px;font-weight:600;">' + contactName + '</td></tr>' +
+                '<tr><td style="padding:10px 14px;color:#64748b;font-size:12px;border-top:1px solid #eef0f5;">Title</td><td style="padding:10px 14px;color:#0a1f5c;font-size:13px;font-weight:600;border-top:1px solid #eef0f5;">' + (data.contact_title || '\u2014') + '</td></tr>' +
+                '<tr><td style="padding:10px 14px;color:#64748b;font-size:12px;border-top:1px solid #eef0f5;">Email</td><td style="padding:10px 14px;color:#0a1f5c;font-size:13px;font-weight:600;border-top:1px solid #eef0f5;"><a href="mailto:' + (data.contact_email || '') + '" style="color:#0a1f5c;">' + (data.contact_email || '\u2014') + '</a></td></tr>' +
+                '<tr><td style="padding:10px 14px;color:#64748b;font-size:12px;border-top:1px solid #eef0f5;">Phone</td><td style="padding:10px 14px;color:#0a1f5c;font-size:13px;font-weight:600;border-top:1px solid #eef0f5;"><a href="tel:' + (data.contact_phone || '') + '" style="color:#0a1f5c;">' + (data.contact_phone || '\u2014') + '</a></td></tr>' +
+              '</table>' +
+            '</div>' +
+            '<div style="padding:6px 28px 18px;">' +
+              '<div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#94a3b8;margin-bottom:14px;">Operations</div>' +
+              '<table style="width:100%;border-collapse:collapse;background:#f8fafc;border-radius:10px;overflow:hidden;">' +
+                '<tr><td style="padding:10px 14px;color:#64748b;font-size:12px;width:160px;">DMS</td><td style="padding:10px 14px;color:#0a1f5c;font-size:13px;font-weight:600;">' + (data.dms || '\u2014') + '</td></tr>' +
+                '<tr><td style="padding:10px 14px;color:#64748b;font-size:12px;border-top:1px solid #eef0f5;">Monthly disposition</td><td style="padding:10px 14px;color:#0a1f5c;font-size:13px;font-weight:600;border-top:1px solid #eef0f5;">' + (data.monthly_volume || '\u2014') + '</td></tr>' +
+                '<tr><td style="padding:10px 14px;color:#64748b;font-size:12px;border-top:1px solid #eef0f5;">Car types disposed</td><td style="padding:10px 14px;color:#0a1f5c;font-size:13px;font-weight:600;border-top:1px solid #eef0f5;">' + (data.car_types || '\u2014') + '</td></tr>' +
+              '</table>' +
+            '</div>' +
+            (data.notes ? '<div style="padding:6px 28px 18px;"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#94a3b8;margin-bottom:10px;">Notes from applicant</div><div style="background:#f8fafc;border-radius:10px;padding:14px;font-size:13px;color:#0a1f5c;line-height:1.6;">' + String(data.notes).replace(/</g, '&lt;') + '</div></div>' : '') +
+            '<div style="padding:8px 28px 32px;text-align:center;">' +
+              '<a href="mailto:' + (data.contact_email || '') + '?subject=12Below%20Dealer%20Pilot%20Application" style="display:inline-block;background:#0a1f5c;color:#ffffff;padding:14px 32px;border-radius:30px;text-decoration:none;font-weight:700;font-size:14px;">Reply to ' + dealerName + ' \u2192</a>' +
+            '</div>' +
+          '</div>' +
+        '</div></body></html>';
+      await sendEmail(adminEmail, '[12Below Pilot] Dealer application: ' + dealerName, dealerHtml);
+      return {statusCode:200, headers:h, body:JSON.stringify({sent:true, type:type})};
+    }
     return {statusCode:400, headers:h, body:JSON.stringify({error:'unknown type'})};
   } catch(e) {
     return {statusCode:500, headers:h, body:JSON.stringify({error:e.message, stack:e.stack})};
