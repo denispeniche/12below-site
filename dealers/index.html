@@ -205,7 +205,43 @@ footer{padding:40px 32px;background:#fff;text-align:center;font-size:12px;color:
   .unit-card{flex-direction:column;align-items:flex-start;text-align:left}
   .unit-card .unit-price{font-size:26px}
 }
-</style>
+
+.model{padding:90px 32px;background:#fff;border-bottom:1px solid #eef0f5}
+.model-inner{max-width:1080px;margin:0 auto}
+.model-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:center}
+.model-copy .label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#0ea5e9;margin-bottom:14px}
+.model-copy h2{font-size:clamp(28px,3.4vw,40px);font-weight:800;color:#0a1f5c;letter-spacing:-.8px;line-height:1.15;margin-bottom:20px}
+.model-copy h2 em{font-style:normal;color:#0ea5e9}
+.model-copy p{font-size:16px;color:#475569;line-height:1.7;margin-bottom:16px}
+.model-copy p:last-of-type{margin-bottom:0}
+.model-copy p b{color:#0a1f5c;font-weight:700}
+.model-visual{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:32px;position:relative}
+.model-visual-label{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#94a3b8;margin-bottom:20px;text-align:center}
+.price-bar{margin-bottom:20px}
+.price-bar:last-child{margin-bottom:0}
+.price-bar-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.price-bar-title{font-size:13px;font-weight:700;color:#0a1f5c}
+.price-bar-title .who{font-weight:500;color:#64748b;font-size:12px;margin-left:6px}
+.price-bar-amount{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:18px;color:#0a1f5c;letter-spacing:-.3px}
+.price-bar-track{height:14px;background:#e2e8f0;border-radius:7px;overflow:hidden;position:relative}
+.price-bar-fill{height:100%;border-radius:7px;transition:width .6s ease-out}
+.price-bar.retail .price-bar-fill{background:linear-gradient(90deg,#94a3b8 0%,#64748b 100%);width:100%}
+.price-bar.b12{}
+.price-bar.b12 .price-bar-fill{background:linear-gradient(90deg,#0ea5e9 0%,#0a1f5c 100%);width:88%}
+.price-bar.b12 .price-bar-amount{color:#0ea5e9}
+.price-bar.wholesale .price-bar-fill{background:linear-gradient(90deg,#fca5a5 0%,#dc2626 100%);width:70%}
+.price-bar.wholesale .price-bar-amount{color:#dc2626}
+.price-bar-sub{font-size:11px;color:#94a3b8;margin-top:6px}
+.model-callout{margin-top:24px;padding:16px 18px;background:#0a1f5c;color:#fff;border-radius:10px;font-size:13px;line-height:1.5;display:flex;align-items:center;gap:12px}
+.model-callout-icon{width:32px;height:32px;border-radius:50%;background:rgba(125,211,252,.2);color:#7dd3fc;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0;font-size:14px}
+.model-callout b{color:#7dd3fc}
+@media(max-width:900px){
+  .model-grid{grid-template-columns:1fr;gap:40px}
+  .model-visual{padding:24px}
+}
+@media(max-width:760px){
+  .model{padding:60px 20px}
+}</style>
 </head>
 <body>
 
@@ -340,6 +376,52 @@ footer{padding:40px 32px;background:#fff;text-align:center;font-size:12px;color:
     </div>
 
     <p class="math-fineprint">Actual results vary by unit condition, market demand, and time of year. Recon estimate reflects typical light cosmetic and mechanical work to meet auction lane standards. Some units that command a premium retail will see better gains; rough wholesale units may see less. The pattern holds.</p>
+  </div>
+</section>
+
+
+<section class="model">
+  <div class="model-inner">
+    <div class="model-grid">
+      <div class="model-copy">
+        <div class="label">The 12% rule</div>
+        <h2>Buyers come for one reason: <em>12% below retail</em>, every time.</h2>
+        <p>Every 12Below listing is priced at <b>12% below current market retail value</b> for that exact year, make, model, and mileage. Not 12% below MSRP. Not 12% below what some dealer down the road is asking. <b>12% below what the car actually sells for, today, in the DMV.</b></p>
+        <p>That single rule is the entire reason buyers show up. They search "used 2019 Honda Civic" on Google, see the same car at five DMV dealers for $14,500-$15,500, and find ours listed at $13,200. The decision is automatic.</p>
+        <p>You get retail-grade pricing without the retail-grade overhead. We get buyers who already trust the model. <b>Nobody has to be convinced.</b></p>
+      </div>
+      <div class="model-visual">
+        <div class="model-visual-label">Same 2019 Honda Civic LX &middot; DMV market</div>
+        <div class="price-bar retail">
+          <div class="price-bar-head">
+            <div class="price-bar-title">Dealer retail <span class="who">CarMax, AutoNation, etc.</span></div>
+            <div class="price-bar-amount">$15,000</div>
+          </div>
+          <div class="price-bar-track"><div class="price-bar-fill"></div></div>
+          <div class="price-bar-sub">Current market retail value</div>
+        </div>
+        <div class="price-bar b12">
+          <div class="price-bar-head">
+            <div class="price-bar-title">12Below listing <span class="who">Buyer pays you</span></div>
+            <div class="price-bar-amount">$13,200</div>
+          </div>
+          <div class="price-bar-track"><div class="price-bar-fill"></div></div>
+          <div class="price-bar-sub">12% below retail &mdash; the offer no buyer can ignore</div>
+        </div>
+        <div class="price-bar wholesale">
+          <div class="price-bar-head">
+            <div class="price-bar-title">Wholesale hammer <span class="who">What Manheim pays</span></div>
+            <div class="price-bar-amount">$11,500</div>
+          </div>
+          <div class="price-bar-track"><div class="price-bar-fill"></div></div>
+          <div class="price-bar-sub">23% below retail &mdash; where you usually end up</div>
+        </div>
+        <div class="model-callout">
+          <div class="model-callout-icon">&rarr;</div>
+          <div>You capture the <b>$1,700 gap</b> between wholesale and our 12% rule &mdash; minus a $299 flat fee.</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
