@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Escrow Admin - 12Below</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Montserrat',sans-serif;background:#f4f5f7;color:#0a1f5c;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:inherit;text-decoration:none}
+nav{background:#fff;padding:18px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f0f1f5}
+.logo{display:flex;flex-direction:column;align-items:center;line-height:1;gap:3px}
+.logo-main{font-size:22px;font-weight:800;color:#0ea5e9;letter-spacing:-.5px}
+.logo-main em{font-style:normal;color:#0a1f5c;font-weight:800}
+.logo-cars{font-size:9px;font-weight:800;color:#0ea5e9;letter-spacing:3px;background:#f0f9ff;padding:2px 6px;border-radius:4px;border:1px solid #e0f2fe;margin-left:16px}
+.wrap{max-width:880px;margin:40px auto;padding:0 24px}
+h1{font-size:28px;font-weight:800;color:#0a1f5c;letter-spacing:-.6px;margin-bottom:20px}
+.gate{background:#fff;border-radius:14px;padding:32px;box-shadow:0 4px 18px rgba(10,31,92,.08);max-width:420px;margin:80px auto}
+.gate h2{font-size:18px;font-weight:800;margin-bottom:8px;color:#0a1f5c}
+.gate p{color:#64748b;font-size:14px;margin-bottom:18px}
+.gate input{width:100%;padding:14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:15px;font-weight:600;color:#0a1f5c;font-family:inherit;margin-bottom:12px}
+.gate button{width:100%;background:#0a1f5c;color:#fff;border:none;padding:14px;border-radius:10px;font-weight:700;cursor:pointer;font-family:inherit;font-size:15px}
+.card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 4px 18px rgba(10,31,92,.06);margin-bottom:16px}
+.card-head{display:flex;justify-content:space-between;align-items:start;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.card-title{font-size:18px;font-weight:800;color:#0a1f5c}
+.card-price{font-size:14px;color:#64748b;margin-top:4px}
+.status-badge{padding:4px 12px;border-radius:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;align-self:flex-start}
+.status-pending_buyer{background:#fef9c3;color:#854d0e}
+.status-pending_seller{background:#fed7aa;color:#9a3412}
+.status-both_verified{background:#dbeafe;color:#1e40af}
+.status-funded{background:#e9d5ff;color:#6b21a8}
+.status-released{background:#bbf7d0;color:#166534}
+.status-cancelled{background:#fecaca;color:#991b1b}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.field{background:#f8fafc;padding:12px 14px;border-radius:8px;border:1px solid #e2e8f0}
+.field b{display:block;font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.4px;font-weight:700;margin-bottom:4px}
+.field span{font-weight:600;font-size:13px;color:#0a1f5c;word-break:break-word}
+.verified-row{display:flex;gap:18px;margin-bottom:16px;font-size:13px}
+.verified-tag{display:inline-flex;align-items:center;gap:6px;font-weight:700;padding:6px 12px;border-radius:6px;font-size:12px}
+.verified-yes{background:#dcfce7;color:#166534}
+.verified-no{background:#fee2e2;color:#991b1b}
+.actions{display:flex;gap:10px;flex-wrap:wrap;padding-top:16px;border-top:1px solid #e2e8f0}
+.btn{padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;border:1px solid #e2e8f0;background:#fff;color:#0a1f5c;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn:hover{border-color:#0a1f5c}
+.btn-primary{background:#0a1f5c;color:#fff;border-color:#0a1f5c}
+.btn-primary:hover{background:#0a2876}
+.btn-danger{background:#fef2f2;border-color:#fecaca;color:#991b1b}
+.btn-danger:hover{border-color:#dc2626}
+.empty{text-align:center;padding:80px 20px;color:#64748b}
+.err-msg{padding:12px;background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:8px;margin-bottom:16px;font-size:13px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0a1f5c;color:#fff;padding:12px 20px;border-radius:30px;font-weight:600;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.2);z-index:100;display:none}
+.toast.show{display:block;animation:slideUp .3s}
+@keyframes slideUp{from{transform:translate(-50%,20px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">
+    <span class="logo-main">12<em>Below</em></span>
+    <span class="logo-cars">CARS</span>
+  </a>
+</nav>
+<div id="gate" class="gate">
+  <h2>Admin access</h2>
+  <p>Enter the admin password to manage escrow requests.</p>
+  <input type="password" id="admin-pw" placeholder="Admin password">
+  <button id="gate-btn">Unlock</button>
+  <div id="gate-err" class="err-msg" style="display:none"></div>
+</div>
+<div id="main" class="wrap" style="display:none">
+  <h1>Escrow requests</h1>
+  <div id="list">Loading\u2026</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+(function(){
+  var adminKey = sessionStorage.getItem('admin_key_escrow') || '';
+
+  function toast(msg){
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 2400);
+  }
+
+  function money(n){ return '$' + Number(n||0).toLocaleString('en-US'); }
+  function esc(s){ return String(s||'').replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+  function showMain(){
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('main').style.display = '';
+    loadList();
+  }
+
+  function tryUnlock(pw){
+    sessionStorage.setItem('admin_key_escrow', pw);
+    adminKey = pw;
+    fetch('/.netlify/functions/escrow?t=__check__', {
+      headers: {'X-Admin-Key': pw}
+    }).then(function(r){
+      if(r.status === 401){
+        document.getElementById('gate-err').textContent = 'Wrong password.';
+        document.getElementById('gate-err').style.display = '';
+        sessionStorage.removeItem('admin_key_escrow');
+        adminKey = '';
+      } else {
+        showMain();
+      }
+    });
+  }
+
+  document.getElementById('gate-btn').addEventListener('click', function(){
+    var pw = document.getElementById('admin-pw').value;
+    if(pw) tryUnlock(pw);
+  });
+  document.getElementById('admin-pw').addEventListener('keydown', function(e){
+    if(e.key === 'Enter') document.getElementById('gate-btn').click();
+  });
+
+  function loadList(){
+    var url = '/.netlify/functions/escrow?list=1';
+    fetch(url, { headers: {'X-Admin-Key': adminKey} })
+      .then(function(r){ if(!r.ok) throw new Error('list_failed'); return r.json(); })
+      .then(function(records){
+        var listEl = document.getElementById('list');
+        if(!records || records.length === 0){
+          listEl.innerHTML = '<div class="empty"><p>No escrow requests yet. They will appear here when buyers submit on /escrow/</p></div>';
+          return;
+        }
+        listEl.innerHTML = records.map(function(r){
+          var f = r.fields || {};
+          var statusClass = 'status-' + (f.status || 'pending_buyer');
+          var car = ((f.car_year || '') + ' ' + (f.car_make_model || '')).trim() || 'Unknown car';
+          return '<div class="card" data-txn="' + esc(f.txn_id) + '">' +
+            '<div class="card-head">' +
+              '<div><div class="card-title">' + esc(car) + '</div><div class="card-price">' + money(f.car_price) + ' &middot; ' + esc(f.car_state || '') + '</div></div>' +
+              '<span class="status-badge ' + statusClass + '">' + esc(f.status || 'pending').replace(/_/g, ' ') + '</span>' +
+            '</div>' +
+            '<div class="grid2">' +
+              '<div class="field"><b>Buyer</b><span>' + esc(f.buyer_name || '\u2014') + '</span></div>' +
+              '<div class="field"><b>Buyer email</b><span>' + esc(f.buyer_email || '\u2014') + '</span></div>' +
+              '<div class="field"><b>Buyer phone</b><span>' + esc(f.buyer_phone || '\u2014') + '</span></div>' +
+              '<div class="field"><b>Seller</b><span>' + esc(f.seller_name || '\u2014') + '</span></div>' +
+              '<div class="field"><b>Seller contact</b><span>' + esc(f.seller_contact || '\u2014') + '</span></div>' +
+              '<div class="field"><b>Found via</b><span>' + esc(f.listing_source || '\u2014') + '</span></div>' +
+            '</div>' +
+            (f.notes ? '<div class="field" style="margin-bottom:16px"><b>Notes</b><span>' + esc(f.notes) + '</span></div>' : '') +
+            '<div class="verified-row">' +
+              '<div class="verified-tag ' + (f.buyer_verified ? 'verified-yes' : 'verified-no') + '">Buyer: ' + (f.buyer_verified ? '\u2713 verified' : 'not verified') + '</div>' +
+              '<div class="verified-tag ' + (f.seller_verified ? 'verified-yes' : 'verified-no') + '">Seller: ' + (f.seller_verified ? '\u2713 verified' : 'not verified') + '</div>' +
+            '</div>' +
+            '<div class="actions">' +
+              (!f.seller_verified ? '<button class="btn btn-primary act-send-seller">Send seller verification link</button>' : '') +
+              (f.status !== 'cancelled' && f.status !== 'released' ? '<button class="btn btn-danger act-cancel">Cancel transaction</button>' : '') +
+              '<a class="btn" href="/escrow/verify/?t=' + encodeURIComponent(f.txn_id) + '" target="_blank">View buyer link</a>' +
+              '<a class="btn" href="/escrow/verify/?t=' + encodeURIComponent(f.txn_id) + '&r=seller" target="_blank">View seller link</a>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+        // Wire up buttons
+        document.querySelectorAll('.act-send-seller').forEach(function(b){
+          b.addEventListener('click', function(){
+            var txn = b.closest('.card').dataset.txn;
+            b.disabled = true;
+            b.textContent = 'Sending\u2026';
+            fetch('/.netlify/functions/escrow', {
+              method: 'PUT',
+              headers: {'Content-Type':'application/json', 'X-Admin-Key': adminKey},
+              body: JSON.stringify({txn_id: txn, send_seller_link: true})
+            }).then(function(r){
+              if(r.ok){ toast('Seller verification email sent'); b.textContent = 'Email sent'; }
+              else { b.disabled = false; b.textContent = 'Try again'; }
+            });
+          });
+        });
+        document.querySelectorAll('.act-cancel').forEach(function(b){
+          b.addEventListener('click', function(){
+            if(!confirm('Cancel this transaction? This cannot be undone.')) return;
+            var txn = b.closest('.card').dataset.txn;
+            fetch('/.netlify/functions/escrow', {
+              method: 'PUT',
+              headers: {'Content-Type':'application/json', 'X-Admin-Key': adminKey},
+              body: JSON.stringify({txn_id: txn, status: 'cancelled'})
+            }).then(function(r){
+              if(r.ok){ toast('Transaction cancelled'); loadList(); }
+            });
+          });
+        });
+      })
+      .catch(function(){
+        document.getElementById('list').innerHTML = '<div class="empty"><p>Could not load. Refresh to retry.</p></div>';
+      });
+  }
+
+  if(adminKey) showMain();
+})();
+</script>
+</body>
+</html>
