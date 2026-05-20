@@ -104,20 +104,18 @@ exports.handler = async (event) => {
       // Fire-and-forget emails. Don't block response on email success.
       callNotify({
         type: 'escrow_buyer_verify',
-        data: {
-          buyer_name: fields.buyer_name,
-          buyer_email: fields.buyer_email,
-          car_summary: (fields.car_year + ' ' + fields.car_make_model).trim() || 'your car',
-          car_price: fields.car_price,
-          verify_url: verifyUrl,
-          txn_id: txn_id
-        }
+        buyer_name: fields.buyer_name,
+        buyer_email: fields.buyer_email,
+        car_summary: (fields.car_year + ' ' + fields.car_make_model).trim() || 'your car',
+        car_price: fields.car_price,
+        verify_url: verifyUrl,
+        txn_id: txn_id
       }).catch(() => {});
 
-      callNotify({
+      callNotify(Object.assign({
         type: 'escrow_admin_notification',
-        data: Object.assign({}, fields, { admin_url: baseUrl + '/admin/escrow/?t=' + txn_id })
-      }).catch(() => {});
+        admin_url: baseUrl + '/escrow/admin/'
+      }, fields)).catch(() => {});
 
       return { statusCode: 200, headers, body: JSON.stringify({ ok: true, txn_id: txn_id }) };
     }
@@ -216,15 +214,13 @@ exports.handler = async (event) => {
           const sellerVerifyUrl = baseUrl + '/escrow/verify/?t=' + txn_id + '&r=seller';
           callNotify({
             type: 'escrow_seller_verify',
-            data: {
-              seller_name: existing.seller_name || 'Seller',
-              seller_email: existing.seller_contact,
-              buyer_name: existing.buyer_name,
-              car_summary: ((existing.car_year || '') + ' ' + (existing.car_make_model || '')).trim() || 'a car',
-              car_price: existing.car_price,
-              verify_url: sellerVerifyUrl,
-              txn_id: txn_id
-            }
+            seller_name: existing.seller_name || 'Seller',
+            seller_email: existing.seller_contact,
+            buyer_name: existing.buyer_name,
+            car_summary: ((existing.car_year || '') + ' ' + (existing.car_make_model || '')).trim() || 'a car',
+            car_price: existing.car_price,
+            verify_url: sellerVerifyUrl,
+            txn_id: txn_id
           }).catch(() => {});
         }
       }
