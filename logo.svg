@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+<rect width="800" height="800" fill="#ffffff"/>
+<g transform="translate(400, 360)">
+<text x="0" y="0" font-family="Arial Black, Helvetica, sans-serif" font-size="160" font-weight="900" text-anchor="middle" letter-spacing="-4">
+<tspan fill="#0ea5e9">12</tspan><tspan fill="#0a1f5c">Below</tspan>
+</text>
+</g>
+<g transform="translate(400, 480)">
+<rect x="-90" y="-32" width="180" height="56" rx="10" fill="#f0f9ff" stroke="#e0f2fe" stroke-width="2"/>
+<text x="0" y="10" font-family="Arial Black, Helvetica, sans-serif" font-size="36" font-weight="900" text-anchor="middle" fill="#0ea5e9" letter-spacing="8">CARS</text>
+</g>
+<text x="400" y="620" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="600" text-anchor="middle" fill="#64748b" letter-spacing="2">DMV CAR MARKETPLACE</text>
+<text x="400" y="670" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="middle" fill="#94a3b8">12belowcars.com</text>
+</svg>
