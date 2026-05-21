@@ -601,5 +601,67 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
   loadListings();
 })();
 </script>
-<script>(function(){var t=document.getElementById("nav-toggle"),m=document.getElementById("nav-links-mobile");if(!t||!m)return;function close(){t.classList.remove("open");m.classList.remove("open");document.body.classList.remove("nav-open");t.setAttribute("aria-expanded","false")}function open(){t.classList.add("open");m.classList.add("open");document.body.classList.add("nav-open");t.setAttribute("aria-expanded","true")}t.addEventListener("click",function(e){e.stopPropagation();if(m.classList.contains("open"))close();else open()});m.addEventListener("click",function(e){if(e.target.tagName==="A")close()});document.addEventListener("click",function(e){if(m.classList.contains("open")&&!m.contains(e.target)&&e.target!==t&&!t.contains(e.target))close()});document.addEventListener("keydown",function(e){if(e.key==="Escape"&&m.classList.contains("open"))close()})})();</script></body>
+<script>(function(){var t=document.getElementById("nav-toggle"),m=document.getElementById("nav-links-mobile");if(!t||!m)return;function close(){t.classList.remove("open");m.classList.remove("open");document.body.classList.remove("nav-open");t.setAttribute("aria-expanded","false")}function open(){t.classList.add("open");m.classList.add("open");document.body.classList.add("nav-open");t.setAttribute("aria-expanded","true")}t.addEventListener("click",function(e){e.stopPropagation();if(m.classList.contains("open"))close();else open()});m.addEventListener("click",function(e){if(e.target.tagName==="A")close()});document.addEventListener("click",function(e){if(m.classList.contains("open")&&!m.contains(e.target)&&e.target!==t&&!t.contains(e.target))close()});document.addEventListener("keydown",function(e){if(e.key==="Escape"&&m.classList.contains("open"))close()})})();</script><script>
+/* 12Below buyer-inquiry tracking - silent, fire-and-forget */
+(function(){
+  function getListingContext(){
+    var modal = document.querySelector('.listing-modal.open, .listing-modal[style*="display: block"], #listingModal[style*="block"], .modal.open');
+    var listing_id = '', listing_title = '', seller_phone = '', seller_email = '';
+    if(modal){
+      listing_id = modal.getAttribute('data-listing-id') || '';
+      var title = modal.querySelector('h1, h2, .modal-title');
+      if(title) listing_title = (title.textContent||'').trim().substring(0, 100);
+    }
+    // Fallback - check window context or URL
+    if(!listing_id && window._currentListingId) listing_id = window._currentListingId;
+    if(!listing_title && window._currentListingTitle) listing_title = window._currentListingTitle;
+    return {listing_id: listing_id, listing_title: listing_title, seller_phone: seller_phone, seller_email: seller_email};
+  }
+  
+  function classify(href){
+    if(!href) return null;
+    if(href.indexOf('tel:') === 0) return {action: 'call', phone: href.substring(4)};
+    if(href.indexOf('sms:') === 0) return {action: 'text', phone: href.substring(4)};
+    if(href.indexOf('mailto:') === 0) return {action: 'email', email: href.substring(7).split('?')[0]};
+    if(/autofi|upstart|lightstream/i.test(href)) return {action: 'financing'};
+    return null;
+  }
+  
+  function fireTrack(payload){
+    try {
+      var url = '/.netlify/functions/notify';
+      var body = JSON.stringify(payload);
+      if(navigator.sendBeacon){
+        var blob = new Blob([body], {type: 'application/json'});
+        navigator.sendBeacon(url, blob);
+      } else {
+        fetch(url, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: body, keepalive: true}).catch(function(){});
+      }
+    } catch(e){ /* silent */ }
+  }
+  
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href]');
+    if(!a) return;
+    var href = a.getAttribute('href') || '';
+    var cls = classify(href);
+    if(!cls) return;
+    var ctx = getListingContext();
+    var payload = {
+      type: 'buyer_inquiry',
+      action: cls.action,
+      listing_id: ctx.listing_id,
+      listing_title: ctx.listing_title,
+      seller_phone: cls.phone || ctx.seller_phone || '',
+      seller_email: cls.email || ctx.seller_email || '',
+      source: window.location.pathname + window.location.search,
+      referrer: document.referrer.substring(0, 200),
+      user_agent: (navigator.userAgent || '').substring(0, 200),
+      submitted_at: new Date().toISOString()
+    };
+    fireTrack(payload);
+  }, true); /* capture phase - fires before navigation */
+})();
+</script>
+</body>
 </html>
