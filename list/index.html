@@ -454,7 +454,7 @@ async function submitListing() {
   fd.append('Seller_Phone', phone);
   fd.append('Location', loc);
   fd.append('Notes', listing.notes || 'None');
-  try { await fetch('https://formsubmit.co/denispeniche@gmail.com', { method: 'POST', body: fd }); } catch(e) {}
+  try { await fetch('/.netlify/functions/notify', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({type:'seller_listing', vehicle: fd.get('Vehicle'), vin: fd.get('VIN'), mileage: fd.get('Mileage'), condition: fd.get('Condition'), asking_price: fd.get('Asking_Price'), market_value: fd.get('Market_Value'), seller_name: fd.get('Seller_Name'), seller_email: fd.get('Seller_Email'), seller_phone: fd.get('Seller_Phone'), location: fd.get('Location'), notes: fd.get('Notes')}) }).catch(function(){}); } catch(e) {}
   // Show success
   document.getElementById('listingSummary').innerHTML =
     '<div class="ls-row"><span class="ls-label">Vehicle</span><span class="ls-val">' + vinData.year + ' ' + vinData.make + ' ' + vinData.model + '</span></div>' +
