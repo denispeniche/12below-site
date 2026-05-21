@@ -74,7 +74,7 @@ exports.handler = async function(event) {
         '<span style="font-weight:700;color:#1a1a2e;">You receive</span><span style="font-weight:800;color:#22c55e;font-size:18px;">$' + fmt(sellerReceives) + '</span></div></div>' +
         '<div style="background:#fff8e1;border-radius:10px;padding:14px;margin-bottom:24px;font-size:13px;color:#92400e;">' +
         '<strong>Note:</strong> Buyer pays Maryland title tax (6%) directly at MVA on title transfer.</div>' +
-        '<a href="' + confirmUrl + '&action=confirm" style="display:block;background:#22c55e;color:#fff;text-align:center;padding:16px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;margin-bottom:10px;">Confirm Sale ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Receive $' + fmt(sellerReceives) + '</a>' +
+        '<a href="' + confirmUrl + '&action=confirm" style="display:block;background:#22c55e;color:#fff;text-align:center;padding:16px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;margin-bottom:10px;">Confirm Sale ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Receive $' + fmt(sellerReceives) + '</a>' +
         '<a href="' + confirmUrl + '&action=decline" style="display:block;background:#f4f5f7;color:#666;text-align:center;padding:14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;">Decline Offer</a>' +
         '<p style="font-size:12px;color:#aaa;text-align:center;margin-top:20px;">Questions? Contact hello@12below.net</p>' +
         '</div></div></body></html>';
@@ -99,7 +99,7 @@ exports.handler = async function(event) {
         '</div></div></body></html>';
 
       const r1 = await sendEmail(sellerEmail, 'You have an offer on your ' + car + '!', sellerHtml);
-      const r2 = await sendEmail(buyerEmail, 'Your funds are secured ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ ' + car, buyerHtml);
+      const r2 = await sendEmail(buyerEmail, 'Your funds are secured ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ ' + car, buyerHtml);
 
       return {statusCode:200, headers:h, body:JSON.stringify({ok:true, seller:r1.status, buyer:r2.status})};
     }
@@ -116,7 +116,7 @@ exports.handler = async function(event) {
         '<p style="font-size:12px;color:#aaa;margin-top:20px;">Questions? hello@12below.net</p>' +
         '</div></div></body></html>';
 
-      const r1 = await sendEmail(buyerEmail, 'Sale confirmed ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ ' + car, confirmedHtml);
+      const r1 = await sendEmail(buyerEmail, 'Sale confirmed ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ ' + car, confirmedHtml);
       return {statusCode:200, headers:h, body:JSON.stringify({ok:true, status:r1.status})};
     }
 
@@ -329,6 +329,59 @@ exports.handler = async function(event) {
       await sendEmail(adminEmail, '[12Below Pilot] Dealer application: ' + dealerName, dealerHtml);
       return {statusCode:200, headers:h, body:JSON.stringify({sent:true, type:type})};
     }
+    if(type === 'buyer_inquiry') {
+      const adminEmail = process.env.ADMIN_EMAIL || 'denispeniche@gmail.com';
+      const listingId = data.listing_id || 'unknown';
+      const listingTitle = data.listing_title || 'a 12Below listing';
+      const action = data.action || 'unknown';
+      const actionLabel = action === 'call' ? 'Called seller' : action === 'text' ? 'Texted seller' : action === 'email' ? 'Emailed seller' : action === 'financing' ? 'Started financing application' : action === 'view_modal' ? 'Opened listing details' : action;
+      const actionEmoji = action === 'call' ? '📞' : action === 'text' ? '💬' : action === 'email' ? '✉️' : action === 'financing' ? '💵' : action === 'view_modal' ? '👀' : '👋';
+      const sellerPhone = data.seller_phone || '';
+      const sellerEmail = data.seller_email || '';
+      const source = data.source || '';
+      const userAgent = (data.user_agent || '').substring(0, 200);
+      const referrer = (data.referrer || '').substring(0, 200);
+      const ts = new Date().toLocaleString('en-US', {timeZone: 'America/New_York', dateStyle: 'medium', timeStyle: 'short'});
+      
+      const subject = '[12Below] ' + actionEmoji + ' Buyer interest: ' + listingTitle + ' — ' + actionLabel;
+      const to = adminEmail;
+      const htmlBody = '<!DOCTYPE html><html><body style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f8fafc;margin:0;padding:24px;">'
+        + '<div style="max-width:560px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;">'
+        + '<div style="background:#0a1f5c;padding:24px 28px;color:#fff;">'
+        + '<div style="font-size:11px;letter-spacing:2px;color:#0ea5e9;font-weight:800;text-transform:uppercase;margin-bottom:6px;">12BELOW &middot; BUYER INTEREST</div>'
+        + '<div style="font-size:22px;font-weight:800;letter-spacing:-.4px;">' + actionEmoji + ' ' + actionLabel + '</div>'
+        + '<div style="font-size:14px;color:#cbd5e1;margin-top:4px;">' + listingTitle + '</div>'
+        + '</div>'
+        + '<div style="padding:24px 28px;">'
+        + '<div style="background:#f8fafc;border-radius:8px;padding:16px 18px;margin-bottom:14px;">'
+        + '<div style="font-size:11px;letter-spacing:1.5px;color:#64748b;font-weight:700;text-transform:uppercase;margin-bottom:8px;">Listing</div>'
+        + '<div style="font-size:14px;color:#0a1f5c;line-height:1.6;">'
+        + '<b>ID:</b> ' + listingId + '<br>'
+        + '<b>Title:</b> ' + listingTitle + '<br>'
+        + (sellerPhone ? '<b>Seller phone:</b> ' + sellerPhone + '<br>' : '')
+        + (sellerEmail ? '<b>Seller email:</b> ' + sellerEmail + '<br>' : '')
+        + '</div></div>'
+        + '<div style="background:#f8fafc;border-radius:8px;padding:16px 18px;margin-bottom:14px;">'
+        + '<div style="font-size:11px;letter-spacing:1.5px;color:#64748b;font-weight:700;text-transform:uppercase;margin-bottom:8px;">Context</div>'
+        + '<div style="font-size:13px;color:#334155;line-height:1.7;">'
+        + '<b>Action:</b> ' + actionLabel + '<br>'
+        + '<b>When:</b> ' + ts + ' ET<br>'
+        + (source ? '<b>Source:</b> ' + source + '<br>' : '')
+        + (referrer ? '<b>Referrer:</b> ' + referrer + '<br>' : '')
+        + (userAgent ? '<b>Device:</b> ' + userAgent + '<br>' : '')
+        + '</div></div>'
+        + '<div style="font-size:12px;color:#94a3b8;text-align:center;margin-top:18px;">Logged automatically by 12belowcars.com</div>'
+        + '</div></div></body></html>';
+      
+      const sendRes = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {'Authorization': 'Bearer ' + process.env.RESEND_API_KEY, 'Content-Type': 'application/json'},
+        body: JSON.stringify({from: process.env.FROM_EMAIL || 'onboarding@resend.dev', to: to, subject: subject, html: htmlBody})
+      });
+      const sendBody = await sendRes.text();
+      return {statusCode:200, headers:h, body:JSON.stringify({sent:sendRes.ok, type:type, resend_status:sendRes.status, resend_body:sendBody.substring(0,200)})};
+    }
+    
     return {statusCode:400, headers:h, body:JSON.stringify({error:'unknown type'})};
   } catch(e) {
     return {statusCode:500, headers:h, body:JSON.stringify({error:e.message, stack:e.stack})};
