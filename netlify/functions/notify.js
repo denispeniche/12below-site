@@ -1,3 +1,4 @@
+// Last deploy: 2026-05-21T15:55:06.753Z - force redeploy to pickup new FROM_EMAIL friendly name
 const https = require('https');
 
 function sendEmail(to, subject, htmlBody) {
@@ -73,7 +74,7 @@ exports.handler = async function(event) {
         '<span style="font-weight:700;color:#1a1a2e;">You receive</span><span style="font-weight:800;color:#22c55e;font-size:18px;">$' + fmt(sellerReceives) + '</span></div></div>' +
         '<div style="background:#fff8e1;border-radius:10px;padding:14px;margin-bottom:24px;font-size:13px;color:#92400e;">' +
         '<strong>Note:</strong> Buyer pays Maryland title tax (6%) directly at MVA on title transfer.</div>' +
-        '<a href="' + confirmUrl + '&action=confirm" style="display:block;background:#22c55e;color:#fff;text-align:center;padding:16px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;margin-bottom:10px;">Confirm Sale ÃÂ¢ÃÂÃÂ Receive $' + fmt(sellerReceives) + '</a>' +
+        '<a href="' + confirmUrl + '&action=confirm" style="display:block;background:#22c55e;color:#fff;text-align:center;padding:16px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;margin-bottom:10px;">Confirm Sale ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Receive $' + fmt(sellerReceives) + '</a>' +
         '<a href="' + confirmUrl + '&action=decline" style="display:block;background:#f4f5f7;color:#666;text-align:center;padding:14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;">Decline Offer</a>' +
         '<p style="font-size:12px;color:#aaa;text-align:center;margin-top:20px;">Questions? Contact hello@12below.net</p>' +
         '</div></div></body></html>';
@@ -98,7 +99,7 @@ exports.handler = async function(event) {
         '</div></div></body></html>';
 
       const r1 = await sendEmail(sellerEmail, 'You have an offer on your ' + car + '!', sellerHtml);
-      const r2 = await sendEmail(buyerEmail, 'Your funds are secured ÃÂ¢ÃÂÃÂ ' + car, buyerHtml);
+      const r2 = await sendEmail(buyerEmail, 'Your funds are secured ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ ' + car, buyerHtml);
 
       return {statusCode:200, headers:h, body:JSON.stringify({ok:true, seller:r1.status, buyer:r2.status})};
     }
@@ -115,7 +116,7 @@ exports.handler = async function(event) {
         '<p style="font-size:12px;color:#aaa;margin-top:20px;">Questions? hello@12below.net</p>' +
         '</div></div></body></html>';
 
-      const r1 = await sendEmail(buyerEmail, 'Sale confirmed ÃÂ¢ÃÂÃÂ ' + car, confirmedHtml);
+      const r1 = await sendEmail(buyerEmail, 'Sale confirmed ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ ' + car, confirmedHtml);
       return {statusCode:200, headers:h, body:JSON.stringify({ok:true, status:r1.status})};
     }
 
