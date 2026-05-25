@@ -181,6 +181,62 @@
     </div>
   </div>
 </section>
+
+<style>
+.popular-styles{padding:60px 32px;background:#fff}
+.ps-inner{max-width:1100px;margin:0 auto}
+.ps-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;gap:20px;flex-wrap:wrap}
+.ps-header h2{font-size:28px;font-weight:900;color:#0a1f5c;margin:0;letter-spacing:-1px}
+.ps-nav{display:flex;gap:10px}
+.ps-arrow{width:44px;height:44px;border-radius:50%;border:1.5px solid #e2e8f0;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#0a1f5c;font-size:18px;font-weight:700;transition:all .15s;font-family:inherit}
+.ps-arrow:hover{background:#eff6ff;border-color:#3b82f6;color:#3b82f6}
+.ps-scroll{display:flex;gap:20px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;padding-bottom:8px}
+.ps-scroll::-webkit-scrollbar{display:none}
+.ps-card{flex:0 0 auto;width:160px;text-align:center;text-decoration:none;color:inherit;padding:20px 12px;border-radius:14px;transition:all .15s;background:#fff;border:1.5px solid transparent}
+.ps-card:hover{background:#eff6ff;border-color:#bfdbfe;transform:translateY(-2px)}
+.ps-label{font-size:15px;font-weight:700;color:#64748b;margin-bottom:14px;transition:color .15s}
+.ps-card:hover .ps-label{color:#0ea5e9}
+.ps-icon{font-size:64px;line-height:1}
+@media(max-width:760px){
+.popular-styles{padding:40px 16px}
+.ps-header h2{font-size:22px}
+.ps-card{width:130px;padding:14px 8px}
+.ps-icon{font-size:52px}
+}
+</style>
+
+<section class="popular-styles">
+  <div class="ps-inner">
+    <div class="ps-header">
+      <h2>Popular vehicle styles</h2>
+      <div class="ps-nav">
+        <button class="ps-arrow" id="ps-prev" aria-label="Scroll left">&larr;</button>
+        <button class="ps-arrow" id="ps-next" aria-label="Scroll right">&rarr;</button>
+      </div>
+    </div>
+    <div class="ps-scroll" id="ps-scroll">
+      <a class="ps-card" href="/listings/?bodyStyle=SUV"><div class="ps-label">SUVs</div><div class="ps-icon">&#x1F699;</div></a>
+      <a class="ps-card" href="/listings/?bodyStyle=Sedan"><div class="ps-label">Sedans</div><div class="ps-icon">&#x1F697;</div></a>
+      <a class="ps-card" href="/listings/?bodyStyle=Truck"><div class="ps-label">Trucks</div><div class="ps-icon">&#x1F6FB;</div></a>
+      <a class="ps-card" href="/listings/?bodyStyle=EV"><div class="ps-label">EVs</div><div class="ps-icon">&#x26A1;</div></a>
+      <a class="ps-card" href="/listings/?bodyStyle=Hybrid"><div class="ps-label">Hybrids</div><div class="ps-icon">&#x1F343;</div></a>
+      <a class="ps-card" href="/listings/?bodyStyle=Coupe"><div class="ps-label">Coupes</div><div class="ps-icon">&#x1F3CE;&#xFE0F;</div></a>
+      <a class="ps-card" href="/listings/?bodyStyle=Hatchback"><div class="ps-label">Hatchbacks</div><div class="ps-icon">&#x1F695;</div></a>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var scroll = document.getElementById('ps-scroll');
+  var prev = document.getElementById('ps-prev');
+  var next = document.getElementById('ps-next');
+  if(!scroll || !prev || !next) return;
+  var step = 200;
+  prev.addEventListener('click', function(){ scroll.scrollBy({left: -step, behavior: 'smooth'}); });
+  next.addEventListener('click', function(){ scroll.scrollBy({left: step, behavior: 'smooth'}); });
+})();
+</script>
+
 <section class="budget-calc" id="budget-calc">
   <div class="bc-inner">
     <div class="bc-card">
