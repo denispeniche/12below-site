@@ -196,12 +196,13 @@
 .ps-card:hover{background:#eff6ff;border-color:#bfdbfe;transform:translateY(-2px)}
 .ps-label{font-size:15px;font-weight:700;color:#64748b;margin-bottom:14px;transition:color .15s}
 .ps-card:hover .ps-label{color:#0ea5e9}
-.ps-icon{font-size:64px;line-height:1}
+.ps-icon{height:80px;display:flex;align-items:center;justify-content:center}
+.ps-icon img{max-width:100%;max-height:100%;width:auto;height:auto;display:block;object-fit:contain}
 @media(max-width:760px){
 .popular-styles{padding:40px 16px}
 .ps-header h2{font-size:22px}
 .ps-card{width:130px;padding:14px 8px}
-.ps-icon{font-size:52px}
+.ps-icon{height:60px}
 }
 </style>
 
@@ -215,13 +216,12 @@
       </div>
     </div>
     <div class="ps-scroll" id="ps-scroll">
-      <a class="ps-card" href="/listings/?bodyStyle=SUV"><div class="ps-label">SUVs</div><div class="ps-icon">&#x1F699;</div></a>
-      <a class="ps-card" href="/listings/?bodyStyle=Sedan"><div class="ps-label">Sedans</div><div class="ps-icon">&#x1F697;</div></a>
-      <a class="ps-card" href="/listings/?bodyStyle=Truck"><div class="ps-label">Trucks</div><div class="ps-icon">&#x1F6FB;</div></a>
-      <a class="ps-card" href="/listings/?bodyStyle=EV"><div class="ps-label">EVs</div><div class="ps-icon">&#x26A1;</div></a>
-      <a class="ps-card" href="/listings/?bodyStyle=Hybrid"><div class="ps-label">Hybrids</div><div class="ps-icon">&#x1F343;</div></a>
-      <a class="ps-card" href="/listings/?bodyStyle=Coupe"><div class="ps-label">Coupes</div><div class="ps-icon">&#x1F3CE;&#xFE0F;</div></a>
-      <a class="ps-card" href="/listings/?bodyStyle=Hatchback"><div class="ps-label">Hatchbacks</div><div class="ps-icon">&#x1F695;</div></a>
+      <a class="ps-card" href="/listings/?bodyStyle=SUV"><div class="ps-label">SUVs</div><div class="ps-icon"><img src="/vehicle-styles/suv.webp" alt="SUV" loading="lazy"></div></a>
+      <a class="ps-card" href="/listings/?bodyStyle=Sedan"><div class="ps-label">Sedans</div><div class="ps-icon"><img src="/vehicle-styles/sedan.webp" alt="Sedan" loading="lazy"></div></a>
+      <a class="ps-card" href="/listings/?bodyStyle=Truck"><div class="ps-label">Trucks</div><div class="ps-icon"><img src="/vehicle-styles/truck.webp" alt="Truck" loading="lazy"></div></a>
+      <a class="ps-card" href="/listings/?bodyStyle=EV"><div class="ps-label">EVs</div><div class="ps-icon"><img src="/vehicle-styles/ev.webp" alt="Electric vehicle" loading="lazy"></div></a>
+      <a class="ps-card" href="/listings/?bodyStyle=Hybrid"><div class="ps-label">Hybrids</div><div class="ps-icon"><img src="/vehicle-styles/hybrid.webp" alt="Hybrid" loading="lazy"></div></a>
+      <a class="ps-card" href="/listings/?bodyStyle=Coupe"><div class="ps-label">Coupes</div><div class="ps-icon"><img src="/vehicle-styles/coupe.webp" alt="Coupe" loading="lazy"></div></a>
     </div>
   </div>
 </section>
