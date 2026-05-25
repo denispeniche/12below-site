@@ -196,6 +196,12 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
   var all = [];
   var filtered = [];
   var urlMaxPrice = (function(){ try { var u = new URL(window.location.href); var v = u.searchParams.get('maxPrice'); return v ? Number(v) : null; } catch(e){ return null; } })();
+  var urlMake = (function(){ try { return (new URL(window.location.href).searchParams.get('make') || '').trim(); } catch(e){ return ''; } })();
+  var urlModel = (function(){ try { return (new URL(window.location.href).searchParams.get('model') || '').trim(); } catch(e){ return ''; } })();
+  var urlSearchActive = !!(urlMake || urlModel);
+  var urlNoMatch = false;
+  var urlMatchedMake = '';
+  var urlMatchedModel = '';
   var currentPhoto = 0;
   var modalListing = null;
   var vinDecodeCache = {};
@@ -238,6 +244,7 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
       .then(function(data){
         all = Array.isArray(data) ? data : [];
         populateFilters();
+        applyUrlSearch();
         applyFilters();
       })
       .catch(function(err){
@@ -271,6 +278,26 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
     if(vals.indexOf(current) >= 0) sel.value = current;
   }
 
+  function applyUrlSearch(){
+    if(!urlSearchActive) return;
+    var makeSel = document.getElementById('f-make');
+    var modelSel = document.getElementById('f-model');
+    function pickMatch(sel, q){
+      if(!q) return '';
+      var opts = [];
+      for(var i=0;i<sel.options.length;i++){ if(sel.options[i].value) opts.push(sel.options[i].value); }
+      var qLow = q.toLowerCase();
+      var exact = opts.filter(function(v){ return v.toLowerCase() === qLow; })[0];
+      if(exact) return exact;
+      var partial = opts.filter(function(v){ return v.toLowerCase().indexOf(qLow) >= 0; })[0];
+      return partial || '';
+    }
+    urlMatchedMake = pickMatch(makeSel, urlMake);
+    urlMatchedModel = pickMatch(modelSel, urlModel);
+    if(urlMatchedMake) makeSel.value = urlMatchedMake;
+    if(urlMatchedModel) modelSel.value = urlMatchedModel;
+  }
+
   function applyFilters(){
     var make = document.getElementById('f-make').value;
     var model = document.getElementById('f-model').value;
@@ -293,6 +320,25 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
       return true;
     });
 
+    if(urlSearchActive && filtered.length === 0 && (make || model)){
+      urlNoMatch = true;
+      document.getElementById('f-make').value = '';
+      document.getElementById('f-model').value = '';
+      filtered = all.filter(function(l){
+        if(year && String(l.year) !== year) return false;
+        if(cond && l.condition !== cond) return false;
+        if(price){
+          var parts2 = price.split('-');
+          var lo2 = Number(parts2[0]), hi2 = Number(parts2[1]);
+          var p2 = Number(l.askingPrice);
+          if(p2 < lo2 || p2 > hi2) return false;
+        }
+        return true;
+      });
+    } else if(urlSearchActive){
+      urlNoMatch = false;
+    }
+
     if(sort === 'price-low') filtered.sort(function(a,b){return a.askingPrice - b.askingPrice;});
     else if(sort === 'price-high') filtered.sort(function(a,b){return b.askingPrice - a.askingPrice;});
     else if(sort === 'savings') filtered.sort(function(a,b){return pct(b.marketValue,b.askingPrice) - pct(a.marketValue,a.askingPrice);});
@@ -305,6 +351,14 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
     var g = document.getElementById('grid');
     var chipHtml = '';
     if(urlMaxPrice){ var matchCount = filtered.filter(function(l){ return Number(l.askingPrice) <= urlMaxPrice; }).length; chipHtml = '<div class="mp-chip"><span>Your budget: <b>$' + Number(urlMaxPrice).toLocaleString() + '</b> &middot; <b>' + matchCount + ' of ' + filtered.length + '</b> cars fit</span><a href="/listings/" class="mp-clear">Show all</a></div>'; }
+    if(urlSearchActive){
+      var searchLabel = [urlMake, urlModel].filter(function(s){ return s; }).join(' ');
+      if(urlNoMatch){
+        chipHtml += '<div class="mp-chip"><span>No exact match for <b>' + escHtml(searchLabel) + '</b> yet &mdash; showing all <b>' + filtered.length + '</b> available cars</span><a href="/listings/" class="mp-clear">Clear search</a></div>';
+      } else {
+        chipHtml += '<div class="mp-chip"><span>Showing <b>' + filtered.length + '</b> result' + (filtered.length === 1 ? '' : 's') + ' for <b>' + escHtml(searchLabel) + '</b></span><a href="/listings/" class="mp-clear">Clear search</a></div>';
+      }
+    }
     if(filtered.length === 0){
       g.innerHTML = chipHtml + '<div class="empty"><p>No cars match your filters.</p></div>';
       return;
@@ -582,7 +636,7 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
 
   // Filter changes
   ['f-make','f-model','f-year','f-price','f-cond','f-sort'].forEach(function(id){
-    document.getElementById(id).addEventListener('change', applyFilters);
+    document.getElementById(id).addEventListener('change', function(){ urlSearchActive = false; urlNoMatch = false; applyFilters(); });
   });
 
   document.getElementById('f-clear').addEventListener('click', function(){
@@ -590,6 +644,8 @@ nav{background:#fff;padding:16px 32px;display:flex;justify-content:space-between
       document.getElementById(id).value = '';
     });
     document.getElementById('f-sort').value = 'newest';
+    urlSearchActive = false;
+    urlNoMatch = false;
     applyFilters();
   });
 
