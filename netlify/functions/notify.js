@@ -74,7 +74,7 @@ exports.handler = async function(event) {
         '<span style="font-weight:700;color:#1a1a2e;">You receive</span><span style="font-weight:800;color:#22c55e;font-size:18px;">$' + fmt(sellerReceives) + '</span></div></div>' +
         '<div style="background:#fff8e1;border-radius:10px;padding:14px;margin-bottom:24px;font-size:13px;color:#92400e;">' +
         '<strong>Note:</strong> Buyer pays Maryland title tax (6%) directly at MVA on title transfer.</div>' +
-        '<a href="' + confirmUrl + '&action=confirm" style="display:block;background:#22c55e;color:#fff;text-align:center;padding:16px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;margin-bottom:10px;">Confirm Sale ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Receive $' + fmt(sellerReceives) + '</a>' +
+        '<a href="' + confirmUrl + '&action=confirm" style="display:block;background:#22c55e;color:#fff;text-align:center;padding:16px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;margin-bottom:10px;">Confirm Sale \u2014 Receive $' + fmt(sellerReceives) + '</a>' +
         '<a href="' + confirmUrl + '&action=decline" style="display:block;background:#f4f5f7;color:#666;text-align:center;padding:14px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;">Decline Offer</a>' +
         '<p style="font-size:12px;color:#aaa;text-align:center;margin-top:20px;">Questions? Contact hello@12below.net</p>' +
         '</div></div></body></html>';
@@ -99,7 +99,7 @@ exports.handler = async function(event) {
         '</div></div></body></html>';
 
       const r1 = await sendEmail(sellerEmail, 'You have an offer on your ' + car + '!', sellerHtml);
-      const r2 = await sendEmail(buyerEmail, 'Your funds are secured ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ ' + car, buyerHtml);
+      const r2 = await sendEmail(buyerEmail, 'Your funds are secured ' + car, buyerHtml);
 
       return {statusCode:200, headers:h, body:JSON.stringify({ok:true, seller:r1.status, buyer:r2.status})};
     }
@@ -116,7 +116,7 @@ exports.handler = async function(event) {
         '<p style="font-size:12px;color:#aaa;margin-top:20px;">Questions? hello@12below.net</p>' +
         '</div></div></body></html>';
 
-      const r1 = await sendEmail(buyerEmail, 'Sale confirmed ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ ' + car, confirmedHtml);
+      const r1 = await sendEmail(buyerEmail, 'Sale confirmed ' + car, confirmedHtml);
       return {statusCode:200, headers:h, body:JSON.stringify({ok:true, status:r1.status})};
     }
 
@@ -335,7 +335,7 @@ exports.handler = async function(event) {
       const listingTitle = data.listing_title || 'a 12Below listing';
       const action = data.action || 'unknown';
       const actionLabel = action === 'call' ? 'Called seller' : action === 'text' ? 'Texted seller' : action === 'email' ? 'Emailed seller' : action === 'financing' ? 'Started financing application' : action === 'view_modal' ? 'Opened listing details' : action;
-      const actionEmoji = action === 'call' ? 'ð' : action === 'text' ? 'ð¬' : action === 'email' ? 'âï¸' : action === 'financing' ? 'ðµ' : action === 'view_modal' ? 'ð' : 'ð';
+      const actionEmoji = action === 'call' ? '\u260E\uFE0F' : action === 'text' ? '\uD83D\uDCAC' : action === 'email' ? '\u2709\uFE0F' : action === 'financing' ? '\uD83D\uDCB5' : action === 'view_modal' ? '\uD83D\uDC41\uFE0F' : '\uD83D\uDD14';
       const sellerPhone = data.seller_phone || '';
       const sellerEmail = data.seller_email || '';
       const source = data.source || '';
@@ -343,7 +343,7 @@ exports.handler = async function(event) {
       const referrer = (data.referrer || '').substring(0, 200);
       const ts = new Date().toLocaleString('en-US', {timeZone: 'America/New_York', dateStyle: 'medium', timeStyle: 'short'});
       
-      const subject = '[12Below] ' + actionEmoji + ' Buyer interest: ' + listingTitle + ' â ' + actionLabel;
+      const subject = '[12Below] ' + actionEmoji + ' Buyer interest: ' + listingTitle + ' \u2014 ' + actionLabel;
       const to = adminEmail;
       const htmlBody = '<!DOCTYPE html><html><body style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f8fafc;margin:0;padding:24px;">'
         + '<div style="max-width:560px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;">'
