@@ -130,6 +130,57 @@
     </div>
   </div>
 </section>
+<section class="car-value" id="car-value">
+  <div class="cv-inner">
+    <div class="cv-card">
+      <div class="cv-left">
+        <div class="cv-eyebrow">Free tool</div>
+        <h2>What is your car worth?</h2>
+        <p class="cv-sub">Enter your VIN and we will pull the live market value &mdash; the same number CarMax and dealers use to set trade-in offers. No signup, no spam.</p>
+        <div class="cv-form">
+          <div class="cvf">
+            <label>Your VIN</label>
+            <input id="cv-vin" maxlength="17" placeholder="17 characters" autocomplete="off" spellcheck="false">
+          </div>
+          <div class="cvf-row">
+            <div class="cvf">
+              <label>Mileage</label>
+              <input id="cv-miles" inputmode="numeric" placeholder="e.g. 45,000">
+            </div>
+            <div class="cvf">
+              <label>ZIP code</label>
+              <input id="cv-zip" inputmode="numeric" maxlength="5" placeholder="e.g. 21043">
+            </div>
+          </div>
+          <button id="cv-go" class="cv-btn">Get my value</button>
+          <div id="cv-err" class="cv-err" style="display:none"></div>
+        </div>
+      </div>
+      <div class="cv-right" id="cv-right">
+        <div class="cv-placeholder" id="cv-placeholder">
+          <div class="cvp-icon">$</div>
+          <div class="cvp-text">Enter your VIN to see what your car is worth on the open market today.</div>
+        </div>
+        <div class="cv-result" id="cv-result" style="display:none">
+          <div class="cvr-vehicle" id="cvr-vehicle">&mdash;</div>
+          <div class="cvr-label">Estimated market value</div>
+          <div class="cvr-value" id="cvr-value">&mdash;</div>
+          <div class="cvr-row">
+            <div class="cvr-cell"><b>Dealer trade-in</b><span id="cvr-dealer">&mdash;</span></div>
+            <div class="cvr-cell cvr-cell-good"><b>12Below seller earns</b><span id="cvr-12below">&mdash;</span></div>
+          </div>
+          <div class="cvr-savings" id="cvr-savings">&mdash;</div>
+          <a href="/list/" class="cvr-cta">List my car free &rarr;</a>
+          <div class="cvr-foot">Sell direct to a buyer. No dealer middleman.</div>
+        </div>
+        <div class="cv-loading" id="cv-loading" style="display:none">
+          <div class="cv-spinner"></div>
+          <div>Looking up your car...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <section class="budget-calc" id="budget-calc">
   <div class="bc-inner">
     <div class="bc-card">
@@ -214,57 +265,6 @@
   compute();
 })();
 </script>
-<section class="car-value" id="car-value">
-  <div class="cv-inner">
-    <div class="cv-card">
-      <div class="cv-left">
-        <div class="cv-eyebrow">Free tool</div>
-        <h2>What is your car worth?</h2>
-        <p class="cv-sub">Enter your VIN and we will pull the live market value &mdash; the same number CarMax and dealers use to set trade-in offers. No signup, no spam.</p>
-        <div class="cv-form">
-          <div class="cvf">
-            <label>Your VIN</label>
-            <input id="cv-vin" maxlength="17" placeholder="17 characters" autocomplete="off" spellcheck="false">
-          </div>
-          <div class="cvf-row">
-            <div class="cvf">
-              <label>Mileage</label>
-              <input id="cv-miles" inputmode="numeric" placeholder="e.g. 45,000">
-            </div>
-            <div class="cvf">
-              <label>ZIP code</label>
-              <input id="cv-zip" inputmode="numeric" maxlength="5" placeholder="e.g. 21043">
-            </div>
-          </div>
-          <button id="cv-go" class="cv-btn">Get my value</button>
-          <div id="cv-err" class="cv-err" style="display:none"></div>
-        </div>
-      </div>
-      <div class="cv-right" id="cv-right">
-        <div class="cv-placeholder" id="cv-placeholder">
-          <div class="cvp-icon">$</div>
-          <div class="cvp-text">Enter your VIN to see what your car is worth on the open market today.</div>
-        </div>
-        <div class="cv-result" id="cv-result" style="display:none">
-          <div class="cvr-vehicle" id="cvr-vehicle">&mdash;</div>
-          <div class="cvr-label">Estimated market value</div>
-          <div class="cvr-value" id="cvr-value">&mdash;</div>
-          <div class="cvr-row">
-            <div class="cvr-cell"><b>Dealer trade-in</b><span id="cvr-dealer">&mdash;</span></div>
-            <div class="cvr-cell cvr-cell-good"><b>12Below seller earns</b><span id="cvr-12below">&mdash;</span></div>
-          </div>
-          <div class="cvr-savings" id="cvr-savings">&mdash;</div>
-          <a href="/list/" class="cvr-cta">List my car free &rarr;</a>
-          <div class="cvr-foot">Sell direct to a buyer. No dealer middleman.</div>
-        </div>
-        <div class="cv-loading" id="cv-loading" style="display:none">
-          <div class="cv-spinner"></div>
-          <div>Looking up your car...</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 <script>
 (function(){
   var vinEl = document.getElementById('cv-vin');
