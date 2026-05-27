@@ -282,7 +282,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.97);backdrop
 </div><!-- end .main -->
 
 <script>
-var MC_KEY = 'g0he2MrNvE5HuvmjPLqR3CFyKmZbpN8k';
+// MarketCheck calls now go through /.netlify/functions/price (server-side key)
 var photos = [], currentMV = 0, currentMax = 0, vinData = {};
 var fmt = function(n){ return '$' + Math.round(n).toLocaleString('en-US'); };
 
@@ -327,12 +327,20 @@ async function getMarketPrice() {
   err.classList.remove('show');
   btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Getting live price...';
   try {
-    var url = 'https://api.marketcheck.com/v2/predict/car/us/marketcheck_price?api_key=' + MC_KEY +
-      '&vin=' + encodeURIComponent(vinData.vin) + '&miles=' + encodeURIComponent(mi) +
-      '&dealer_type=independent&zip=' + encodeURIComponent(zip) + '&is_certified=false';
+    var url = '/.netlify/functions/price?vin=' + encodeURIComponent(vinData.vin) +
+      '&miles=' + encodeURIComponent(mi) + '&zip=' + encodeURIComponent(zip);
     var r = await fetch(url, { headers: { Accept: 'application/json' } });
     var d = await r.json();
-    if (!d.marketcheck_price) { err.textContent = 'Could not get market price. ' + (d.message || 'Please try again.'); err.classList.add('show'); btn.disabled = false; btn.textContent = 'Try again'; return; }
+    if (!d.marketcheck_price) {
+      var errMsg = 'Please try again.';
+      if (typeof d.error === 'string') errMsg = d.error;
+      else if (d.error && typeof d.error.message === 'string') errMsg = d.error.message;
+      else if (typeof d.message === 'string') errMsg = d.message;
+      err.textContent = 'Could not get market price. ' + errMsg;
+      err.classList.add('show');
+      btn.disabled = false; btn.textContent = 'Try again';
+      return;
+    }
     var mkt = d.marketcheck_price;
     var cd = { excellent: 1.0, good: 0.94, fair: 0.84 }[co] || 0.94;
     var adjMkt = Math.round((mkt * cd) / 100) * 100;
