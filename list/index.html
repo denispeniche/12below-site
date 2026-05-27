@@ -443,7 +443,7 @@ async function submitListing() {
     condition: document.getElementById('condition').value, askingPrice: ask, marketValue: currentMV,
     name: name, email: email, phone: phone, location: loc,
     zip: document.getElementById('zipCode').value, notes: document.getElementById('sellerNotes').value.trim(),
-    photos: photoUrls, status: 'new', createdAt: new Date().toISOString()
+    photos: photoUrls, status: 'active', createdAt: new Date().toISOString()
   };
   // Save to server
   try {
