@@ -35,18 +35,21 @@ function httpGet(path, timeoutMs) {
   });
 }
 
-function meanPriceFromListings(listings) {
+function medianPriceFromListings(listings) {
   if (!Array.isArray(listings) || listings.length === 0) return 0;
   const prices = listings
     .map(function(l){ return Number(l && l.price); })
-    .filter(function(p){ return Number.isFinite(p) && p > 1000 && p < 500000; });
+    .filter(function(p){ return Number.isFinite(p) && p > 1000 && p < 500000; })
+    .sort(function(a, b){ return a - b; });
   if (prices.length === 0) return 0;
-  prices.sort(function(a,b){ return a - b; });
-  // Trim 10% from each end to drop extreme outliers (salvage / mispriced)
-  const trimN = Math.floor(prices.length * 0.1);
-  const trimmed = prices.length > 10 ? prices.slice(trimN, prices.length - trimN) : prices;
-  const sum = trimmed.reduce(function(s,v){ return s + v; }, 0);
-  return Math.round(sum / trimmed.length);
+  // Median is dramatically more stable than mean when the comparable set is
+  // small (5-10 listings) and a single outlier can swing the average.
+  const mid = Math.floor(prices.length / 2);
+  const med = prices.length % 2 === 1
+    ? prices[mid]
+    : (prices[mid - 1] + prices[mid]) / 2;
+  // Round to nearest $500 so small fluctuations between calls don't surface.
+  return Math.round(med / 500) * 500;
 }
 
 exports.handler = async function(event) {
@@ -118,7 +121,7 @@ exports.handler = async function(event) {
         lastResp = await httpGet(buildSearch(a), 3000);
         const listings = (lastResp.data && Array.isArray(lastResp.data.listings)) ? lastResp.data.listings : [];
         if (listings.length >= a.minCount) {
-          mean = meanPriceFromListings(listings);
+          mean = medianPriceFromListings(listings);
           numFound = (lastResp.data && lastResp.data.num_found) ? lastResp.data.num_found : listings.length;
           usedBand = a.milesBand;
           if (mean > 0) break;
