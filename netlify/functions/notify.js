@@ -442,7 +442,63 @@ exports.handler = async function(event) {
         body: JSON.stringify({from: process.env.FROM_EMAIL || 'onboarding@resend.dev', to: to, subject: subject, html: htmlBody})
       });
       const sendBody = await sendRes.text();
-      return {statusCode:200, headers:h, body:JSON.stringify({sent:sendRes.ok, type:type, resend_status:sendRes.status})};
+
+      // Also send a confirmation email to the seller (if we have their email).
+      let sellerSent = false, sellerStatus = null;
+      if (sellerEmail) {
+        const firstName = (sellerName || '').split(' ')[0] || 'there';
+        const sellerSubject = 'Your ' + vehicle + ' is live on 12Below';
+        const listingsUrl = 'https://12belowcars.com/listings/';
+        const sellerHtml = '<!DOCTYPE html><html><body style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f8fafc;margin:0;padding:24px;">'
+          + '<div style="max-width:560px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;">'
+          + '<div style="background:#0a1f5c;padding:28px;text-align:center;color:#fff;">'
+          + '<div style="font-size:24px;font-weight:900;letter-spacing:-.5px;">12<span style="color:#3b82f6;">Below</span></div>'
+          + '<div style="font-size:11px;letter-spacing:2px;color:#93c5fd;font-weight:700;text-transform:uppercase;margin-top:6px;">Listing confirmed</div>'
+          + '</div>'
+          + '<div style="padding:28px;">'
+          + '<h2 style="color:#0a1f5c;margin:0 0 12px;font-size:22px;letter-spacing:-.3px;">Hi ' + firstName + ', your car is live</h2>'
+          + '<p style="color:#475569;font-size:15px;line-height:1.6;margin:0 0 24px;">Your <b>' + vehicle + '</b> is now visible to buyers across the DMV area. Listing free, no commission, no hidden fees.</p>'
+          + '<div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:18px 20px;margin-bottom:24px;">'
+          + '<div style="font-size:11px;letter-spacing:1.5px;color:#0369a1;font-weight:800;text-transform:uppercase;margin-bottom:10px;">Your listing</div>'
+          + '<div style="font-size:14px;color:#0a1f5c;line-height:1.8;">'
+          + '<b>Vehicle:</b> ' + vehicle + '<br>'
+          + (mileage ? '<b>Mileage:</b> ' + Number(mileage).toLocaleString() + ' mi<br>' : '')
+          + '<b>Asking price:</b> ' + askingPrice + '<br>'
+          + (location ? '<b>Location:</b> ' + location : '')
+          + '</div></div>'
+          + '<a href="' + listingsUrl + '" style="display:block;background:#0a1f5c;color:#fff;text-align:center;padding:14px;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none;margin-bottom:22px;">View your listing &rarr;</a>'
+          + '<div style="border-top:1px solid #e2e8f0;padding-top:20px;">'
+          + '<div style="font-size:12px;letter-spacing:1.5px;color:#64748b;font-weight:700;text-transform:uppercase;margin-bottom:10px;">What happens next</div>'
+          + '<div style="font-size:14px;color:#475569;line-height:1.75;">'
+          + '<b>1.</b> Buyers in the DMV area see your listing and tap <b>Call Seller</b> to reach you.<br>'
+          + '<b>2.</b> Negotiate, meet, test drive on your terms.<br>'
+          + '<b>3.</b> Close the deal — keep every dollar.'
+          + '</div></div>'
+          + '<p style="font-size:12px;color:#94a3b8;text-align:center;margin-top:24px;line-height:1.6;">'
+          + 'Questions? Reply to this email or write to <a href="mailto:hello@12belowcars.com" style="color:#3b82f6;text-decoration:none;">hello@12belowcars.com</a>.'
+          + '</p>'
+          + '</div></div></body></html>';
+
+        try {
+          const sellerRes = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {'Authorization': 'Bearer ' + process.env.RESEND_API_KEY, 'Content-Type': 'application/json'},
+            body: JSON.stringify({from: process.env.FROM_EMAIL || 'onboarding@resend.dev', to: sellerEmail, subject: sellerSubject, html: sellerHtml})
+          });
+          sellerSent = sellerRes.ok;
+          sellerStatus = sellerRes.status;
+        } catch (e) {
+          sellerStatus = 'error: ' + (e && e.message);
+        }
+      }
+
+      return {statusCode:200, headers:h, body:JSON.stringify({
+        sent: sendRes.ok,
+        type: type,
+        admin_status: sendRes.status,
+        seller_sent: sellerSent,
+        seller_status: sellerStatus
+      })};
     }
     return {statusCode:400, headers:h, body:JSON.stringify({error:'unknown type'})};
   } catch(e) {
