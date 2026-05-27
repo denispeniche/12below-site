@@ -361,14 +361,14 @@ async function getMarketPrice() {
     document.getElementById('priceSection').style.display = 'block';
     document.getElementById('priceSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch(e) { err.textContent = 'Error: ' + e.message; err.classList.add('show'); }
-  btn.disabled = false; btn.textContent = 'Get my real market price &#8594;';
+  btn.disabled = false; btn.innerHTML = 'Get my real market price &#8594;';
 }
 
 function validateAsk() {
   var v = parseInt(document.getElementById('askPrice').value);
   var err = document.getElementById('askErr');
   if (!v || !currentMax) { err.style.display = 'none'; return; }
-  if (v > currentMax) { err.textContent = 'Price must be &#9888; ' + fmt(currentMax) + '.'; err.style.display = 'block'; }
+  if (v > currentMax) { err.innerHTML = 'Price must be &#9888; ' + fmt(currentMax) + '.'; err.style.display = 'block'; }
   else err.style.display = 'none';
 }
 
