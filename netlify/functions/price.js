@@ -76,51 +76,65 @@ exports.handler = async function(event) {
     };
   }
 
-  // ---- Attempt 2: Active-listings search fallback (year/make/model) ----
+  // ---- Attempt 2: Active-listings search fallback (year/make/model + mileage band) ----
   if (year && make && model) {
-    let searchPath = '/v2/search/car/active?api_key=' + key +
-      '&year=' + encodeURIComponent(year) +
-      '&make=' + encodeURIComponent(make) +
-      '&model=' + encodeURIComponent(model) +
-      '&zip=' + encodeURIComponent(zip) +
-      '&radius=200&rows=50&car_type=used';
-    if (trim) searchPath += '&trim=' + encodeURIComponent(trim);
+    const milesNum = parseInt(miles, 10) || 0;
 
-    let s = await httpGet(searchPath);
-    let mean = (s.data && Array.isArray(s.data.listings)) ? meanPriceFromListings(s.data.listings) : 0;
-
-    // If no listings found with trim, retry without trim (broader match)
-    if (mean === 0 && trim) {
-      const broaderPath = '/v2/search/car/active?api_key=' + key +
-        '&year=' + encodeURIComponent(year) +
-        '&make=' + encodeURIComponent(make) +
-        '&model=' + encodeURIComponent(model) +
-        '&zip=' + encodeURIComponent(zip) +
-        '&radius=200&rows=50&car_type=used';
-      s = await httpGet(broaderPath);
-      mean = (s.data && Array.isArray(s.data.listings)) ? meanPriceFromListings(s.data.listings) : 0;
-    }
-
-    // If still nothing, try expanding to nationwide
-    if (mean === 0) {
-      const natlPath = '/v2/search/car/active?api_key=' + key +
+    // Helper: build a search URL with optional mileage band and trim
+    function buildSearch(opts) {
+      let p = '/v2/search/car/active?api_key=' + key +
         '&year=' + encodeURIComponent(year) +
         '&make=' + encodeURIComponent(make) +
         '&model=' + encodeURIComponent(model) +
         '&rows=50&car_type=used';
-      s = await httpGet(natlPath);
-      mean = (s.data && Array.isArray(s.data.listings)) ? meanPriceFromListings(s.data.listings) : 0;
+      if (opts.zip)        p += '&zip=' + encodeURIComponent(opts.zip) + '&radius=200';
+      if (opts.trim)       p += '&trim=' + encodeURIComponent(opts.trim);
+      if (opts.milesBand && milesNum > 0) {
+        const lo = Math.max(0, milesNum - opts.milesBand);
+        const hi = milesNum + opts.milesBand;
+        p += '&miles_range=' + lo + '-' + hi;
+      }
+      return p;
+    }
+
+    // Progressively broaden: tight mileage band -> wider band -> drop trim ->
+    // drop mileage filter -> nationwide. Stop as soon as we have decent data.
+    const attempts = [
+      { zip: zip, trim: trim, milesBand: 20000, minCount: 5 },   // best: same area, similar miles, same trim
+      { zip: zip, trim: trim, milesBand: 40000, minCount: 5 },   // wider miles band
+      { zip: zip, trim: null, milesBand: 20000, minCount: 5 },   // drop trim
+      { zip: zip, trim: null, milesBand: 40000, minCount: 5 },
+      { zip: zip, trim: null, milesBand: 0,     minCount: 3 },   // last regional: no miles filter
+      { zip: null, trim: null, milesBand: 40000, minCount: 5 },  // nationwide, mileage-aware
+      { zip: null, trim: null, milesBand: 0,    minCount: 1 }    // nationwide, any miles
+    ];
+
+    let mean = 0;
+    let numFound = 0;
+    let usedBand = null;
+    let s = null;
+
+    for (let i = 0; i < attempts.length; i++) {
+      const a = attempts[i];
+      s = await httpGet(buildSearch(a));
+      const listings = (s.data && Array.isArray(s.data.listings)) ? s.data.listings : [];
+      if (listings.length >= a.minCount) {
+        mean = meanPriceFromListings(listings);
+        numFound = (s.data && s.data.num_found) ? s.data.num_found : listings.length;
+        usedBand = a.milesBand;
+        if (mean > 0) break;
+      }
     }
 
     if (mean > 0) {
-      const numFound = (s.data && s.data.num_found) ? s.data.num_found : (s.data.listings ? s.data.listings.length : 0);
       return {
         statusCode: 200, headers: h,
         body: JSON.stringify({
           marketcheck_price: mean,
           msrp: 0,
           source: 'comparables',
-          comparables_count: numFound
+          comparables_count: numFound,
+          miles_band: usedBand
         })
       };
     }
