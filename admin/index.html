@@ -251,14 +251,20 @@ var l=ALL_LISTINGS.find(function(x){return String(x.id)===String(id);});
 if(!l)return;
 var card=document.getElementById("lcard-"+id);
 if(card)card.style.opacity="0.4";
-fetch("/.netlify/functions/listings?action="+(newStatus==="active"?"publish":"unpublish")+"&id="+id+"&adminKey="+ADMIN_KEY)
-.then(function(r){return r.json();})
+fetch("/.netlify/functions/listings?id="+encodeURIComponent(id)+"&adminKey="+encodeURIComponent(ADMIN_KEY),{
+method:"PUT",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({status:newStatus})
+})
+.then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
 .then(function(){l.status=newStatus;updateStats();renderListings();showToast(newStatus==="active"?"Published!":"Unpublished",newStatus==="active"?"green":"");})
 .catch(function(){if(card)card.style.opacity="1";showToast("Error updating","red");});
 }
 function doDelete(id,name){
-fetch("/.netlify/functions/listings?action=delete&id="+id+"&adminKey="+ADMIN_KEY)
-.then(function(r){return r.json();})
+fetch("/.netlify/functions/listings?id="+encodeURIComponent(id)+"&adminKey="+encodeURIComponent(ADMIN_KEY),{
+method:"DELETE"
+})
+.then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
 .then(function(){ALL_LISTINGS=ALL_LISTINGS.filter(function(x){return String(x.id)!==String(id);});updateStats();renderListings();showToast("Deleted: "+name,"red");})
 .catch(function(){showToast("Error deleting","red");});
 }
