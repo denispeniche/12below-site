@@ -92,13 +92,24 @@ exports.handler = async function(event) {
     const q = event.queryStringParameters || {};
 
     if (event.httpMethod === 'GET') {
-      let path = TABLE + '?pageSize=100';
-      if (q.status) {
-        path += '&filterByFormula=' + encodeURIComponent("{Status}='" + q.status + "'");
-      }
-      const res = await ar('GET', path);
+      // Fetch all then filter in code — robust to legacy status values
+      // ('new', empty, mixed case) that Airtable's filterByFormula doesn't handle.
+      const res = await ar('GET', TABLE + '?pageSize=100');
       if (res.status !== 200) return {statusCode: res.status, headers: H, body: JSON.stringify(res.data)};
-      const records = (res.data.records || []).map(fromAirtable);
+      let records = (res.data.records || []).map(fromAirtable);
+
+      if (q.status) {
+        const target = String(q.status).toLowerCase();
+        records = records.filter(function(r) {
+          const s = String(r.status || '').toLowerCase();
+          // ?status=active  -> show anything NOT explicitly inactive or pending
+          //                    (so legacy 'new', empty, etc. are public by default)
+          if (target === 'active') return s !== 'inactive' && s !== 'pending';
+          // ?status=inactive / pending / new etc. -> exact (case-insensitive) match
+          return s === target;
+        });
+      }
+
       records.sort(function(a, b) {
         return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
       });
@@ -107,7 +118,9 @@ exports.handler = async function(event) {
 
     if (event.httpMethod === 'POST') {
       const body = JSON.parse(event.body || '{}');
-      if (!body.status) body.status = 'pending';
+      // Auto-publish: new listings go live immediately. Moderation happens
+      // post-fact via the admin Unpublish/Delete buttons.
+      if (!body.status) body.status = 'active';
       const res = await ar('POST', TABLE, {records: [{fields: toAirtable(body)}], typecast: true});
       if (res.status !== 200) return {statusCode: res.status, headers: H, body: JSON.stringify(res.data)};
       return {statusCode: 200, headers: H, body: JSON.stringify(fromAirtable(res.data.records[0]))};
