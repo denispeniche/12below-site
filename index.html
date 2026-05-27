@@ -363,40 +363,49 @@
     if(!data) return;
     showLoading();
 
-    // Parallel: NHTSA VIN decode + 12Below price function
-    var vinDecodeP = fetch('https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVin/' + encodeURIComponent(data.vin) + '?format=json')
+    // Step 1: NHTSA decode (fast). Step 2: price function with year/make/model.
+    // Sequential — not parallel — so the price function can fall back to
+    // comparables search if MarketCheck cannot decode this VIN.
+    fetch('https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVin/' + encodeURIComponent(data.vin) + '?format=json')
       .then(function(r){ return r.json(); })
-      .catch(function(){ return null; });
+      .catch(function(){ return null; })
+      .then(function(decode){
+        var year = '', make = '', model = '', trim = '';
+        if(decode && decode.Results){
+          decode.Results.forEach(function(r){
+            if(r.Variable === 'Model Year' && r.Value) year = r.Value;
+            if(r.Variable === 'Make' && r.Value) make = r.Value;
+            if(r.Variable === 'Model' && r.Value) model = r.Value;
+            if(r.Variable === 'Trim' && r.Value) trim = r.Value;
+          });
+        }
+        var vehicleName = [year, make, model, trim].filter(function(x){ return x; }).join(' ');
+        if(!vehicleName) vehicleName = 'Your car';
 
-    var priceP = fetch('/.netlify/functions/price?vin=' + encodeURIComponent(data.vin) + '&miles=' + data.miles + '&zip=' + data.zip)
-      .then(function(r){ return r.json(); })
-      .catch(function(){ return null; });
+        var priceUrl = '/.netlify/functions/price?vin=' + encodeURIComponent(data.vin) +
+          '&miles=' + data.miles + '&zip=' + data.zip;
+        if(year)  priceUrl += '&year='  + encodeURIComponent(year);
+        if(make)  priceUrl += '&make='  + encodeURIComponent(make);
+        if(model) priceUrl += '&model=' + encodeURIComponent(model);
+        if(trim)  priceUrl += '&trim='  + encodeURIComponent(trim);
 
-    Promise.all([vinDecodeP, priceP]).then(function(results){
-      var decode = results[0];
-      var price = results[1];
+        return fetch(priceUrl)
+          .then(function(r){ return r.json(); })
+          .catch(function(){ return null; })
+          .then(function(price){ return { vehicleName: vehicleName, price: price }; });
+      })
+      .then(function(results){
+        var vehicleName = results.vehicleName;
+        var price = results.price;
 
-      // Build vehicle name from NHTSA
-      var year = '', make = '', model = '', trim = '';
-      if(decode && decode.Results){
-        decode.Results.forEach(function(r){
-          if(r.Variable === 'Model Year' && r.Value) year = r.Value;
-          if(r.Variable === 'Make' && r.Value) make = r.Value;
-          if(r.Variable === 'Model' && r.Value) model = r.Value;
-          if(r.Variable === 'Trim' && r.Value) trim = r.Value;
-        });
-      }
-      var vehicleName = [year, make, model, trim].filter(function(x){ return x; }).join(' ');
-      if(!vehicleName) vehicleName = 'Your car';
+        // Get market value from price function
+        if(!price || !price.marketcheck_price || price.marketcheck_price < 100){
+          showErr('We could not find pricing data for that VIN. Try double-checking the VIN, or list your car and we will price it for you.');
+          showPlaceholder();
+          return;
+        }
 
-      // Get market value from price function
-      if(!price || !price.marketcheck_price || price.marketcheck_price < 100){
-        showErr('We could not find pricing data for that VIN. Try double-checking the VIN, or list your car and we will price it for you.');
-        showPlaceholder();
-        return;
-      }
-
-      var market = Number(price.marketcheck_price);
+        var market = Number(price.marketcheck_price);
       // Dealer trade-in is typically ~30% below market
       var dealerTradein = Math.round(market * 0.70);
       // 12Below seller earns the asking price minus the 1.99% fee (post-launch). Pre-launch, no fee.
