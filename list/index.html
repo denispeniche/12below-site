@@ -328,7 +328,11 @@ async function getMarketPrice() {
   btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Getting live price...';
   try {
     var url = '/.netlify/functions/price?vin=' + encodeURIComponent(vinData.vin) +
-      '&miles=' + encodeURIComponent(mi) + '&zip=' + encodeURIComponent(zip);
+      '&miles=' + encodeURIComponent(mi) + '&zip=' + encodeURIComponent(zip) +
+      '&year=' + encodeURIComponent(vinData.year) +
+      '&make=' + encodeURIComponent(vinData.make) +
+      '&model=' + encodeURIComponent(vinData.model) +
+      (vinData.trim ? '&trim=' + encodeURIComponent(vinData.trim) : '');
     var r = await fetch(url, { headers: { Accept: 'application/json' } });
     var d = await r.json();
     if (!d.marketcheck_price) {
