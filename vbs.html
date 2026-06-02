@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rainforest Falls VBS 2026 — God's Adventure Awaits | Atholton SDA Church</title>
+<meta name="description" content="Rainforest Falls VBS 2026 at Atholton Seventh-day Adventist Church, Columbia, MD. Step into a living jungle adventure with animatronic animals, waterfalls, and unforgettable Bible discoveries. Register today.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canopy-night:#06180f;
+  --canopy-deep:#0a2417;
+  --canopy:#0d3522;
+  --jungle:#13573a;
+  --leaf:#2f9c5b;
+  --leaf-bright:#5ec57a;
+  --aqua:#46d6c6;
+  --aqua-deep:#1b8f9a;
+  --blue:#2a9fc4;
+  --blue-deep:#15607d;
+  --gold:#f0b53e;
+  --gold-deep:#cf8e1f;
+  --coral:#ff8147;
+  --sunset:#ff9d5c;
+  --orchid:#e7558b;
+  --wood:#5a3a22;
+  --wood-deep:#341f12;
+  --cream:#fbf3e2;
+  --parchment:#f4e9d2;
+  --paper:#fdf8ec;
+  --ink:#12241a;
+  --display:"Fraunces",Georgia,serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --shadow-soft:0 20px 60px -20px rgba(3,18,11,.6);
+  --shadow-lift:0 30px 80px -30px rgba(3,18,11,.75);
+  --maxw:1240px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);
+  color:var(--cream);
+  background:var(--canopy-night);
+  overflow-x:hidden;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+::selection{background:var(--gold);color:var(--canopy-night)}
+
+/* ---------- ATMOSPHERIC BACKGROUND ---------- */
+.atmosphere{position:fixed;inset:0;z-index:-2;overflow:hidden;
+  background:
+    radial-gradient(120% 80% at 20% -10%, #1c5f3c 0%, transparent 55%),
+    radial-gradient(130% 90% at 90% 0%, #14708a 0%, transparent 50%),
+    linear-gradient(180deg, #0a2c1c 0%, #06180f 60%, #04110a 100%);
+}
+.rays{position:absolute;inset:-20% -10% auto;height:120%;
+  background:
+    linear-gradient(105deg, transparent 38%, rgba(240,181,62,.10) 41%, transparent 44%),
+    linear-gradient(100deg, transparent 52%, rgba(94,197,122,.08) 55%, transparent 58%),
+    linear-gradient(112deg, transparent 64%, rgba(70,214,198,.07) 67%, transparent 70%);
+  mix-blend-mode:screen;animation:sway 18s ease-in-out infinite alternate;
+  transform-origin:top center;}
+@keyframes sway{from{transform:skewX(-2deg) translateX(-1%)}to{transform:skewX(3deg) translateX(2%)}}
+.fog{position:absolute;inset:0;opacity:.5;
+  background:radial-gradient(60% 40% at 30% 80%, rgba(120,200,180,.12), transparent 70%),
+             radial-gradient(50% 35% at 75% 90%, rgba(90,160,200,.10), transparent 70%);
+  animation:fogdrift 26s ease-in-out infinite alternate;}
+@keyframes fogdrift{from{transform:translate3d(0,0,0)}to{transform:translate3d(4%, -3%,0)}}
+.vignette{position:absolute;inset:0;
+  background:radial-gradient(120% 100% at 50% 30%, transparent 55%, rgba(3,12,7,.7) 100%);}
+.grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* drifting leaves layer */
+.leaffield{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.leaf{position:absolute;top:-8%;opacity:0;animation:fall linear infinite;will-change:transform}
+@keyframes fall{
+  0%{opacity:0;transform:translateY(-10vh) translateX(0) rotate(0deg)}
+  10%{opacity:.9}
+  90%{opacity:.8}
+  100%{opacity:0;transform:translateY(110vh) translateX(14vw) rotate(420deg)}
+}
+
+/* ---------- NAV ---------- */
+header.nav{position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.7rem clamp(1rem,4vw,2.6rem);
+  transition:.4s ease;
+  background:linear-gradient(180deg, rgba(6,20,13,.82), rgba(6,20,13,0));
+  backdrop-filter:blur(2px);}
+header.nav.scrolled{background:rgba(6,22,14,.92);backdrop-filter:blur(14px);
+  box-shadow:0 10px 40px -20px rgba(0,0,0,.8);padding:.45rem clamp(1rem,4vw,2.6rem);
+  border-bottom:1px solid rgba(94,197,122,.18);}
+.brand{display:flex;align-items:center;gap:.7rem;cursor:pointer}
+.brand-mark{width:42px;height:42px;flex:none}
+.brand-text{line-height:1}
+.brand-text b{font-family:var(--display);font-weight:900;font-size:1.15rem;letter-spacing:.3px;
+  display:block;color:var(--cream)}
+.brand-text span{font-size:.62rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);font-weight:700}
+nav.links{display:flex;align-items:center;gap:.2rem}
+nav.links a{font-size:.82rem;font-weight:600;letter-spacing:.02em;padding:.55rem .8rem;border-radius:999px;
+  color:#dfe9e0;transition:.25s;position:relative}
+nav.links a:hover{color:#fff;background:rgba(94,197,122,.14)}
+nav.links a.active{color:var(--canopy-night);background:var(--gold)}
+.nav-cta{margin-left:.4rem;background:linear-gradient(135deg,var(--coral),var(--gold));
+  color:var(--canopy-night)!important;font-weight:800!important;padding:.6rem 1.1rem!important;
+  box-shadow:0 8px 24px -8px rgba(255,129,71,.7)}
+.nav-cta:hover{transform:translateY(-1px);filter:brightness(1.05)}
+.burger{display:none;flex-direction:column;gap:5px;padding:.6rem;background:rgba(255,255,255,.08);border-radius:12px}
+.burger span{width:24px;height:2.5px;background:var(--cream);border-radius:2px;transition:.3s}
+
+/* ---------- PAGE SYSTEM ---------- */
+main{position:relative}
+.page{display:none;animation:pagein .6s ease both}
+.page.active{display:block}
+@keyframes pagein{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(1.1rem,4vw,2.2rem)}
+
+/* ---------- BUTTONS ---------- */
+.btn{display:inline-flex;align-items:center;gap:.6rem;font-weight:800;font-size:.95rem;
+  padding:.95rem 1.7rem;border-radius:999px;transition:.28s;letter-spacing:.01em}
+.btn-primary{background:linear-gradient(135deg,var(--coral) 0%,var(--gold) 100%);color:var(--canopy-night);
+  box-shadow:0 14px 36px -12px rgba(255,129,71,.65)}
+.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 22px 50px -14px rgba(255,129,71,.8)}
+.btn-ghost{background:rgba(251,243,226,.06);color:var(--cream);border:1.5px solid rgba(94,197,122,.5);
+  backdrop-filter:blur(6px)}
+.btn-ghost:hover{background:rgba(94,197,122,.16);border-color:var(--leaf-bright);transform:translateY(-2px)}
+.btn-dark{background:var(--canopy);color:var(--cream);border:1.5px solid rgba(94,197,122,.3)}
+.btn-dark:hover{background:var(--jungle)}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;
+  padding:7.5rem 0 4rem;overflow:hidden}
+.hero-scene{position:absolute;inset:0;z-index:0}
+/* waterfall */
+.waterfall{position:absolute;right:6%;top:0;bottom:0;width:min(34vw,360px);opacity:.9}
+.waterfall .cliff{position:absolute;inset:0;
+  background:linear-gradient(90deg, rgba(8,30,20,0), rgba(10,40,26,.7) 30%, rgba(8,30,20,.85));
+  border-radius:0 0 40% 40%/0 0 8% 8%;}
+.water{position:absolute;top:0;bottom:14%;left:20%;right:20%;overflow:hidden;border-radius:0 0 40px 40px;
+  background:linear-gradient(180deg, rgba(160,235,235,.0), rgba(120,220,220,.35) 18%, rgba(70,214,198,.5) 60%, rgba(43,159,196,.45));}
+.water::before,.water::after{content:"";position:absolute;inset:-60% 0;
+  background:repeating-linear-gradient(180deg, rgba(255,255,255,0) 0px, rgba(255,255,255,.13) 34px, rgba(255,255,255,0) 68px);
+  animation:flow 3s linear infinite;opacity:.6;filter:blur(.6px);
+  will-change:transform;backface-visibility:hidden;transform:translateZ(0)}
+.water::after{animation-duration:4.6s;opacity:.32;left:28%;right:28%}
+@keyframes flow{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,68px,0)}}
+.mist{position:absolute;left:8%;right:8%;bottom:6%;height:22%;border-radius:50%;
+  background:radial-gradient(ellipse at center, rgba(220,255,250,.5), transparent 70%);
+  filter:blur(14px);animation:mist 4s ease-in-out infinite alternate}
+@keyframes mist{from{transform:scale(.9);opacity:.5}to{transform:scale(1.15);opacity:.85}}
+.canopy-top{position:absolute;top:0;left:0;right:0;height:30%;z-index:2;
+  background:linear-gradient(180deg, rgba(4,18,11,.9), transparent);}
+.foliage{position:absolute;z-index:3;opacity:.96;filter:drop-shadow(0 10px 24px rgba(0,0,0,.4))}
+.foliage.tl{top:-30px;left:-40px;width:min(38vw,420px);transform:rotate(6deg)}
+.foliage.tr{top:-50px;right:-30px;width:min(34vw,400px);transform:scaleX(-1) rotate(4deg)}
+.foliage.bl{bottom:-40px;left:-30px;width:min(30vw,340px)}
+.bird{position:absolute;z-index:4;width:78px;top:18%;left:-12%;
+  animation:flyby 17s linear infinite;filter:drop-shadow(0 8px 16px rgba(0,0,0,.4))}
+@keyframes flyby{
+  0%{left:-12%;top:20%;transform:translateY(0) scaleX(1)}
+  45%{top:14%}
+  50%{transform:translateY(0) scaleX(1)}
+  100%{left:112%;top:26%;transform:translateY(20px) scaleX(1)}
+}
+.bird .wing{transform-origin:60% 50%;animation:flap .5s ease-in-out infinite alternate}
+@keyframes flap{from{transform:rotate(-14deg)}to{transform:rotate(22deg)}}
+
+.hero-content{position:relative;z-index:5;max-width:760px}
+.eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.74rem;font-weight:700;
+  letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem;
+  padding:.5rem 1rem;border:1px solid rgba(240,181,62,.4);border-radius:999px;
+  background:rgba(240,181,62,.08)}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--leaf-bright);box-shadow:0 0 12px var(--leaf-bright);
+  animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:var(--display);font-weight:900;line-height:.92;letter-spacing:-.02em;
+  font-size:clamp(2.8rem,8.5vw,6.4rem);margin-bottom:.4rem;
+  text-shadow:0 8px 40px rgba(0,0,0,.5)}
+.hero h1 .l1{display:block;color:var(--cream)}
+.hero h1 .l2{display:block;background:linear-gradient(110deg,var(--leaf-bright),var(--aqua) 55%,var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{font-family:var(--display);font-style:italic;font-weight:500;
+  font-size:clamp(1.3rem,3.4vw,2rem);color:var(--sunset);margin:.6rem 0 1.3rem}
+.hero p.lede{font-size:clamp(1rem,1.6vw,1.18rem);max-width:560px;color:#e4eee5;margin-bottom:2rem}
+.hero-cta{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+
+.scrollcue{position:absolute;bottom:1.4rem;left:50%;transform:translateX(-50%);z-index:6;
+  font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:#bcd;opacity:.8;text-align:center}
+.scrollcue .mouse{width:22px;height:36px;border:2px solid rgba(200,230,210,.6);border-radius:14px;margin:0 auto .5rem;position:relative}
+.scrollcue .mouse::after{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);
+  width:4px;height:7px;border-radius:3px;background:var(--gold);animation:scroll 1.6s infinite}
+@keyframes scroll{0%{opacity:0;top:6px}40%{opacity:1}80%{opacity:0;top:18px}}
+
+/* countdown */
+.countdown{display:flex;gap:.7rem;margin-top:2.4rem;flex-wrap:wrap}
+.cd-unit{min-width:78px;text-align:center;padding:.9rem .7rem;border-radius:16px;
+  background:rgba(8,28,18,.55);border:1px solid rgba(94,197,122,.25);backdrop-filter:blur(8px)}
+.cd-unit .num{font-family:var(--display);font-weight:900;font-size:2rem;line-height:1;color:var(--gold);
+  font-variant-numeric:tabular-nums}
+.cd-unit .lbl{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#aac;margin-top:.4rem}
+.cd-title{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--aqua);
+  width:100%;margin-bottom:.2rem;font-weight:700}
+
+/* ---------- SECTIONS ---------- */
+section.band{padding:clamp(4rem,8vw,7rem) 0;position:relative}
+.band.light{background:
+   radial-gradient(100% 120% at 80% 0%, rgba(94,197,122,.1), transparent 50%),
+   linear-gradient(180deg,#fbf3e2,#f3e7cd);color:var(--ink)}
+.band.dark{background:linear-gradient(180deg, rgba(6,24,15,.6), rgba(8,32,20,.85))}
+.section-head{max-width:680px;margin-bottom:3rem}
+.section-head.center{margin-inline:auto;text-align:center}
+.kicker{font-size:.72rem;font-weight:800;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--aqua-deep);margin-bottom:.9rem;display:inline-flex;align-items:center;gap:.5rem}
+.light .kicker{color:var(--jungle)}
+.kicker::before{content:"";width:26px;height:2px;background:currentColor;border-radius:2px}
+h2.title{font-family:var(--display);font-weight:900;letter-spacing:-.02em;line-height:1;
+  font-size:clamp(2.1rem,5.5vw,3.6rem)}
+.light h2.title{color:var(--canopy-deep)}
+.dark h2.title{color:var(--cream)}
+h2.title em{font-style:italic;font-weight:600;color:var(--coral)}
+.lead{font-size:clamp(1.02rem,1.5vw,1.18rem);margin-top:1.1rem;color:inherit;opacity:.92}
+.dark .lead{color:#dfe9e0}
+
+/* featured banner */
+.featured{position:relative;margin-top:-3rem;z-index:7}
+.featured-card{background:linear-gradient(120deg,var(--jungle),var(--blue-deep));
+  border:1px solid rgba(94,197,122,.4);border-radius:26px;padding:clamp(1.6rem,3vw,2.6rem);
+  display:grid;grid-template-columns:auto 1fr auto;gap:1.6rem;align-items:center;
+  box-shadow:var(--shadow-lift);position:relative;overflow:hidden}
+.featured-card::before{content:"";position:absolute;right:-40px;top:-40px;width:200px;height:200px;
+  border-radius:50%;background:radial-gradient(circle,rgba(240,181,62,.25),transparent 70%)}
+.featured-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  width:96px;height:96px;border-radius:20px;background:var(--gold);color:var(--canopy-night);
+  font-weight:900;text-align:center;line-height:1;flex:none;box-shadow:0 10px 30px -8px rgba(240,181,62,.6)}
+.featured-badge .big{font-family:var(--display);font-size:2.4rem}
+.featured-badge .sm{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;margin-top:.25rem}
+.featured-body .tag{font-size:.68rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.featured-body h3{font-family:var(--display);font-weight:800;font-size:clamp(1.3rem,2.6vw,1.9rem);margin:.3rem 0;color:var(--cream)}
+.featured-body p{color:#dfeae2;font-size:.96rem;max-width:48ch}
+.featured-meta{font-size:.85rem;color:var(--aqua);font-weight:700;margin-top:.5rem}
+
+/* highlight grid */
+.hl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.2rem}
+.hl-card{position:relative;padding:1.8rem 1.5rem;border-radius:22px;overflow:hidden;
+  background:rgba(10,34,22,.55);border:1px solid rgba(94,197,122,.2);
+  transition:.35s;backdrop-filter:blur(6px)}
+.hl-card:hover{transform:translateY(-8px);border-color:var(--leaf-bright);
+  box-shadow:0 30px 60px -30px rgba(0,0,0,.7);background:rgba(16,46,30,.7)}
+.hl-ic{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;margin-bottom:1.1rem;
+  background:linear-gradient(135deg,rgba(94,197,122,.25),rgba(70,214,198,.18));border:1px solid rgba(94,197,122,.3)}
+.hl-ic svg{width:30px;height:30px}
+.hl-card h4{font-family:var(--display);font-weight:700;font-size:1.18rem;color:var(--cream);margin-bottom:.4rem}
+.hl-card p{font-size:.9rem;color:#cdd9ce}
+.hl-card .num-tag{position:absolute;top:1rem;right:1.2rem;font-family:var(--display);font-weight:900;
+  font-size:1.4rem;color:rgba(94,197,122,.3)}
+
+/* trailer */
+.trailer{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:16/8;
+  box-shadow:var(--shadow-lift);border:1px solid rgba(94,197,122,.3)}
+.trailer .scene{position:absolute;inset:0;
+  background:
+   radial-gradient(80% 90% at 30% 20%, rgba(94,197,122,.5), transparent 60%),
+   radial-gradient(70% 80% at 80% 80%, rgba(43,159,196,.5), transparent 60%),
+   linear-gradient(160deg,#0c3a26,#0a2c40);}
+.play{position:absolute;inset:0;margin:auto;width:88px;height:88px;border-radius:50%;
+  background:rgba(251,243,226,.95);display:grid;place-items:center;box-shadow:0 16px 40px -10px rgba(0,0,0,.6);
+  transition:.3s}
+.play::after{content:"";width:0;height:0;border-left:24px solid var(--canopy-deep);
+  border-top:15px solid transparent;border-bottom:15px solid transparent;margin-left:6px}
+.play::before{content:"";position:absolute;inset:-12px;border-radius:50%;border:2px solid rgba(251,243,226,.5);
+  animation:ripple 2.4s ease-out infinite}
+@keyframes ripple{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.5);opacity:0}}
+.trailer:hover .play{transform:scale(1.08)}
+.trailer .cap{position:absolute;left:1.4rem;bottom:1.2rem;font-size:.78rem;letter-spacing:.2em;
+  text-transform:uppercase;color:#cfe;font-weight:700;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+
+/* testimonials */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.4rem}
+.testi{background:var(--paper);border-radius:22px;padding:2rem 1.8rem;color:var(--ink);position:relative;
+  box-shadow:var(--shadow-soft)}
+.testi .quote{font-family:var(--display);font-size:3.4rem;line-height:.6;color:var(--gold);height:.5em;display:block}
+.testi p{font-size:1rem;color:#243;margin:.6rem 0 1.4rem;font-weight:500}
+.testi .who{display:flex;align-items:center;gap:.8rem}
+.testi .av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:800;
+  color:#fff;font-family:var(--display);font-size:1.2rem}
+.testi .who b{display:block;color:var(--canopy-deep);font-size:.95rem}
+.testi .who span{font-size:.78rem;color:#789}
+.stars{color:var(--gold);font-size:.9rem;letter-spacing:2px}
+
+/* CTA band */
+.cta-band{position:relative;border-radius:30px;overflow:hidden;padding:clamp(2.6rem,5vw,4.5rem);
+  text-align:center;background:linear-gradient(135deg,var(--jungle),var(--aqua-deep));
+  border:1px solid rgba(94,197,122,.4);box-shadow:var(--shadow-lift)}
+.cta-band::before{content:"";position:absolute;inset:0;opacity:.4;
+  background:radial-gradient(60% 80% at 20% 0%,rgba(240,181,62,.4),transparent 60%)}
+.cta-band > *{position:relative;z-index:1}
+.cta-band h2{font-family:var(--display);font-weight:900;font-size:clamp(2rem,5vw,3.2rem);color:var(--cream);line-height:1.02}
+.cta-band p{max-width:54ch;margin:1rem auto 2rem;color:#eaf3ec;font-size:1.05rem}
+
+/* generic feature rows */
+.feat-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center;margin-bottom:clamp(3rem,6vw,5rem)}
+.feat-row:nth-child(even) .feat-art{order:2}
+.feat-art{border-radius:26px;overflow:hidden;aspect-ratio:4/3;position:relative;box-shadow:var(--shadow-lift);
+  border:1px solid rgba(94,197,122,.3)}
+.feat-list{list-style:none;margin-top:1.4rem;display:grid;gap:.8rem}
+.feat-list li{display:flex;gap:.8rem;align-items:flex-start;font-size:.98rem;color:#dfe9e0}
+.dark .feat-list li{color:#dfe9e0}
+.light .feat-list li{color:#2c3d31}
+.feat-list .chk{flex:none;width:24px;height:24px;border-radius:8px;background:rgba(94,197,122,.2);
+  display:grid;place-items:center;color:var(--leaf-bright);font-weight:900;font-size:.8rem;margin-top:1px}
+.light .feat-list .chk{background:rgba(47,156,91,.18);color:var(--jungle)}
+
+/* adventure map */
+.map-wrap{position:relative;border-radius:28px;overflow:hidden;border:1px solid rgba(94,197,122,.35);
+  box-shadow:var(--shadow-lift);background:#0a2c1c}
+.map-wrap svg{display:block;width:100%;height:auto}
+.hotspot{cursor:pointer}
+.hotspot circle.pin{fill:var(--gold);stroke:#fff;stroke-width:3;transition:.25s;
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.5))}
+.hotspot:hover circle.pin{fill:var(--coral);r:18}
+.hotspot circle.halo{fill:rgba(240,181,62,.35);animation:halo 2.4s ease-out infinite}
+@keyframes halo{0%{r:14;opacity:.6}100%{r:34;opacity:0}}
+.hotspot text{fill:var(--canopy-night);font-weight:900;font-size:15px;font-family:var(--body);pointer-events:none}
+.map-info{padding:1.6rem 1.8rem;background:linear-gradient(180deg,rgba(8,28,18,.8),rgba(6,22,14,.95));
+  border-top:1px solid rgba(94,197,122,.25)}
+.map-info .tag{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:800}
+.map-info h4{font-family:var(--display);font-weight:800;font-size:1.5rem;color:var(--cream);margin:.3rem 0 .5rem}
+.map-info p{color:#cdd9ce;max-width:60ch}
+
+/* daily schedule */
+.days{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem}
+.day{background:rgba(10,34,22,.55);border:1px solid rgba(94,197,122,.22);border-radius:18px;padding:1.4rem 1.2rem;
+  transition:.3s}
+.day:hover{transform:translateY(-6px);border-color:var(--gold)}
+.day .d-num{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--aqua);font-weight:800}
+.day h4{font-family:var(--display);font-weight:700;color:var(--cream);font-size:1.15rem;margin:.4rem 0}
+.day p{font-size:.82rem;color:#bcc9bf}
+.daily-flow{display:grid;gap:0;margin-top:1rem}
+.flow-item{display:grid;grid-template-columns:120px 1fr;gap:1.4rem;padding:1.2rem 0;
+  border-bottom:1px dashed rgba(255,255,255,.12)}
+.light .flow-item{border-color:rgba(0,0,0,.12)}
+.flow-time{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--coral)}
+.flow-body h4{font-weight:800;font-size:1.05rem;margin-bottom:.2rem}
+.light .flow-body h4{color:var(--canopy-deep)}
+.dark .flow-body h4{color:var(--cream)}
+.flow-body p{font-size:.9rem;opacity:.85}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem}
+.gtile{border-radius:18px;aspect-ratio:1;position:relative;overflow:hidden;cursor:pointer;
+  border:1px solid rgba(94,197,122,.25);transition:.35s}
+.gtile:hover{transform:scale(1.03);box-shadow:0 24px 50px -22px rgba(0,0,0,.7)}
+.gtile span{position:absolute;left:.9rem;bottom:.8rem;font-size:.72rem;font-weight:800;letter-spacing:.06em;
+  color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.7);z-index:2}
+.gtile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.5))}
+
+/* info cards / FAQ */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem}
+.info-card{background:var(--paper);color:var(--ink);border-radius:20px;padding:1.8rem;box-shadow:var(--shadow-soft)}
+.info-card .ic{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;margin-bottom:1rem;
+  background:linear-gradient(135deg,var(--jungle),var(--aqua-deep));color:#fff}
+.info-card h4{font-family:var(--display);font-weight:800;font-size:1.2rem;color:var(--canopy-deep);margin-bottom:.5rem}
+.info-card p{font-size:.92rem;color:#3a4d40}
+.info-card ul{list-style:none;margin-top:.6rem;display:grid;gap:.5rem}
+.info-card ul li{font-size:.9rem;color:#3a4d40;padding-left:1.2rem;position:relative}
+.info-card ul li::before{content:"›";position:absolute;left:0;color:var(--coral);font-weight:900}
+
+.faq{max-width:820px;margin:0 auto;display:grid;gap:.8rem}
+.faq-item{background:rgba(10,34,22,.55);border:1px solid rgba(94,197,122,.22);border-radius:16px;overflow:hidden}
+.faq-q{width:100%;text-align:left;padding:1.2rem 1.4rem;display:flex;justify-content:space-between;
+  align-items:center;gap:1rem;font-weight:700;font-size:1rem;color:var(--cream)}
+.faq-q .ico{flex:none;width:26px;height:26px;border-radius:8px;background:rgba(94,197,122,.2);
+  display:grid;place-items:center;color:var(--leaf-bright);font-weight:900;transition:.3s}
+.faq-item.open .faq-q .ico{transform:rotate(45deg);background:var(--gold);color:var(--canopy-night)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{padding:0 1.4rem 1.3rem;color:#cdd9ce;font-size:.94rem}
+
+/* forms */
+.reg-tabs{display:flex;gap:.6rem;justify-content:center;margin-bottom:2.2rem;flex-wrap:wrap}
+.reg-tab{padding:.8rem 1.6rem;border-radius:999px;font-weight:800;font-size:.92rem;
+  background:rgba(10,34,22,.6);border:1.5px solid rgba(94,197,122,.3);color:#cdd9ce;transition:.25s}
+.reg-tab.active{background:var(--gold);color:var(--canopy-night);border-color:var(--gold)}
+.reg-form{display:none;max-width:720px;margin:0 auto;background:rgba(8,28,18,.6);
+  border:1px solid rgba(94,197,122,.25);border-radius:26px;padding:clamp(1.6rem,4vw,2.6rem);backdrop-filter:blur(8px)}
+.reg-form.active{display:block;animation:pagein .4s ease both}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+.field{display:flex;flex-direction:column;gap:.4rem}
+.field.full{grid-column:1/-1}
+.field label{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--aqua)}
+.field input,.field select,.field textarea{font-family:inherit;font-size:.95rem;color:var(--cream);
+  background:rgba(6,22,14,.7);border:1.5px solid rgba(94,197,122,.25);border-radius:12px;padding:.8rem 1rem;
+  transition:.2s;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(240,181,62,.18)}
+.field input::placeholder,.field textarea::placeholder{color:#7a8a7e}
+.form-note{font-size:.82rem;color:#9fb0a4;margin-top:1.2rem}
+.form-success{display:none;text-align:center;padding:2rem;background:rgba(94,197,122,.12);
+  border:1px solid var(--leaf-bright);border-radius:18px;margin-top:1.4rem}
+.form-success.show{display:block;animation:pagein .4s ease both}
+.form-success .ic{font-size:2.6rem;margin-bottom:.6rem}
+.form-success h4{font-family:var(--display);color:var(--leaf-bright);font-size:1.5rem;margin-bottom:.4rem}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;align-items:start}
+.contact-info{display:grid;gap:1.4rem}
+.contact-line{display:flex;gap:1rem;align-items:flex-start}
+.contact-line .ic{flex:none;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--jungle),var(--aqua-deep));color:#fff}
+.contact-line b{display:block;font-family:var(--display);font-size:1.05rem;color:var(--cream);margin-bottom:.15rem}
+.contact-line p{font-size:.92rem;color:#cdd9ce}
+.map-frame{border-radius:22px;overflow:hidden;aspect-ratio:4/3;border:1px solid rgba(94,197,122,.3);position:relative;
+  background:linear-gradient(160deg,#0d3a28,#0a2c40)}
+.map-frame .pin-c{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);text-align:center}
+.map-frame .pin-c .dot{width:18px;height:18px;border-radius:50%;background:var(--coral);margin:0 auto;
+  box-shadow:0 0 0 8px rgba(255,129,71,.25),0 0 0 16px rgba(255,129,71,.12)}
+.map-frame .pin-c b{display:block;margin-top:.6rem;font-family:var(--display);color:var(--cream)}
+
+/* footer */
+footer{background:linear-gradient(180deg,#06180f,#030d07);padding:4rem 0 2rem;
+  border-top:1px solid rgba(94,197,122,.2);position:relative}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.4rem;margin-bottom:3rem}
+.foot-grid h5{font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem;font-weight:800}
+.foot-grid a{display:block;font-size:.9rem;color:#bcc9bf;padding:.3rem 0;transition:.2s}
+.foot-grid a:hover{color:var(--leaf-bright);transform:translateX(3px)}
+.foot-brand p{color:#9fb0a4;font-size:.9rem;margin:1rem 0;max-width:36ch}
+.socials{display:flex;gap:.7rem;margin-top:1rem}
+.socials a{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+  background:rgba(94,197,122,.12);border:1px solid rgba(94,197,122,.25);transition:.25s}
+.socials a:hover{background:var(--gold);color:var(--canopy-night);transform:translateY(-3px)}
+.socials svg{width:18px;height:18px}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:1.6rem;display:flex;
+  justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.8rem;color:#8a9a8e}
+.foot-bottom .tagline{font-family:var(--display);font-style:italic;color:var(--gold)}
+
+/* reveal animation */
+.reveal{opacity:0;transform:translateY(28px);transition:.8s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* mobile */
+@media(max-width:900px){
+  .featured-card{grid-template-columns:1fr;text-align:center}
+  .featured-badge{margin:0 auto}
+  .feat-row{grid-template-columns:1fr}
+  .feat-row:nth-child(even) .feat-art{order:0}
+  .contact-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:2rem}
+}
+@media(max-width:760px){
+  nav.links{position:fixed;inset:0 0 0 auto;width:min(80vw,320px);flex-direction:column;
+    align-items:stretch;justify-content:flex-start;gap:.3rem;padding:5.5rem 1.4rem 2rem;
+    background:rgba(6,22,14,.98);backdrop-filter:blur(16px);transform:translateX(100%);transition:.4s;
+    border-left:1px solid rgba(94,197,122,.2)}
+  nav.links.open{transform:translateX(0)}
+  nav.links a{padding:.9rem 1rem;font-size:1rem}
+  .nav-cta{margin:.6rem 0 0;text-align:center;justify-content:center}
+  .burger{display:flex;z-index:101}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .waterfall{opacity:.4;width:60vw;right:-10%}
+  .form-grid{grid-template-columns:1fr}
+  .flow-item{grid-template-columns:80px 1fr;gap:.8rem}
+  .foot-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== ATMOSPHERE ===== -->
+<div class="atmosphere">
+  <div class="rays"></div>
+  <div class="fog"></div>
+  <div class="vignette"></div>
+</div>
+<div class="grain"></div>
+<div class="leaffield" id="leaffield"></div>
+
+<!-- ===== NAV ===== -->
+<header class="nav" id="nav">
+  <div class="brand" onclick="go('home')">
+    <svg class="brand-mark" viewBox="0 0 48 48" fill="none">
+      <circle cx="24" cy="24" r="23" fill="#0d3522" stroke="#5ec57a" stroke-width="1.5"/>
+      <path d="M24 8c-6 5-9 11-9 18a9 9 0 0018 0c0-7-3-13-9-18z" fill="#5ec57a"/>
+      <path d="M24 13c-3.5 4-5.5 8.5-5.5 13a5.5 5.5 0 0011 0c0-4.5-2-9-5.5-13z" fill="#46d6c6"/>
+      <path d="M24 8v26" stroke="#0d3522" stroke-width="1.2"/>
+      <circle cx="33" cy="16" r="3.5" fill="#f0b53e"/>
+    </svg>
+    <div class="brand-text">
+      <b>Rainforest&nbsp;Falls</b>
+      <span>VBS 2026</span>
+    </div>
+  </div>
+  <nav class="links" id="navlinks">
+    <a data-page="home" onclick="go('home')" class="active">Home</a>
+    <a data-page="adventure" onclick="go('adventure')">The Adventure</a>
+    <a data-page="about" onclick="go('about')">About VBS</a>
+    <a data-page="kickoff" onclick="go('kickoff')">Kickoff Event</a>
+    <a data-page="parents" onclick="go('parents')">Parents</a>
+    <a data-page="contact" onclick="go('contact')">Contact</a>
+    <a class="nav-cta" onclick="go('register')">Register Today</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</header>
+
+<main>
+
+<!-- ===================== HOME ===================== -->
+<section class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-scene">
+      <div class="canopy-top"></div>
+      <!-- waterfall -->
+      <div class="waterfall">
+        <div class="cliff"></div>
+        <div class="water"></div>
+        <div class="mist"></div>
+      </div>
+      <!-- foliage corners -->
+      <svg class="foliage tl" viewBox="0 0 300 240"><g fill="#0e3f28">
+        <path d="M150 0C90 30 40 90 10 170c60-20 120-30 180-10C170 110 160 50 150 0z"/></g>
+        <g fill="#1a6b40"><path d="M150 10C110 40 80 95 70 165c45-25 95-35 135-15C220 105 190 50 150 10z"/></g>
+        <g fill="#2f9c5b" opacity=".9"><path d="M150 30c-25 28-42 70-45 120 35-22 70-30 100-15-10-45-30-85-55-105z"/></g>
+      </svg>
+      <svg class="foliage tr" viewBox="0 0 300 240"><g fill="#0c3823">
+        <path d="M150 0C90 30 40 90 10 170c60-20 120-30 180-10C170 110 160 50 150 0z"/></g>
+        <g fill="#15603a"><path d="M150 12C112 42 82 96 72 164c44-24 94-34 134-14C218 104 190 52 150 12z"/></g>
+      </svg>
+      <svg class="foliage bl" viewBox="0 0 300 240"><g fill="#0e3f28">
+        <path d="M150 240C90 210 40 150 10 70c60 20 120 30 180 10C170 130 160 190 150 240z"/></g>
+        <g fill="#1a6b40"><path d="M150 230C110 200 80 145 70 75c45 25 95 35 135 15C220 135 190 190 150 230z"/></g>
+      </svg>
+      <!-- parrot fly-by -->
+      <svg class="bird" viewBox="0 0 100 80">
+        <ellipse cx="48" cy="42" rx="20" ry="13" fill="#e7558b"/>
+        <path d="M64 38c10-4 22-2 30 4-8 6-20 8-30 4z" fill="#f0b53e"/>
+        <circle cx="68" cy="36" r="4" fill="#0d3522"/>
+        <path d="M74 38l10-2-8 6z" fill="#ff8147"/>
+        <g class="wing"><path d="M40 36C28 18 18 14 6 18c8 12 18 22 34 24z" fill="#46d6c6"/>
+        <path d="M40 36C30 24 22 22 14 26c6 8 14 14 26 14z" fill="#2a9fc4"/></g>
+        <path d="M30 50c-12 6-20 16-24 26 12-4 22-12 28-22z" fill="#5ec57a"/>
+      </svg>
+    </div>
+
+    <div class="wrap hero-content">
+      <span class="eyebrow"><span class="dot"></span> Atholton Seventh-day Adventist Church · Columbia, MD</span>
+      <h1><span class="l1">Rainforest Falls</span><span class="l2">VBS 2026</span></h1>
+      <p class="sub">Step Into the Adventure.</p>
+      <p class="lede">Experience an unforgettable rainforest journey where children explore a living jungle, encounter amazing animatronic animals, discover exciting Bible adventures, build new friendships, and learn how much God loves them.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" onclick="go('register')">Register Today →</a>
+        <a class="btn btn-ghost" onclick="go('adventure')">Explore the Adventure</a>
+      </div>
+      <div class="countdown" id="countdown">
+        <div class="cd-title">The adventure begins in</div>
+      </div>
+    </div>
+
+    <div class="scrollcue"><div class="mouse"></div>Scroll to explore</div>
+  </div>
+
+  <!-- featured banner -->
+  <div class="wrap featured">
+    <div class="featured-card reveal">
+      <div class="featured-badge"><span class="big">19</span><span class="sm">June</span></div>
+      <div class="featured-body">
+        <span class="tag">★ Free Community Kickoff</span>
+        <h3>Petting Zoo &amp; Food Truck Event</h3>
+        <p>Kick off the adventure with a family-friendly evening featuring live animals, food trucks, fun activities, and a first look at the Rainforest Falls experience.</p>
+        <div class="featured-meta">Thursday, June 19 · 4:00 PM – 7:00 PM · Free Admission</div>
+      </div>
+      <a class="btn btn-primary" onclick="go('kickoff')">Event Details</a>
+    </div>
+  </div>
+
+  <!-- adventure highlights -->
+  <section class="band dark">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="kicker">This is not a traditional VBS</span>
+        <h2 class="title">A <em>living jungle</em> your child will never forget</h2>
+        <p class="lead">The moment families arrive, they're transported into an exotic rainforest filled with discovery, wonder, and faith. Here's a taste of what awaits inside.</p>
+      </div>
+      <div class="hl-grid" id="hlgrid"></div>
+    </div>
+  </section>
+
+  <!-- trailer -->
+  <section class="band light">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="kicker">Watch the trailer</span>
+        <h2 class="title">See the rainforest come alive</h2>
+      </div>
+      <div class="trailer reveal" onclick="alert('🎬 Event trailer coming soon! Add your YouTube or Vimeo embed here.')">
+        <div class="scene"></div>
+        <div class="play"></div>
+        <div class="cap">Rainforest Falls 2026 · Official Trailer</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="band light">
+    <div class="wrap">
+      <div class="cta-band reveal">
+        <h2>Your child's adventure starts here</h2>
+        <p>Spaces fill quickly. Reserve your explorer's spot today and join us for a week where every trail leads to discovery and every encounter reveals God's love.</p>
+        <a class="btn btn-primary" onclick="go('register')">Register Your Explorer →</a>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ===================== THE ADVENTURE ===================== -->
+<section class="page" id="page-adventure">
+  <div class="wrap" style="padding-top:8rem">
+    <div class="section-head reveal">
+      <span class="kicker">The Adventure</span>
+      <h2 class="title">Explore the <em>Rainforest Falls</em></h2>
+      <p class="lead">Walk through a living jungle where colorful parrots appear overhead, exotic animals come to life, and hidden discoveries await around every corner. Every adventure reveals something new about God's amazing love.</p>
+    </div>
+  </div>
+
+  <section class="band dark">
+    <div class="wrap">
+      <div class="feat-row reveal">
+        <div class="feat-art"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" fill="#0c3a28"/>
+          <ellipse cx="200" cy="270" rx="260" ry="60" fill="#0a2c1c"/>
+          <path d="M0 150c60-40 100 20 140-10s80-50 140-20 120-30 120-30v210H0z" fill="#15603a"/>
+          <path d="M120 60c-30 30-45 70-45 120h90c0-50-15-90-45-120z" fill="#2f9c5b"/>
+          <path d="M280 80c-25 28-38 64-38 110h76c0-46-13-82-38-110z" fill="#3da35d"/>
+          <circle cx="320" cy="60" r="26" fill="#f0b53e" opacity=".8"/>
+          <ellipse cx="200" cy="200" rx="34" ry="20" fill="#e7558b"/>
+          <circle cx="225" cy="194" r="6" fill="#0d3522"/>
+          <path d="M178 196c-16-4-30 0-38 8 10 8 26 8 38-2z" fill="#46d6c6"/>
+        </svg></div>
+        <div>
+          <span class="kicker">Living jungle environments</span>
+          <h2 class="title" style="font-size:clamp(1.7rem,4vw,2.6rem)">Realistic rainforest worlds</h2>
+          <p class="lead">From cascading waterfalls to dense tropical canopy, every space is transformed into an immersive, professional-quality environment that feels genuinely alive.</p>
+          <ul class="feat-list">
+            <li><span class="chk">✓</span> Waterfalls and tropical scenery throughout the building</li>
+            <li><span class="chk">✓</span> Jungle pathways and dedicated exploration zones</li>
+            <li><span class="chk">✓</span> Dynamic lighting and immersive sound effects</li>
+            <li><span class="chk">✓</span> Professional-quality stage environments</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="feat-row reveal">
+        <div class="feat-art"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" fill="#0a2c40"/>
+          <ellipse cx="200" cy="280" rx="240" ry="50" fill="#082030"/>
+          <path d="M60 300c0-90 50-150 90-150s90 60 90 150z" fill="#5a3a22"/>
+          <ellipse cx="150" cy="150" rx="70" ry="55" fill="#6b4226"/>
+          <circle cx="125" cy="135" r="12" fill="#f0b53e"/><circle cx="125" cy="135" r="5" fill="#0d3522"/>
+          <circle cx="175" cy="135" r="12" fill="#f0b53e"/><circle cx="175" cy="135" r="5" fill="#0d3522"/>
+          <path d="M130 175q20 18 40 0" stroke="#341f12" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <ellipse cx="105" cy="105" rx="18" ry="22" fill="#5a3a22"/>
+          <ellipse cx="195" cy="105" rx="18" ry="22" fill="#5a3a22"/>
+          <path d="M300 120c-20 22-30 52-30 90h60c0-38-10-68-30-90z" fill="#2f9c5b"/>
+        </svg></div>
+        <div>
+          <span class="kicker">They come to life</span>
+          <h2 class="title" style="font-size:clamp(1.7rem,4vw,2.6rem)">Animatronic animal encounters</h2>
+          <p class="lead">Life-sized animatronic rainforest animals move, react, and surprise. Children meet moving jungle creatures up close in interactive encounters they'll talk about for weeks.</p>
+          <ul class="feat-list">
+            <li><span class="chk">✓</span> Life-sized animatronic rainforest animals</li>
+            <li><span class="chk">✓</span> Interactive animal encounters &amp; moving creatures</li>
+            <li><span class="chk">✓</span> Photo opportunities throughout the jungle</li>
+            <li><span class="chk">✓</span> Safe, supervised, wonder-filled moments</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="feat-row reveal">
+        <div class="feat-art"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" fill="#0d3a28"/>
+          <path d="M0 0h400v300H0z" fill="url(#g1)"/>
+          <defs><radialGradient id="g1" cx="30%" cy="20%"><stop offset="0" stop-color="#1a6b40"/><stop offset="1" stop-color="#0a2c1c"/></radialGradient></defs>
+          <rect x="60" y="90" width="120" height="140" rx="14" fill="#f0b53e" opacity=".15" stroke="#f0b53e" stroke-width="2"/>
+          <rect x="220" y="60" width="120" height="170" rx="14" fill="#46d6c6" opacity=".15" stroke="#46d6c6" stroke-width="2"/>
+          <circle cx="120" cy="150" r="26" fill="#ff8147"/><circle cx="280" cy="130" r="26" fill="#5ec57a"/>
+          <path d="M110 150l8 8 14-16M270 130l8 8 14-16" stroke="#0d3522" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </svg></div>
+        <div>
+          <span class="kicker">Hands-on &amp; interactive</span>
+          <h2 class="title" style="font-size:clamp(1.7rem,4vw,2.6rem)">Discovery stations &amp; checkpoints</h2>
+          <p class="lead">Adventure checkpoints and hands-on discovery stations turn every child into an explorer. Interactive storytelling experiences bring Bible adventures to life around every corner.</p>
+          <ul class="feat-list">
+            <li><span class="chk">✓</span> Interactive storytelling experiences</li>
+            <li><span class="chk">✓</span> Adventure checkpoints along the trail</li>
+            <li><span class="chk">✓</span> Hands-on discovery stations</li>
+            <li><span class="chk">✓</span> Immersive Bible adventures &amp; worship</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- adventure map -->
+  <section class="band light">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="kicker">The Adventure Map</span>
+        <h2 class="title">Tap a marker to explore each zone</h2>
+      </div>
+      <div class="map-wrap reveal">
+        <svg viewBox="0 0 800 420" id="advmap">
+          <rect width="800" height="420" fill="#0c3a28"/>
+          <path d="M0 0h800v420H0z" fill="url(#mg)"/>
+          <defs><radialGradient id="mg" cx="50%" cy="30%"><stop offset="0" stop-color="#15603a"/><stop offset="1" stop-color="#082018"/></radialGradient></defs>
+          <!-- river path -->
+          <path d="M40 60C200 120 180 220 360 240S620 200 760 320" fill="none" stroke="#46d6c6" stroke-width="14" opacity=".5" stroke-linecap="round"/>
+          <path d="M40 60C200 120 180 220 360 240S620 200 760 320" fill="none" stroke="#7fe3da" stroke-width="5" stroke-dasharray="2 16" opacity=".8" stroke-linecap="round"/>
+          <!-- trees scattered -->
+          <g opacity=".55" fill="#0e4a2e">
+            <path d="M120 300c-14 18-22 40-22 64h44c0-24-8-46-22-64z"/>
+            <path d="M520 90c-12 16-19 36-19 58h38c0-22-7-42-19-58z"/>
+            <path d="M680 200c-14 18-22 40-22 64h44c0-24-8-46-22-64z"/>
+          </g>
+          <g class="hotspot" data-zone="0"><circle class="halo" cx="120" cy="110" r="14"/><circle class="pin" cx="120" cy="110" r="15"/><text x="120" y="116" text-anchor="middle">1</text></g>
+          <g class="hotspot" data-zone="1"><circle class="halo" cx="350" cy="230" r="14"/><circle class="pin" cx="350" cy="230" r="15"/><text x="350" y="236" text-anchor="middle">2</text></g>
+          <g class="hotspot" data-zone="2"><circle class="halo" cx="540" cy="150" r="14"/><circle class="pin" cx="540" cy="150" r="15"/><text x="540" y="156" text-anchor="middle">3</text></g>
+          <g class="hotspot" data-zone="3"><circle class="halo" cx="690" cy="310" r="14"/><circle class="pin" cx="690" cy="310" r="15"/><text x="690" y="316" text-anchor="middle">4</text></g>
+          <g class="hotspot" data-zone="4"><circle class="halo" cx="240" cy="340" r="14"/><circle class="pin" cx="240" cy="340" r="15"/><text x="240" y="346" text-anchor="middle">5</text></g>
+        </svg>
+        <div class="map-info" id="mapinfo">
+          <span class="tag">Zone 1 of 5</span>
+          <h4>Canopy Gateway</h4>
+          <p>Your journey begins beneath a towering canopy. Step through the misty entrance as parrots call overhead and the sounds of the rainforest welcome you into the adventure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ===================== ABOUT VBS ===================== -->
+<section class="page" id="page-about">
+  <div class="wrap" style="padding-top:8rem">
+    <div class="section-head reveal">
+      <span class="kicker">About VBS</span>
+      <h2 class="title">Five days of <em>adventure</em>, worship &amp; wonder</h2>
+      <p class="lead">Beyond the immersive set, Rainforest Falls is built on a foundation of joyful worship, meaningful Bible discoveries, and the kind of friendships that last well past summer.</p>
+    </div>
+  </div>
+
+  <section class="band dark">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="kicker">Each day, a new trail</span><h2 class="title" style="font-size:clamp(1.7rem,4vw,2.6rem)">Daily Adventures</h2></div>
+      <div class="days" id="daysgrid"></div>
+    </div>
+  </section>
+
+  <section class="band light">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="kicker">A day in the jungle</span><h2 class="title" style="font-size:clamp(1.7rem,4vw,2.6rem)">A typical adventure day</h2></div>
+      <div class="daily-flow" id="flow"></div>
+    </div>
+  </section>
+
+  <section class="band dark">
+    <div class="wrap">
+      <div class="info-grid">
+        <div class="info-card reveal"><div class="ic">♪</div><h4>Music &amp; Worship</h4><p>High-energy rainforest-themed worship with songs and motions kids beg to do again at home.</p></div>
+        <div class="info-card reveal"><div class="ic">📖</div><h4>Bible Discoveries</h4><p>Interactive, age-appropriate Bible adventures that make God's love unforgettable and real.</p></div>
+        <div class="info-card reveal"><div class="ic">✂️</div><h4>Crafts &amp; Activities</h4><p>Hands-on jungle crafts kids carry home as a keepsake of their adventure.</p></div>
+        <div class="info-card reveal"><div class="ic">🎮</div><h4>Games &amp; Recreation</h4><p>Active, joyful games and exploration that build friendships and burn boundless energy.</p></div>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ===================== KICKOFF EVENT ===================== -->
+<section class="page" id="page-kickoff">
+  <div class="wrap" style="padding-top:8rem">
+    <div class="section-head reveal">
+      <span class="kicker">Free Community Event</span>
+      <h2 class="title">Petting Zoo &amp; <em>Food Truck</em> Kickoff</h2>
+      <p class="lead">Kick off the adventure with a family-friendly evening for the whole community — live animals, food trucks, fun activities, and a first look at the Rainforest Falls experience.</p>
+    </div>
+  </div>
+
+  <section class="band dark">
+    <div class="wrap">
+      <div class="featured-card reveal" style="margin-bottom:3rem">
+        <div class="featured-badge"><span class="big">19</span><span class="sm">June</span></div>
+        <div class="featured-body">
+          <span class="tag">★ Mark your calendar</span>
+          <h3>Thursday, June 19 · 4:00 – 7:00 PM</h3>
+          <p>Atholton Seventh-day Adventist Church · Columbia, Maryland</p>
+          <div class="featured-meta">Free Admission · All Ages Welcome · No Registration Required</div>
+        </div>
+        <a class="btn btn-primary" onclick="go('register')">Pre-Register for VBS</a>
+      </div>
+      <div class="hl-grid">
+        <div class="hl-card reveal"><div class="hl-ic">🐐</div><h4>Live Petting Zoo</h4><p>Meet and greet friendly real animals in a safe, supervised setting the kids will love.</p></div>
+        <div class="hl-card reveal"><div class="hl-ic">🚚</div><h4>Food Trucks</h4><p>Grab dinner from a lineup of local food trucks — something tasty for every family member.</p></div>
+        <div class="hl-card reveal"><div class="hl-ic">🎉</div><h4>Fun Activities</h4><p>Games, face painting, and family-friendly fun throughout the evening.</p></div>
+        <div class="hl-card reveal"><div class="hl-ic">🌿</div><h4>Rainforest Preview</h4><p>Get an exclusive first peek at the immersive Rainforest Falls experience before VBS week.</p></div>
+        <div class="hl-card reveal"><div class="hl-ic">🤝</div><h4>Community Outreach</h4><p>A warm welcome to neighbors and first-time visitors from all over Columbia &amp; Howard County.</p></div>
+        <div class="hl-card reveal"><div class="hl-ic">📋</div><h4>On-Site Registration</h4><p>Sign your explorer up for VBS right at the event and skip the line on day one.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band light">
+    <div class="wrap">
+      <div class="cta-band reveal">
+        <h2>Bring the whole neighborhood</h2>
+        <p>The kickoff is completely free and open to everyone. Invite friends, family, and neighbors for a perfect summer evening — and a sneak peek at the adventure ahead.</p>
+        <a class="btn btn-primary" onclick="go('contact')">Get Directions</a>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ===================== PARENTS ===================== -->
+<section class="page" id="page-parents">
+  <div class="wrap" style="padding-top:8rem">
+    <div class="section-head reveal">
+      <span class="kicker">Parent Information</span>
+      <h2 class="title">Your child's safety is our <em>highest priority</em></h2>
+      <p class="lead">We've built Rainforest Falls so you can relax and your child can explore. Here's everything you need to know about how we keep every explorer safe and cared for.</p>
+    </div>
+  </div>
+
+  <section class="band dark">
+    <div class="wrap">
+      <div class="info-grid">
+        <div class="info-card reveal"><div class="ic">🛡️</div><h4>Safety &amp; Security</h4>
+          <p>Every part of the experience is designed with child safety first.</p>
+          <ul><li>Secured, monitored facility access</li><li>Trained, attentive adult leaders in every zone</li><li>Posted emergency &amp; medical procedures</li><li>Allergy &amp; medical needs accommodated</li></ul>
+        </div>
+        <div class="info-card reveal"><div class="ic">🎟️</div><h4>Check-In Process</h4>
+          <p>A smooth, secure arrival every morning.</p>
+          <ul><li>Matching name-tag check-in &amp; check-out</li><li>Authorized pickup verification</li><li>Quick, friendly daily drop-off</li><li>Doors open 15 minutes before start</li></ul>
+        </div>
+        <div class="info-card reveal"><div class="ic">✅</div><h4>Volunteer Screening</h4>
+          <p>Every adult volunteer is carefully vetted.</p>
+          <ul><li>Background-checked team members</li><li>Child-safety trained leaders</li><li>Clear leader-to-child ratios</li><li>Designated, visible staff identification</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band light">
+    <div class="wrap">
+      <div class="section-head center reveal"><span class="kicker">Good to know</span><h2 class="title">Frequently Asked Questions</h2></div>
+      <div class="faq" id="faq"></div>
+    </div>
+  </section>
+</section>
+
+<!-- ===================== REGISTER ===================== -->
+<section class="page" id="page-register">
+  <div class="wrap" style="padding-top:8rem;padding-bottom:5rem">
+    <div class="section-head center reveal">
+      <span class="kicker">Register</span>
+      <h2 class="title">Join the <em>adventure</em></h2>
+      <p class="lead">Reserve your explorer's spot — or step up to lead the journey as a volunteer. It only takes a minute.</p>
+    </div>
+
+    <div class="reg-tabs">
+      <button class="reg-tab active" data-form="child" onclick="switchForm('child')">🧒 Child Registration</button>
+      <button class="reg-tab" data-form="vol" onclick="switchForm('vol')">🙌 Volunteer Registration</button>
+    </div>
+
+    <!-- CHILD -->
+    <div class="reg-form active" id="form-child">
+      <div class="form-grid">
+        <div class="field"><label>Child's First Name</label><input type="text" placeholder="Explorer's first name"></div>
+        <div class="field"><label>Child's Last Name</label><input type="text" placeholder="Last name"></div>
+        <div class="field"><label>Child's Age</label>
+          <select><option value="">Select age</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select></div>
+        <div class="field"><label>Grade (Fall 2026)</label><input type="text" placeholder="e.g. 3rd grade"></div>
+        <div class="field"><label>Parent / Guardian Name</label><input type="text" placeholder="Full name"></div>
+        <div class="field"><label>Phone Number</label><input type="tel" placeholder="(___) ___-____"></div>
+        <div class="field full"><label>Email Address</label><input type="email" placeholder="you@email.com"></div>
+        <div class="field full"><label>Allergies / Medical Notes</label><textarea rows="2" placeholder="Anything our team should know to keep your child safe"></textarea></div>
+        <div class="field full"><label>Authorized Pickup Person(s)</label><input type="text" placeholder="Names of approved adults for pickup"></div>
+      </div>
+      <p class="form-note">By registering you confirm the information above is accurate. A team member will follow up to confirm your child's spot.</p>
+      <button class="btn btn-primary" style="margin-top:1.4rem;width:100%;justify-content:center" onclick="submitForm('child')">Reserve My Explorer's Spot →</button>
+      <div class="form-success" id="success-child"><div class="ic">🌿</div><h4>You're on the trail!</h4><p>Thank you for registering. We'll be in touch soon with everything you need for the adventure.</p></div>
+    </div>
+
+    <!-- VOLUNTEER -->
+    <div class="reg-form" id="form-vol">
+      <div class="form-grid">
+        <div class="field"><label>First Name</label><input type="text" placeholder="First name"></div>
+        <div class="field"><label>Last Name</label><input type="text" placeholder="Last name"></div>
+        <div class="field"><label>Email Address</label><input type="email" placeholder="you@email.com"></div>
+        <div class="field"><label>Phone Number</label><input type="tel" placeholder="(___) ___-____"></div>
+        <div class="field full"><label>Where would you love to serve?</label>
+          <select><option value="">Select a role</option><option>Group Leader / Trail Guide</option><option>Crafts &amp; Activities</option><option>Music &amp; Worship</option><option>Games &amp; Recreation</option><option>Check-In &amp; Hospitality</option><option>Set / Décor &amp; Production</option><option>Wherever I'm needed most</option></select></div>
+        <div class="field"><label>Age Group Preference</label>
+          <select><option value="">No preference</option><option>Ages 4–6</option><option>Ages 7–9</option><option>Ages 10–12</option></select></div>
+        <div class="field"><label>Background Check on File?</label>
+          <select><option value="">Select</option><option>Yes</option><option>No / Not sure</option></select></div>
+        <div class="field full"><label>Tell us about yourself (optional)</label><textarea rows="2" placeholder="Experience, gifts, or anything you'd like us to know"></textarea></div>
+      </div>
+      <p class="form-note">All volunteers complete a background check and child-safety training before serving. We'll reach out with the next steps.</p>
+      <button class="btn btn-primary" style="margin-top:1.4rem;width:100%;justify-content:center" onclick="submitForm('vol')">Sign Me Up to Serve →</button>
+      <div class="form-success" id="success-vol"><div class="ic">🙌</div><h4>Thank you for serving!</h4><p>Your willingness makes this adventure possible. Our volunteer coordinator will contact you with next steps.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section class="page" id="page-contact">
+  <div class="wrap" style="padding-top:8rem;padding-bottom:5rem">
+    <div class="section-head reveal">
+      <span class="kicker">Contact</span>
+      <h2 class="title">Come find us in the <em>jungle</em></h2>
+      <p class="lead">Questions about Rainforest Falls VBS or the kickoff event? We'd love to hear from you.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="contact-line"><div class="ic">📍</div><div><b>Atholton Seventh-day Adventist Church</b><p>Columbia, Maryland · Serving Howard County &amp; beyond</p></div></div>
+        <div class="contact-line"><div class="ic">📅</div><div><b>Free Kickoff Event</b><p>Thursday, June 19, 2026 · 4:00 PM – 7:00 PM</p></div></div>
+        <div class="contact-line"><div class="ic">✉️</div><div><b>Email Us</b><p>vbs@atholtonsda.org</p></div></div>
+        <div class="contact-line"><div class="ic">📞</div><div><b>Call the Church Office</b><p>(410) 000-0000</p></div></div>
+        <div class="contact-line"><div class="ic">🌐</div><div><b>Online</b><p>Follow along for updates, photos &amp; announcements</p></div></div>
+        <a class="btn btn-primary" style="justify-self:start;margin-top:.5rem" onclick="go('register')">Register for VBS →</a>
+      </div>
+      <div class="map-frame reveal">
+        <div class="pin-c"><div class="dot"></div><b>Atholton SDA Church</b><span style="font-size:.8rem;color:#9fb0a4">Columbia, MD</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="brand" style="cursor:default">
+          <svg class="brand-mark" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="23" fill="#0d3522" stroke="#5ec57a" stroke-width="1.5"/>
+            <path d="M24 8c-6 5-9 11-9 18a9 9 0 0018 0c0-7-3-13-9-18z" fill="#5ec57a"/>
+            <path d="M24 13c-3.5 4-5.5 8.5-5.5 13a5.5 5.5 0 0011 0c0-4.5-2-9-5.5-13z" fill="#46d6c6"/>
+            <circle cx="33" cy="16" r="3.5" fill="#f0b53e"/>
+          </svg>
+          <div class="brand-text"><b>Rainforest&nbsp;Falls</b><span>VBS 2026</span></div>
+        </div>
+        <p>A fully immersive rainforest adventure where every trail leads to discovery and every encounter reveals God's love.</p>
+        <div class="socials">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v8h4v-8h3l1-4h-4V9c0-.6.4-1 1-1z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.4-5.2a2.7 2.7 0 00-1.9-1.9C18.9 4.5 12 4.5 12 4.5s-6.9 0-8.7.4a2.7 2.7 0 00-1.9 1.9C1 8.5 1 12 1 12s0 3.5.4 5.2a2.7 2.7 0 001.9 1.9c1.8.4 8.7.4 8.7.4s6.9 0 8.7-.4a2.7 2.7 0 001.9-1.9C23 15.5 23 12 23 12zM10 15.5v-7l6 3.5-6 3.5z"/></svg></a>
+        </div>
+      </div>
+      <div><h5>Explore</h5>
+        <a onclick="go('home')">Home</a><a onclick="go('adventure')">The Adventure</a><a onclick="go('about')">About VBS</a></div>
+      <div><h5>Get Involved</h5>
+        <a onclick="go('kickoff')">Kickoff Event</a><a onclick="go('register')">Register a Child</a><a onclick="go('register')">Volunteer</a></div>
+      <div><h5>Info</h5>
+        <a onclick="go('parents')">Parent Information</a><a onclick="go('parents')">FAQ</a><a onclick="go('contact')">Contact Us</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Atholton Seventh-day Adventist Church · Columbia, Maryland</span>
+      <span class="tagline">Rainforest Falls VBS — God's Adventure Awaits.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------- DATA ---------- */
+const highlights=[
+  {ic:'🦜',t:'Animatronic Animals',d:'Life-sized creatures that move, react, and surprise around every corner.'},
+  {ic:'💧',t:'Waterfalls & Scenery',d:'Cascading falls and lush tropical scenery transform every space.'},
+  {ic:'🗺️',t:'Exploration Zones',d:'Jungle pathways and adventure checkpoints to discover and explore.'},
+  {ic:'🔦',t:'Discovery Stations',d:'Hands-on stations where curious explorers learn by doing.'},
+  {ic:'🎭',t:'Interactive Storytelling',d:'Immersive Bible adventures that come alive on professional stages.'},
+  {ic:'✨',t:'Lights & Sound',d:'Dynamic lighting and sound effects make the jungle feel truly alive.'},
+];
+const days=[
+  {n:'Day 1',t:'The Trailhead',d:'Discover that God knows and loves you by name.'},
+  {n:'Day 2',t:'Hidden Falls',d:'Learn how God gives us courage in every adventure.'},
+  {n:'Day 3',t:'Canopy Heights',d:'Explore how much God provides and cares.'},
+  {n:'Day 4',t:'River Crossing',d:'Find out that God is always with us.'},
+  {n:'Day 5',t:'Summit Celebration',d:'Celebrate God\'s amazing, never-ending love.'},
+];
+const flow=[
+  {time:'Arrival',t:'Check-In & Welcome',d:'Secure name-tag check-in and a warm jungle welcome.'},
+  {time:'Opening',t:'Rainforest Worship',d:'High-energy songs, motions, and the day\'s big adventure theme.'},
+  {time:'Explore',t:'Bible Discovery & Stations',d:'Interactive storytelling and hands-on discovery stations.'},
+  {time:'Midday',t:'Crafts & Snacks',d:'Jungle crafts to take home and a refueling snack break.'},
+  {time:'Active',t:'Games & Animal Encounters',d:'Recreation, exploration, and meeting the rainforest creatures.'},
+  {time:'Closing',t:'Celebration & Pickup',d:'A closing celebration and secure, verified pickup.'},
+];
+const faqs=[
+  {q:'What ages can attend Rainforest Falls VBS?',a:'Rainforest Falls is designed for children ages 4 through 12. Activities are grouped by age so every explorer enjoys an experience that fits them.'},
+  {q:'How much does it cost to register?',a:'Registration details and any program costs will be confirmed at sign-up. The free community kickoff on June 19 is open to everyone at no charge.'},
+  {q:'Do we have to be church members to attend?',a:'Not at all! Rainforest Falls is a community event and we warmly welcome families and first-time visitors from all over Columbia and Howard County.'},
+  {q:'How do drop-off and pickup work?',a:'We use a secure matching name-tag system. Only adults you authorize at registration may pick up your child, and we verify pickup every day.'},
+  {q:'My child has allergies or special needs — can you help?',a:'Yes. Please note any allergies or medical needs on the registration form so our trained team can plan to keep your child safe and included.'},
+  {q:'Are volunteers screened?',a:'Every adult volunteer completes a background check and child-safety training before serving, and we maintain clear leader-to-child ratios throughout the week.'},
+];
+const zones=[
+  {t:'Canopy Gateway',d:'Your journey begins beneath a towering canopy. Step through the misty entrance as parrots call overhead and the sounds of the rainforest welcome you into the adventure.'},
+  {t:'Whispering Falls',d:'Cross beside cascading waterfalls and glistening pools. This is the heart of the jungle, where worship and the day\'s big Bible discovery come alive.'},
+  {t:'Creature Cove',d:'Meet life-sized animatronic animals up close. Moving, reacting, and full of surprises — the most talked-about stop on the whole trail.'},
+  {t:'Discovery Hollow',d:'Hands-on stations and adventure checkpoints where young explorers experiment, build, and uncover something new about God\'s creation.'},
+  {t:'Summit Stage',d:'A professional-quality stage environment for immersive storytelling, high-energy worship, and the celebration that sends every explorer home glowing.'},
+];
+
+/* ---------- RENDER ---------- */
+const hl=document.getElementById('hlgrid');
+highlights.forEach((h,i)=>hl.insertAdjacentHTML('beforeend',
+  `<div class="hl-card reveal"><span class="num-tag">0${i+1}</span><div class="hl-ic">${h.ic}</div><h4>${h.t}</h4><p>${h.d}</p></div>`));
+
+const dg=document.getElementById('daysgrid');
+days.forEach(d=>dg.insertAdjacentHTML('beforeend',
+  `<div class="day reveal"><div class="d-num">${d.n}</div><h4>${d.t}</h4><p>${d.d}</p></div>`));
+
+const fl=document.getElementById('flow');
+flow.forEach(f=>fl.insertAdjacentHTML('beforeend',
+  `<div class="flow-item reveal"><div class="flow-time">${f.time}</div><div class="flow-body"><h4>${f.t}</h4><p>${f.d}</p></div></div>`));
+
+const fq=document.getElementById('faq');
+faqs.forEach(f=>fq.insertAdjacentHTML('beforeend',
+  `<div class="faq-item reveal"><button class="faq-q" onclick="toggleFaq(this)">${f.q}<span class="ico">+</span></button><div class="faq-a"><p>${f.a}</p></div></div>`));
+
+/* ---------- ROUTER ---------- */
+function go(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const el=document.getElementById('page-'+page);
+  if(el)el.classList.add('active');
+  document.querySelectorAll('nav.links a[data-page]').forEach(a=>
+    a.classList.toggle('active',a.dataset.page===page));
+  window.scrollTo({top:0,behavior:'instant'});
+  history.replaceState(null,'','#'+page);
+  closeMenu();
+  setTimeout(observeReveals,50);
+}
+window.addEventListener('load',()=>{const h=location.hash.replace('#','');if(h&&document.getElementById('page-'+h))go(h);else observeReveals();});
+
+/* ---------- NAV SCROLL & MENU ---------- */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40));
+const burger=document.getElementById('burger'),navlinks=document.getElementById('navlinks');
+burger.addEventListener('click',()=>{burger.classList.toggle('open');navlinks.classList.toggle('open')});
+function closeMenu(){burger.classList.remove('open');navlinks.classList.remove('open')}
+
+/* ---------- FAQ ---------- */
+function toggleFaq(btn){
+  const item=btn.parentElement,open=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight=null});
+  if(!open){item.classList.add('open');const a=item.querySelector('.faq-a');a.style.maxHeight=a.scrollHeight+'px'}
+}
+
+/* ---------- ADVENTURE MAP ---------- */
+document.querySelectorAll('#advmap .hotspot').forEach(h=>{
+  h.addEventListener('click',()=>{
+    const z=zones[+h.dataset.zone];const info=document.getElementById('mapinfo');
+    info.querySelector('.tag').textContent='Zone '+(+h.dataset.zone+1)+' of 5';
+    info.querySelector('h4').textContent=z.t;
+    info.querySelector('p').textContent=z.d;
+    info.style.animation='none';info.offsetHeight;info.style.animation='pagein .4s ease both';
+  });
+});
+
+/* ---------- REGISTER FORMS ---------- */
+function switchForm(f){
+  document.querySelectorAll('.reg-tab').forEach(t=>t.classList.toggle('active',t.dataset.form===f));
+  document.getElementById('form-child').classList.toggle('active',f==='child');
+  document.getElementById('form-vol').classList.toggle('active',f==='vol');
+}
+function submitForm(f){
+  document.getElementById('success-'+f).classList.add('show');
+  document.getElementById('success-'+f).scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+/* ---------- COUNTDOWN ---------- */
+const target=new Date('2026-06-19T16:00:00').getTime();
+const cd=document.getElementById('countdown');
+['Days','Hours','Mins','Secs'].forEach(l=>cd.insertAdjacentHTML('beforeend',
+  `<div class="cd-unit"><div class="num" data-u="${l}">--</div><div class="lbl">${l}</div></div>`));
+function tick(){
+  let diff=target-Date.now();
+  if(diff<0){cd.querySelector('.cd-title').textContent='The adventure is here! 🌿';diff=0;}
+  const d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4),s=Math.floor(diff%6e4/1e3);
+  const map={Days:d,Hours:h,Mins:m,Secs:s};
+  cd.querySelectorAll('.num').forEach(n=>n.textContent=String(map[n.dataset.u]).padStart(2,'0'));
+}
+tick();setInterval(tick,1000);
+
+/* ---------- FLOATING LEAVES ---------- */
+const lf=document.getElementById('leaffield');
+const leafColors=['#2f9c5b','#5ec57a','#46d6c6','#1a6b40','#f0b53e'];
+const leafSVG=c=>`<svg viewBox="0 0 40 40"><path d="M20 2C8 8 4 22 6 38c16-2 30-12 32-30C30 4 24 2 20 2z" fill="${c}"/><path d="M20 6C12 12 9 24 10 36" stroke="rgba(0,0,0,.18)" stroke-width="1.5" fill="none"/></svg>`;
+for(let i=0;i<14;i++){
+  const el=document.createElement('div');el.className='leaf';
+  const size=18+Math.random()*26;
+  el.style.left=Math.random()*100+'vw';
+  el.style.width=size+'px';
+  el.style.animationDuration=(11+Math.random()*12)+'s';
+  el.style.animationDelay=(-Math.random()*16)+'s';
+  el.innerHTML=leafSVG(leafColors[i%leafColors.length]);
+  el.style.opacity=.5+Math.random()*.4;
+  lf.appendChild(el);
+}
+
+/* ---------- SCROLL REVEAL ---------- */
+let io;
+function observeReveals(){
+  if(io)io.disconnect();
+  io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.page.active .reveal:not(.in)').forEach(r=>io.observe(r));
+}
+</script>
+</body>
+</html>
