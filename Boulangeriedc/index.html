@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boulangerie Saint Georges — Capitol Hill, Washington DC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #F7F3EE; --dark: #1C1410; --gold: #B8973A;
+    --gold-light: #E8D89A; --warm-gray: #8A7E72;
+    --text-dark: #2A1F14; --card-bg: #FDFAF6;
+    --border-warm: rgba(184,151,58,0.2);
+  }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; }
+
+  nav.sg-nav { display:flex; align-items:center; justify-content:space-between; padding:1.1rem 2rem; background:var(--dark); position:sticky; top:0; z-index:100; }
+  .sg-nav-logo { font-family:'Playfair Display',serif; color:var(--gold-light); font-size:1rem; letter-spacing:0.05em; line-height:1.2; }
+  .sg-nav-logo span { display:block; font-size:0.58rem; letter-spacing:0.22em; color:var(--gold); font-family:'Jost',sans-serif; font-weight:400; text-transform:uppercase; margin-top:2px; }
+  .sg-nav-links { display:flex; gap:1.5rem; list-style:none; }
+  .sg-nav-links a { color:rgba(255,255,255,0.55); text-decoration:none; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; }
+  .sg-nav-links a:hover { color:var(--gold-light); }
+  .sg-nav-btn { background:var(--gold); color:var(--dark); border:none; padding:0.45rem 1rem; font-family:'Jost',sans-serif; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; font-weight:500; border-radius:2px; }
+
+  .sg-hero { background:var(--dark); padding:5rem 2rem 2.5rem; display:flex; flex-direction:column; align-items:center; text-align:center; }
+  .sg-eyebrow { font-size:0.65rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); font-weight:400; margin-bottom:1rem; }
+  .sg-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(2.5rem,7vw,4.5rem); font-weight:400; color:#F7F0E6; line-height:1.1; margin-bottom:1rem; }
+  .sg-hero h1 em { font-style:italic; color:var(--gold-light); }
+  .sg-hero-sub { font-size:0.9rem; color:rgba(247,240,230,0.5); font-weight:300; margin-bottom:2.5rem; max-width:420px; line-height:1.8; }
+  .sg-pills { display:flex; gap:0.6rem; flex-wrap:wrap; justify-content:center; margin-bottom:0; }
+  .sg-pill { background:rgba(184,151,58,0.12); border:0.5px solid rgba(184,151,58,0.3); color:var(--gold-light); padding:0.3rem 0.8rem; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; border-radius:2px; }
+
+
+
+
+  /* CAROUSEL */
+  .sg-carousel-wrap { background:var(--cream); padding:0 2rem 0; }
+  .sg-carousel { position:relative; background:var(--dark); max-width:900px; margin:0 auto; border-radius:4px; overflow:hidden; }
+  .sg-carousel-track { display:flex; transition:transform 0.6s cubic-bezier(0.4,0,0.2,1); will-change:transform; width:100%; }
+  .sg-carousel-slide { min-width:100%; width:100%; flex-shrink:0; flex-grow:0; position:relative; }
+  .sg-carousel-slide img { width:100%; height:auto; aspect-ratio:16/7; object-fit:cover; object-position:center; display:block; max-height:520px; }
+  .sg-carousel-slide-overlay { position:absolute; bottom:0; left:0; right:0; padding:1.5rem 2rem; background:linear-gradient(transparent, rgba(0,0,0,0.7)); pointer-events:none; }
+  .sg-carousel-slide-label { font-family:'Playfair Display',serif; color:#F7F0E6; font-size:1.3rem; font-weight:400; font-style:italic; }
+  .sg-carousel-slide-sub { font-size:0.72rem; color:rgba(255,255,255,0.55); letter-spacing:0.1em; text-transform:uppercase; margin-top:0.25rem; }
+  .sg-carousel-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(28,20,16,0.65); border:0.5px solid rgba(184,151,58,0.4); color:var(--gold-light); width:42px; height:42px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem; z-index:20; transition:background 0.2s; border-radius:50%; pointer-events:all; }
+  .sg-carousel-btn:hover { background:rgba(184,151,58,0.25); }
+  .sg-carousel-prev { left:1.25rem; }
+  .sg-carousel-next { right:1.25rem; }
+  .sg-carousel-dots { position:absolute; bottom:0.85rem; left:50%; transform:translateX(-50%); display:flex; gap:6px; z-index:20; }
+  .sg-carousel-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.35); cursor:pointer; transition:background 0.2s, transform 0.2s; border:none; padding:0; }
+  .sg-carousel-dot.active { background:var(--gold); transform:scale(1.3); }
+
+  .sg-menu-bg { background:var(--cream); padding:5rem 2rem; }
+  .sg-menu-wrap { max-width:900px; margin:0 auto; }
+  .sg-label { font-size:0.62rem; letter-spacing:0.24em; text-transform:uppercase; color:var(--gold); font-weight:500; margin-bottom:0.6rem; display:block; }
+  .sg-title { font-family:'Playfair Display',serif; font-size:clamp(1.5rem,3.5vw,2.2rem); font-weight:400; color:var(--dark); line-height:1.25; margin-bottom:1rem; }
+  .sg-body { font-size:0.9rem; color:var(--warm-gray); line-height:1.8; font-weight:300; }
+  .sg-tabs { display:flex; border-bottom:1px solid var(--border-warm); margin:1.5rem 0; overflow-x:auto; }
+  .sg-tab { padding:0.55rem 1.1rem; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; font-weight:500; color:var(--warm-gray); cursor:pointer; border:none; background:transparent; border-bottom:2px solid transparent; margin-bottom:-1px; font-family:'Jost',sans-serif; white-space:nowrap; transition:color 0.2s; }
+  .sg-tab.active { color:var(--dark); border-bottom-color:var(--gold); }
+  .sg-panel { display:none; }
+  .sg-panel.active { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border-warm); border:1px solid var(--border-warm); }
+  .sg-card { background:var(--card-bg); overflow:hidden; transition:background 0.2s; }
+  .sg-card:hover { background:#FBF7F0; }
+  .sg-card img { width:100%; height:170px; object-fit:cover; display:block; }
+  .sg-card-body { padding:1.1rem 1.1rem 1.25rem; }
+  .sg-card-name { font-family:'Playfair Display',serif; font-size:1rem; font-weight:400; color:var(--dark); margin-bottom:0.3rem; }
+  .sg-card-desc { font-size:0.76rem; color:var(--warm-gray); line-height:1.55; font-weight:300; margin-bottom:0.65rem; }
+  .sg-card-price { font-size:0.82rem; color:var(--gold); font-weight:500; }
+
+  .sg-story { background:var(--dark); padding:5rem 2rem; }
+  .sg-story-inner { max-width:900px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; }
+  .sg-story-img { width:100%; aspect-ratio:3/4; object-fit:cover; }
+  .sg-story-right .sg-title { color:#F7F0E6; }
+  .sg-story-right .sg-body { color:rgba(247,240,230,0.5); }
+  .sg-fact { border-left:2px solid var(--gold); padding-left:1.1rem; margin-top:1.75rem; }
+  .sg-fact-title { font-size:0.78rem; font-weight:500; color:var(--gold-light); margin-bottom:0.25rem; }
+  .sg-fact-body { font-size:0.78rem; color:rgba(247,240,230,0.45); line-height:1.6; font-weight:300; }
+
+  .sg-patio { background:#110D09; padding:3rem 2rem; display:flex; align-items:center; justify-content:center; gap:1.75rem; text-align:center; flex-wrap:wrap; }
+  .sg-patio i { font-size:2rem; color:var(--gold); }
+  .sg-patio strong { font-family:'Playfair Display',serif; font-size:1.25rem; color:#F7F0E6; display:block; font-weight:400; margin-bottom:0.25rem; }
+  .sg-patio p { font-size:0.82rem; color:rgba(247,240,230,0.45); font-weight:300; }
+
+  .sg-info { background:#F0EAE0; padding:5rem 2rem; }
+  .sg-info-inner { max-width:900px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:4rem; }
+  .sg-hr { display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:0.5px solid var(--border-warm); font-size:0.85rem; }
+  .sg-hr-day { color:var(--warm-gray); font-weight:300; }
+  .sg-hr-time { color:var(--dark); font-weight:400; }
+  .sg-hr-closed { color:rgba(138,126,114,0.45); }
+  .sg-addr { font-size:0.92rem; color:var(--dark); line-height:1.7; margin-top:0.85rem; }
+  .sg-addr-note { font-size:0.76rem; color:var(--warm-gray); font-weight:300; margin-top:0.4rem; }
+  .sg-map-box { background:var(--dark); border-radius:3px; height:150px; display:flex; flex-direction:column; align-items:center; justify-content:center; margin-top:1rem; gap:0.5rem; }
+  .sg-map-box i { font-size:1.5rem; color:var(--gold); }
+  .sg-map-box p { font-size:0.78rem; color:rgba(255,255,255,0.45); text-align:center; line-height:1.7; font-weight:300; }
+
+  footer.sg-footer { background:#0A0704; padding:3rem 2rem 2rem; text-align:center; }
+  .sg-footer-logo { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--gold); letter-spacing:0.06em; margin-bottom:0.5rem; }
+  .sg-footer-meta { font-size:0.65rem; color:rgba(255,255,255,0.22); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:1.5rem; }
+  .sg-footer-links { display:flex; gap:1.5rem; justify-content:center; list-style:none; margin-bottom:1.75rem; flex-wrap:wrap; }
+  .sg-footer-links a { color:rgba(255,255,255,0.3); text-decoration:none; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; }
+  .sg-footer-links a:hover { color:var(--gold-light); }
+  .sg-footer-copy { font-size:0.65rem; color:rgba(255,255,255,0.12); }
+
+  @media(max-width:640px) {
+    .sg-panel.active { grid-template-columns:1fr; }
+    .sg-story-inner, .sg-info-inner { grid-template-columns:1fr; }
+    nav.sg-nav .sg-nav-links { display:none; }
+    .sg-carousel-wrap { padding:2rem 1rem 0; }
+    .sg-carousel-slide img { aspect-ratio:4/3; max-height:340px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sg-nav">
+  <div class="sg-nav-logo">Boulangerie Saint Georges<span>Capitol Hill · Washington DC</span></div>
+  <ul class="sg-nav-links">
+    <li><a href="#photos">Photos</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#story">Story</a></li>
+    <li><a href="#hours">Hours</a></li>
+  </ul>
+  <button class="sg-nav-btn" onclick="window.open('https://www.toasttab.com/local/order/boulangerie-saint-georges-301-7th-street-se','_blank')">Order online</button>
+</nav>
+
+<!-- HERO -->
+<section class="sg-hero">
+  <span class="sg-eyebrow">Depuis Paris · Capitol Hill, Washington DC</span>
+  <h1>Le vrai goût<br>de <em>Paris</em></h1>
+  <p class="sg-hero-sub">Fresh pastries, artisan breads, and real espresso — crafted daily by bakers brought over from France.</p>
+  <div class="sg-pills">
+    <span class="sg-pill">Viennoiserie</span>
+    <span class="sg-pill">Artisan breads</span>
+    <span class="sg-pill">Sandwiches</span>
+    <span class="sg-pill">Coffee</span>
+    <span class="sg-pill">Dog-friendly patio</span>
+  </div>
+
+</section>
+
+<!-- CAROUSEL — 10 bakery food photos, one at a time -->
+<section id="photos" style="background:var(--cream); padding:1.5rem 2rem 0;">
+  <div style="max-width:900px; margin:0 auto;">
+  <div class="sg-carousel" id="sgCarousel">
+    <div class="sg-carousel-track" id="sgTrack">
+
+      <div class="sg-carousel-slide">
+        <img src="https://images.pexels.com/photos/2135/pexels-photo-2135.jpeg?auto=compress&cs=tinysrgb&w=1400&h=800&fit=crop" alt="Golden butter croissant">
+        <div class="sg-carousel-slide-overlay">
+          <div class="sg-carousel-slide-label">Croissant au beurre</div>
+          <div class="sg-carousel-slide-sub">Made fresh every morning with imported French butter</div>
+        </div>
+      </div>
+
+      <div class="sg-carousel-slide">
+        <img src="https://www.dinneratthezoo.com/wp-content/uploads/2019/05/pain-au-chocolat-10.jpg" alt="Pain au chocolat">
+        <div class="sg-carousel-slide-overlay">
+          <div class="sg-carousel-slide-label">Pain au chocolat</div>
+          <div class="sg-carousel-slide-sub">Dark chocolate folded into laminated dough — disappears fast</div>
+        </div>
+      </div>
+
+      <div class="sg-carousel-slide">
+        <img src="https://thepigandquill.com/wp-content/uploads/2024/02/pistachio-cream-croissant-recipe-9.jpg" alt="Pistachio croissant">
+        <div class="sg-carousel-slide-overlay">
+          <div class="sg-carousel-slide-label">Croissant pistache</div>
+          <div class="sg-carousel-slide-sub">Twice-baked with pistachio frangipane — a customer obsession</div>
+        </div>
+      </div>
+
+      <div class="sg-carousel-slide">
+        <img src="https://images.pexels.com/photos/2373520/pexels-photo-2373520.jpeg?auto=compress&cs=tinysrgb&w=1400&h=800&fit=crop" alt="Seasonal fruit tart">
+        <div class="sg-carousel-slide-overlay">
+          <div class="sg-carousel-slide-label">Tarte aux fruits</div>
+          <div class="sg-carousel-slide-sub">Pistachio, strawberry, chocolate — finished with gold powder by Chef Abdenour</div>
+        </div>
+      </div>
+
+      <div class="sg-carousel-slide">
+        <img src="https://images.pexels.com/photos/239578/pexels-photo-239578.jpeg?auto=compress&cs=tinysrgb&w=1400&h=800&fit=crop" alt="French macarons">
+        <div class="sg-carousel-slide-overlay">
+          <div class="sg-carousel-slide-label">Macarons</div>
+          <div class="sg-carousel-slide-sub">Raspberry, vanilla and chocolate — in the colors of the French flag</div>
+        </div>
+      </div>
+
+      <div class="sg-carousel-slide">
+        <img src="https://images.pexels.com/photos/1387070/pexels-photo-1387070.jpeg?auto=compress&cs=tinysrgb&w=1400&h=800&fit=crop" alt="Artisan baguettes">
+        <div class="sg-carousel-slide-overlay">
+          <div class="sg-carousel-slide-label">Baguette tradition</div>
+          <div class="sg-carousel-slide-sub">A two-day process — French flour, French butter, Boulanger Théo</div>
+        </div>
+      </div>
+
+      <div class="sg-carousel-slide">
+        <img src="https://images.pexels.com/photos/3291758/pexels-photo-3291758.jpeg?auto=compress&cs=tinysrgb&w=1400&h=800&fit=crop" alt="Entremets and petit gateaux">
+        <div class="sg-carousel-slide-overlay">
+          <div class="sg-carousel-slide-label">Entremets &amp; petits gâteaux</div>
+          <div class="sg-carousel-slide-sub">Layered cream and chocolate, lightly dusted in gold powder</div>
+        </div>
+      </div>
+
+      <div class="sg-carousel-slide">
+        <img src="https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1400&h=800&fit=crop" alt="Espresso and coffee">
+        <div class="sg-carousel-slide-overlay">
+          <div class="sg-carousel-slide-label">Café &amp; boissons</div>
+          <div class="sg-carousel-slide-sub">Cafés Richard Italian espresso — drip, latte, cappuccino, matcha</div>
+        </div>
+      </div>
+
+      <div class="sg-carousel-slide">
+        <img src="https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg?auto=compress&cs=tinysrgb&w=1400&h=800&fit=crop" alt="Financiers and petit fours">
+        <div class="sg-carousel-slide-overlay">
+          <div class="sg-carousel-slide-label">Financiers &amp; petits fours</div>
+          <div class="sg-carousel-slide-sub">Almond-butter cakes, crisp outside and moist within</div>
+        </div>
+      </div>
+
+      <div class="sg-carousel-slide">
+        <img src="https://veenaazmanov.com/wp-content/uploads/2020/05/Danish-Pastry-Spirals-from-Scratch-Pain-Au-Raisin-1x1.jpg" alt="Pain aux raisins">
+        <div class="sg-carousel-slide-overlay">
+          <div class="sg-carousel-slide-label">Pain aux raisins</div>
+          <div class="sg-carousel-slide-sub">Spiral dough with plump raisins and pastry cream — not too sweet</div>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="sg-carousel-btn sg-carousel-prev" id="sgPrev" aria-label="Previous">&#8592;</button>
+    <button class="sg-carousel-btn sg-carousel-next" id="sgNext" aria-label="Next">&#8594;</button>
+    <div class="sg-carousel-dots" id="sgDots"></div>
+  </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var track = document.getElementById('sgTrack');
+  var slides = track.querySelectorAll('.sg-carousel-slide');
+  var dotsWrap = document.getElementById('sgDots');
+  var cur = 0, total = slides.length, autoTimer;
+  slides.forEach(function(_,i){
+    var d = document.createElement('button');
+    d.className = 'sg-carousel-dot'+(i===0?' active':'');
+    d.setAttribute('aria-label','Slide '+(i+1));
+    d.addEventListener('click', function(){ go(i); });
+    dotsWrap.appendChild(d);
+  });
+  function go(n){
+    cur = (n+total)%total;
+    track.style.transform = 'translateX(-'+(cur*100)+'%)';
+    dotsWrap.querySelectorAll('.sg-carousel-dot').forEach(function(d,i){ d.classList.toggle('active',i===cur); });
+    resetAuto();
+  }
+  document.getElementById('sgPrev').addEventListener('click', function(){ go(cur-1); });
+  document.getElementById('sgNext').addEventListener('click', function(){ go(cur+1); });
+  var sx=0;
+  track.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
+  track.addEventListener('touchend',function(e){var d=sx-e.changedTouches[0].clientX;if(Math.abs(d)>50)go(d>0?cur+1:cur-1);});
+  function resetAuto(){ clearInterval(autoTimer); autoTimer=setInterval(function(){go(cur+1);},4500); }
+  resetAuto();
+})();
+</script>
+
+<!-- MENU -->
+<section class="sg-menu-bg" id="menu">
+  <div class="sg-menu-wrap">
+    <span class="sg-label">What we bake</span>
+    <h2 class="sg-title">The menu</h2>
+    <p class="sg-body">Everything baked fresh every morning. Baking schedules posted so you can time your visit for items straight from the oven.</p>
+
+    <div class="sg-tabs" id="sgTabs">
+      <button class="sg-tab active" data-panel="p-vien">Viennoiserie</button>
+      <button class="sg-tab" data-panel="p-past">Pastries</button>
+      <button class="sg-tab" data-panel="p-bread">Breads</button>
+      <button class="sg-tab" data-panel="p-drinks">Coffee</button>
+      <button class="sg-tab" data-panel="p-lunch">Sandwiches</button>
+    </div>
+
+    <div id="p-vien" class="sg-panel active">
+      <div class="sg-card"><img src="https://stockcake.com/i/flaky-golden-croissant_1089567_999924/flaky-golden-croissant-stock-image.jpg" alt="Croissant"><div class="sg-card-body"><div class="sg-card-name">Croissant</div><div class="sg-card-desc">Classic French butter croissant — flaky, golden, made with imported French butter.</div><div class="sg-card-price">From $4.50</div></div></div>
+      <div class="sg-card"><img src="https://www.dinneratthezoo.com/wp-content/uploads/2019/05/pain-au-chocolat-10.jpg" alt="Pain au chocolat"><div class="sg-card-body"><div class="sg-card-name">Pain au chocolat</div><div class="sg-card-desc">Two rods of dark chocolate folded into laminated dough. Customers say it disappears fast.</div><div class="sg-card-price">From $4.75</div></div></div>
+      <div class="sg-card"><img src="https://thepigandquill.com/wp-content/uploads/2024/02/pistachio-cream-croissant-recipe-9.jpg" alt="Pistachio croissant"><div class="sg-card-body"><div class="sg-card-name">Pistachio croissant</div><div class="sg-card-desc">Twice-baked with pistachio frangipane. Dancing on the edge of sweet — in the best way.</div><div class="sg-card-price">From $5.50</div></div></div>
+      <div class="sg-card"><img src="https://veenaazmanov.com/wp-content/uploads/2020/05/Danish-Pastry-Spirals-from-Scratch-Pain-Au-Raisin-1x1.jpg" alt="Pain aux raisins"><div class="sg-card-body"><div class="sg-card-name">Pain aux raisins</div><div class="sg-card-desc">Spiral of enriched dough with plump raisins and pastry cream. Not too sweet.</div><div class="sg-card-price">From $4.50</div></div></div>
+      <div class="sg-card"><img src="https://bakedtwist.com/wp-content/uploads/2024/03/blueberry-danish.jpg" alt="Blueberry danish"><div class="sg-card-body"><div class="sg-card-name">Blueberry danish</div><div class="sg-card-desc">Seasonal fruit on a flaky buttery base with cream.</div><div class="sg-card-price">From $5.00</div></div></div>
+      <div class="sg-card"><img src="https://thefoodcharlatan.com/wp-content/uploads/2023/08/French-Onion-Mushroom-Tart-3.jpg" alt="Savory pastry"><div class="sg-card-body"><div class="sg-card-name">Za'atar gruyère</div><div class="sg-card-desc">Savory laminated pastry with za'atar and aged gruyère — a hearty morning option.</div><div class="sg-card-price">From $5.50</div></div></div>
+    </div>
+
+    <div id="p-past" class="sg-panel">
+      <div class="sg-card"><img src="https://stockcake.com/i/colorful-macarons-displayed_1161956_1134401/colorful-macarons-displayed-stock-image.jpg" alt="Macarons"><div class="sg-card-body"><div class="sg-card-name">Macarons</div><div class="sg-card-desc">Raspberry, vanilla, and chocolate — in the colors of the French flag.</div><div class="sg-card-price">From $3.50</div></div></div>
+      <div class="sg-card"><img src="https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Petits fours"><div class="sg-card-body"><div class="sg-card-name">Petits fours</div><div class="sg-card-desc">Bite-sized confections glazed with careful detail and gold powder by chef Abdenour.</div><div class="sg-card-price">From $3.00</div></div></div>
+      <div class="sg-card"><img src="https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Financiers"><div class="sg-card-body"><div class="sg-card-name">Financiers</div><div class="sg-card-desc">Small almond-butter cakes — crisp outside, moist within.</div><div class="sg-card-price">From $3.50</div></div></div>
+      <div class="sg-card"><img src="https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Brioche"><div class="sg-card-body"><div class="sg-card-name">Brioche</div><div class="sg-card-desc">Enriched, pillowy, golden — perfect plain or with butter and jam.</div><div class="sg-card-price">From $4.50</div></div></div>
+      <div class="sg-card"><img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&h=400&fit=crop&q=80" alt="Seasonal tart"><div class="sg-card-body"><div class="sg-card-name">Strawberry & fruit tarts</div><div class="sg-card-desc">Freshly made each day — bursting with seasonal fruit and sunshine.</div><div class="sg-card-price">From $7.00</div></div></div>
+      <div class="sg-card"><img src="https://images.unsplash.com/photo-1519869325930-281384150729?w=600&h=400&fit=crop&q=80" alt="Crepes"><div class="sg-card-body"><div class="sg-card-name">Crêpes</div><div class="sg-card-desc">Housemade, delicate, thin — available sweet or with seasonal fillings.</div><div class="sg-card-price">From $5.00</div></div></div>
+    </div>
+
+    <div id="p-bread" class="sg-panel">
+      <div class="sg-card"><img src="https://www.myrecipecritic.com/wp-content/uploads/2023/02/french-bread-baguette-recipe-1-1.jpg" alt="Baguette"><div class="sg-card-body"><div class="sg-card-name">Baguette tradition</div><div class="sg-card-desc">A two-day process using French flour and butter. Boulanger Théo's signature loaf.</div><div class="sg-card-price">From $4.00</div></div></div>
+      <div class="sg-card"><img src="https://images.pexels.com/photos/1755385/pexels-photo-1755385.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Country loaf"><div class="sg-card-body"><div class="sg-card-name">Country loaf</div><div class="sg-card-desc">Rustic round with an open crumb and a thick, crackling crust.</div><div class="sg-card-price">From $9.00</div></div></div>
+      <div class="sg-card"><img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Seeded loaf"><div class="sg-card-body"><div class="sg-card-name">Cranberry walnut loaf</div><div class="sg-card-desc">A customer favourite. Hearty and perfectly balanced.</div><div class="sg-card-price">From $10.00</div></div></div>
+      <div class="sg-card"><img src="https://images.pexels.com/photos/2179946/pexels-photo-2179946.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Sandwich baguette"><div class="sg-card-body"><div class="sg-card-name">Sandwich baguette</div><div class="sg-card-desc">Smaller format designed for splitting and filling at lunch.</div><div class="sg-card-price">From $3.50</div></div></div>
+    </div>
+
+    <div id="p-drinks" class="sg-panel">
+      <div class="sg-card"><img src="https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Espresso"><div class="sg-card-body"><div class="sg-card-name">Espresso</div><div class="sg-card-desc">Cafés Richard Italian coffee, pulled short and sharp.</div><div class="sg-card-price">From $4.00</div></div></div>
+      <div class="sg-card"><img src="https://images.pexels.com/photos/350478/pexels-photo-350478.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Cappuccino"><div class="sg-card-body"><div class="sg-card-name">Cappuccino</div><div class="sg-card-desc">Equal parts espresso, steamed milk, and foam.</div><div class="sg-card-price">From $6.00</div></div></div>
+      <div class="sg-card"><img src="https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Latte"><div class="sg-card-body"><div class="sg-card-name">Latte</div><div class="sg-card-desc">Smooth and milky — barista-poured latte art in a Cafés Richard cup.</div><div class="sg-card-price">From $6.50</div></div></div>
+      <div class="sg-card"><img src="https://images.pexels.com/photos/1793035/pexels-photo-1793035.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Drip coffee"><div class="sg-card-body"><div class="sg-card-name">Drip coffee</div><div class="sg-card-desc">Single-origin, brewed fresh throughout the day.</div><div class="sg-card-price">~$4.00</div></div></div>
+      <div class="sg-card"><img src="https://images.pexels.com/photos/3434523/pexels-photo-3434523.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Matcha"><div class="sg-card-body"><div class="sg-card-name">Matcha</div><div class="sg-card-desc">Ceremonial grade with steamed oat or whole milk.</div><div class="sg-card-price">Up to $7.50</div></div></div>
+      <div class="sg-card"><img src="https://images.pexels.com/photos/96974/pexels-photo-96974.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Fresh juice"><div class="sg-card-body"><div class="sg-card-name">Fresh juices</div><div class="sg-card-desc">Passion fruit and seasonal blends — made from scratch by chef Abdenour, never bottled.</div><div class="sg-card-price">From $5.00</div></div></div>
+    </div>
+
+    <div id="p-lunch" class="sg-panel">
+      <div class="sg-card"><img src="https://www.cookingforkeeps.com/wp-content/uploads/2022/10/jambon-beurre-8.jpg" alt="Jambon beurre"><div class="sg-card-body"><div class="sg-card-name">Jambon-beurre</div><div class="sg-card-desc">Sliced ham, French butter, cornichons on a fresh baguette. The Parisian classic.</div><div class="sg-card-price">From $10.00</div></div></div>
+      <div class="sg-card"><img src="https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Croque monsieur"><div class="sg-card-body"><div class="sg-card-name">Croque-monsieur</div><div class="sg-card-desc">Gruyère and ham on toasted bread with béchamel sauce.</div><div class="sg-card-price">From $11.00</div></div></div>
+      <div class="sg-card"><img src="https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Seasonal salad"><div class="sg-card-body"><div class="sg-card-name">Seasonal salad</div><div class="sg-card-desc">Prepared daily with fresh market ingredients.</div><div class="sg-card-price">~$12.00</div></div></div>
+      <div class="sg-card"><img src="https://bakingamoment.com/wp-content/uploads/2023/03/quiche-lorraine-6.jpg" alt="Quiche"><div class="sg-card-body"><div class="sg-card-name">Quiche</div><div class="sg-card-desc">Vegetable quiche with puff pastry crust. Customers rave about it.</div><div class="sg-card-price">From $9.00</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="sg-story" id="story">
+  <div class="sg-story-inner">
+    <img class="sg-story-img" src="https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?w=700&h=900&fit=crop&q=85" alt="Pastel French macaron stack">
+    <div class="sg-story-right">
+      <span class="sg-label">Our story</span>
+      <h2 class="sg-title">A Paris team. A Capitol Hill corner.</h2>
+      <p class="sg-body">Co-owners Lounes Khenane and Bouzid Aissaoui run five restaurants in Paris, including the beloved Chez Suzette. Their first U.S. venture brings the same craft to 7th and C Street SE. Pastry chef Slama Abdenour makes everything from scratch — even the passion fruit juice. Boulanger Théo shapes each loaf through a two-day process using ingredients flown in from France.</p>
+      <div class="sg-fact"><div class="sg-fact-title">Made in-house, daily</div><div class="sg-fact-body">Every viennoiserie, pastry, and loaf produced on-site each morning using classic French methods and imported ingredients.</div></div>
+      <div class="sg-fact"><div class="sg-fact-title">Priced for the neighborhood</div><div class="sg-fact-body">Most pastries under $5, drip coffee ~$4, espresso drinks up to $7.50. An everyday place, not a special-occasion one.</div></div>
+      <div class="sg-fact"><div class="sg-fact-title">#4 most bookmarked new spot in DC</div><div class="sg-fact-body">Ranked by Beli users in April 2026 — just weeks after opening. Over 2 million bell bookmarks.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PATIO -->
+<div class="sg-patio">
+  <i class="ti ti-dog"></i>
+  <div>
+    <strong>A dog-friendly patio worth lingering on</strong>
+    <p>Large, sunny, and designed for a slower, more European pace. Bring your four-legged neighbor.</p>
+  </div>
+</div>
+
+<!-- HOURS + VISIT -->
+<section class="sg-info" id="hours">
+  <div class="sg-info-inner">
+    <div>
+      <span class="sg-label">Hours</span>
+      <h3 class="sg-title" style="font-size:1.4rem; margin-bottom:1.25rem;">When we're open</h3>
+      <div class="sg-hr"><span class="sg-hr-day">Monday</span><span class="sg-hr-closed">Closed</span></div>
+      <div class="sg-hr"><span class="sg-hr-day">Tuesday</span><span class="sg-hr-time">7:30 am – 7:00 pm</span></div>
+      <div class="sg-hr"><span class="sg-hr-day">Wednesday</span><span class="sg-hr-time">7:30 am – 7:00 pm</span></div>
+      <div class="sg-hr"><span class="sg-hr-day">Thursday</span><span class="sg-hr-time">7:30 am – 7:00 pm</span></div>
+      <div class="sg-hr"><span class="sg-hr-day">Friday</span><span class="sg-hr-time">7:30 am – 7:00 pm</span></div>
+      <div class="sg-hr"><span class="sg-hr-day">Saturday</span><span class="sg-hr-time">8:00 am – 7:00 pm</span></div>
+      <div class="sg-hr"><span class="sg-hr-day">Sunday</span><span class="sg-hr-time">8:00 am – 7:00 pm</span></div>
+    </div>
+    <div>
+      <span class="sg-label">Find us</span>
+      <h3 class="sg-title" style="font-size:1.4rem; margin-bottom:0.5rem;">Capitol Hill · Eastern Market</h3>
+      <div class="sg-map-box">
+        <i class="ti ti-map-pin"></i>
+        <p>303 7th St SE<br>Washington, DC 20003</p>
+      </div>
+      <p class="sg-addr">303 7th Street SE, Washington, DC 20003</p>
+      <p class="sg-addr-note">Across from Eastern Market — look for the green brick and the line of neighbors.</p>
+      <p class="sg-addr-note" style="margin-top:0.5rem;">Instagram: <strong><a href="https://instagram.com/saintgeorges.dc" target="_blank" style="color:var(--gold)">@saintgeorges.dc</a></strong></p>
+    </div>
+  </div>
+</section>
+
+<footer class="sg-footer">
+  <div class="sg-footer-logo">Boulangerie Saint Georges</div>
+  <div class="sg-footer-meta">303 7th St SE · Washington, DC · Est. 2026</div>
+  <ul class="sg-footer-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#hours">Visit</a></li>
+    <li><a href="https://www.toasttab.com/local/order/boulangerie-saint-georges-301-7th-street-se" target="_blank">Order online</a></li>
+    <li><a href="https://www.instagram.com/saintgeorges.dc" target="_blank">Instagram</a></li>
+  </ul>
+  <p class="sg-footer-copy">© 2026 Boulangerie Saint Georges. All rights reserved.</p>
+</footer>
+
+<script>
+  document.getElementById('sgTabs').addEventListener('click', function(e) {
+    var tab = e.target.closest('.sg-tab');
+    if (!tab) return;
+    document.querySelectorAll('.sg-tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.sg-panel').forEach(function(p){ p.classList.remove('active'); });
+    tab.classList.add('active');
+    var panel = document.getElementById(tab.dataset.panel);
+    if (panel) panel.classList.add('active');
+  });
+</script>
+</body>
+</html>
