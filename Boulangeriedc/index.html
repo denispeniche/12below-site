@@ -26,15 +26,17 @@
   .sg-nav-btn { background:var(--gold); color:var(--dark); border:none; padding:0.45rem 1rem; font-family:'Jost',sans-serif; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; font-weight:500; border-radius:2px; }
 
   .sg-hero {
-    background: #2A1A0E;
+    background: radial-gradient(ellipse 140% 100% at 50% 50%, #3D2208 0%, #2A1608 40%, #150A03 100%);
     padding:3rem 2rem 2rem; display:flex; flex-direction:column; align-items:center; text-align:center;
     position:relative; overflow:hidden;
   }
   .sg-hero::before {
     content:''; position:absolute; inset:0; pointer-events:none;
     background:
-      radial-gradient(ellipse 75% 80% at 50% 40%, rgba(180,130,40,0.18) 0%, transparent 70%),
-      radial-gradient(ellipse 120% 60% at 50% 100%, rgba(20,10,4,0.55) 0%, transparent 55%);
+      radial-gradient(ellipse 60% 70% at 50% 35%, rgba(200,145,40,0.20) 0%, rgba(160,95,20,0.08) 55%, transparent 75%),
+      radial-gradient(ellipse 90% 40% at 50% 110%, rgba(8,3,1,0.80) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 60% at 0% 50%, rgba(8,3,1,0.55) 0%, transparent 70%),
+      radial-gradient(ellipse 30% 60% at 100% 50%, rgba(8,3,1,0.55) 0%, transparent 70%);
   }
   .sg-hero::after {
     content:''; position:absolute; inset:0; pointer-events:none;
