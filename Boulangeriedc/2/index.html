@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Boulangerie Saint Georges — Capitol Hill, Washington DC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  :root {
+    --ivory:   #FAFAF7;
+    --white:   #FFFFFF;
+    --ink:     #1A1612;
+    --gold:    #B8923A;
+    --gold-lt: #D4AA58;
+    --warm:    #6B5B3E;
+    --rule:    #E2DDD5;
+    --muted:   #9A9086;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--ivory); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 64px;
+    background: rgba(250,250,247,0.92); backdrop-filter: blur(10px);
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .v2-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px; font-weight: 400; letter-spacing: 0.06em;
+    color: var(--ink); line-height: 1.3;
+  }
+  .v2-logo span {
+    display: block; font-family: 'Montserrat', sans-serif;
+    font-size: 8px; font-weight: 500; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--muted); margin-top: 1px;
+  }
+  .v2-nav-links { display: flex; gap: 36px; list-style: none; }
+  .v2-nav-links a {
+    font-family: 'Montserrat', sans-serif; font-size: 9.5px;
+    font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--warm); text-decoration: none; transition: color 0.2s;
+  }
+  .v2-nav-links a:hover { color: var(--gold); }
+  .v2-nav-btn {
+    font-family: 'Montserrat', sans-serif; font-size: 9px;
+    font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+    background: var(--ink); color: var(--ivory);
+    border: none; padding: 10px 22px; cursor: pointer; transition: background 0.25s;
+  }
+  .v2-nav-btn:hover { background: var(--gold); }
+
+  /* ── HERO ── */
+  .v2-hero {
+    margin-top: 64px;
+    display: grid; grid-template-columns: 1fr 1fr; min-height: 88vh;
+  }
+  .v2-hero-left {
+    position: relative; overflow: hidden;
+  }
+  .v2-hero-left img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center;
+    display: block; filter: brightness(0.92);
+  }
+  .v2-hero-left::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to right, transparent 60%, var(--ivory) 100%);
+  }
+  .v2-hero-right {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 72px 80px 56px;
+    border-left: 0.5px solid var(--rule);
+  }
+  .v2-eyebrow {
+    font-family: 'Montserrat', sans-serif; font-size: 9px;
+    font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 28px;
+  }
+  .v2-hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 6vw, 80px); font-weight: 300;
+    line-height: 1.05; color: var(--ink); margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+  .v2-hero-title em { font-style: italic; color: var(--gold); font-weight: 300; }
+  .v2-hero-sub {
+    font-size: 14px; font-weight: 300; line-height: 1.9;
+    color: var(--warm); max-width: 340px; margin-bottom: 44px;
+    letter-spacing: 0.01em;
+  }
+  .v2-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .v2-pill {
+    font-family: 'Montserrat', sans-serif; font-size: 8px;
+    font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); border: 0.5px solid var(--rule);
+    padding: 6px 14px; border-radius: 1px;
+  }
+
+  /* ── DIVIDER ── */
+  .v2-divider {
+    display: flex; align-items: center; gap: 24px;
+    padding: 0 48px; margin: 56px 0;
+  }
+  .v2-divider::before, .v2-divider::after {
+    content: ''; flex: 1; height: 0.5px; background: var(--rule);
+  }
+  .v2-divider span {
+    font-family: 'Cormorant Garamond', serif; font-size: 18px;
+    font-style: italic; color: var(--gold); letter-spacing: 0.08em; white-space: nowrap;
+  }
+
+  /* ── PHOTO STRIP ── */
+  .v2-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px;
+    padding: 0 48px;
+  }
+  .v2-strip-item { position: relative; overflow: hidden; aspect-ratio: 3/4; }
+  .v2-strip-item img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center;
+    display: block; transition: transform 0.7s ease; filter: brightness(0.9);
+  }
+  .v2-strip-item:hover img { transform: scale(1.04); }
+  .v2-strip-item::after {
+    content: attr(data-label);
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 32px 16px 14px;
+    background: linear-gradient(transparent, rgba(20,14,8,0.75));
+    font-family: 'Cormorant Garamond', serif; font-size: 14px;
+    font-style: italic; color: #F7F0E6; letter-spacing: 0.04em;
+    font-weight: 300;
+  }
+  .v2-strip-item.tall { aspect-ratio: 3/5; }
+
+  /* ── MENU ── */
+  .v2-menu { padding: 0 48px 80px; }
+  .v2-section-label {
+    font-family: 'Montserrat', sans-serif; font-size: 9px;
+    font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px;
+  }
+  .v2-section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 52px); font-weight: 300;
+    color: var(--ink); margin-bottom: 40px; line-height: 1.1;
+  }
+  .v2-tabs { display: flex; gap: 0; border-bottom: 0.5px solid var(--rule); margin-bottom: 40px; }
+  .v2-tab {
+    font-family: 'Montserrat', sans-serif; font-size: 9px;
+    font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); padding: 12px 24px; border: none; background: none;
+    cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -0.5px;
+    transition: all 0.2s;
+  }
+  .v2-tab.active { color: var(--ink); border-bottom-color: var(--ink); }
+  .v2-tab:hover { color: var(--warm); }
+  .v2-panel { display: none; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 0.5px solid var(--rule); }
+  .v2-panel.active { display: grid; }
+  .v2-card { background: var(--white); padding: 0; overflow: hidden; }
+  .v2-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; filter: brightness(0.95); transition: filter 0.3s; }
+  .v2-card:hover img { filter: brightness(1); }
+  .v2-card-body { padding: 20px 22px 24px; }
+  .v2-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 400; color: var(--ink); margin-bottom: 6px;
+  }
+  .v2-card-desc {
+    font-size: 12px; font-weight: 300; color: var(--muted);
+    line-height: 1.7; margin-bottom: 12px;
+  }
+  .v2-card-price {
+    font-family: 'Montserrat', sans-serif; font-size: 11px;
+    font-weight: 500; color: var(--gold); letter-spacing: 0.04em;
+  }
+
+  /* ── STORY ── */
+  .v2-story { display: grid; grid-template-columns: 1fr 1fr; margin: 0; }
+  .v2-story-img {
+    position: relative; overflow: hidden; min-height: 580px;
+  }
+  .v2-story-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    object-position: center center; display: block;
+  }
+  .v2-story-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to left, transparent 60%, var(--ivory) 100%);
+  }
+  .v2-story-text {
+    background: var(--ivory); padding: 80px 72px 80px 64px;
+    display: flex; flex-direction: column; justify-content: center;
+    border-top: 0.5px solid var(--rule); border-bottom: 0.5px solid var(--rule);
+  }
+  .v2-story-text .v2-section-title { margin-bottom: 24px; }
+  .v2-body {
+    font-size: 14px; font-weight: 300; line-height: 1.95;
+    color: var(--warm); margin-bottom: 40px;
+  }
+  .v2-fact { padding: 20px 0; border-top: 0.5px solid var(--rule); }
+  .v2-fact:last-child { border-bottom: 0.5px solid var(--rule); }
+  .v2-fact-title {
+    font-family: 'Montserrat', sans-serif; font-size: 10px;
+    font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .v2-fact-body { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.7; }
+
+  /* ── PATIO BANNER ── */
+  .v2-patio {
+    background: var(--ink); padding: 56px 48px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 48px; flex-wrap: wrap; text-align: center;
+  }
+  .v2-patio-icon { font-size: 28px; color: var(--gold-lt); }
+  .v2-patio-text strong {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 300; color: var(--ivory);
+    display: block; margin-bottom: 6px; letter-spacing: 0.02em;
+  }
+  .v2-patio-text p { font-size: 13px; font-weight: 300; color: rgba(250,250,247,0.45); }
+
+  /* ── HOURS / INFO ── */
+  .v2-info { padding: 80px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1000px; margin: 0 auto; }
+  .v2-hr-row { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 0.5px solid var(--rule); font-size: 14px; }
+  .v2-hr-day { font-weight: 300; color: var(--muted); }
+  .v2-hr-time { font-weight: 400; color: var(--ink); }
+  .v2-hr-closed { color: var(--rule); }
+  .v2-addr { font-size: 15px; font-weight: 400; color: var(--ink); line-height: 1.6; margin-top: 24px; }
+  .v2-addr-note { font-size: 12px; font-weight: 300; color: var(--muted); margin-top: 8px; line-height: 1.7; }
+  .v2-map { margin-top: 20px; border-radius: 2px; overflow: hidden; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); padding: 48px; text-align: center;
+    border-top: 0.5px solid #2a2218;
+  }
+  .v2-footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 300; letter-spacing: 0.1em;
+    color: var(--ivory); margin-bottom: 8px;
+  }
+  .v2-footer-sub {
+    font-family: 'Montserrat', sans-serif; font-size: 8px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(250,250,247,0.3); margin-bottom: 28px;
+  }
+  .v2-footer-links { display: flex; gap: 28px; justify-content: center; list-style: none; margin-bottom: 28px; }
+  .v2-footer-links a {
+    font-family: 'Montserrat', sans-serif; font-size: 8px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(250,250,247,0.28); text-decoration: none;
+  }
+  .v2-footer-links a:hover { color: var(--gold-lt); }
+  .v2-footer-copy { font-size: 11px; font-weight: 300; color: rgba(250,250,247,0.15); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    .v2-nav-links { display: none; }
+    .v2-hero { grid-template-columns: 1fr; min-height: auto; }
+    .v2-hero-left { height: 50vw; }
+    .v2-hero-right { padding: 48px 24px; }
+    .v2-strip { grid-template-columns: repeat(2, 1fr); padding: 0 24px; }
+    .v2-menu, .v2-divider { padding: 0 24px; }
+    .v2-panel.active { grid-template-columns: 1fr; }
+    .v2-story { grid-template-columns: 1fr; }
+    .v2-story-img { min-height: 300px; }
+    .v2-story-text { padding: 48px 24px; }
+    .v2-info { grid-template-columns: 1fr; padding: 48px 24px; gap: 48px; }
+    .v2-patio { padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="v2-logo">
+    Boulangerie Saint Georges
+    <span>Capitol Hill · Washington DC</span>
+  </div>
+  <ul class="v2-nav-links">
+    <li><a href="#photos">Photos</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#story">Story</a></li>
+    <li><a href="#hours">Hours</a></li>
+  </ul>
+  <button class="v2-nav-btn" onclick="window.open('https://www.toasttab.com/local/order/boulangerie-saint-georges-301-7th-street-se','_blank')">Order Online</button>
+</nav>
+
+<!-- HERO -->
+<section class="v2-hero">
+  <div class="v2-hero-left">
+    <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/croissant.jpg" alt="Golden croissant au beurre"/>
+  </div>
+  <div class="v2-hero-right">
+    <div class="v2-eyebrow">Depuis Paris · Capitol Hill, Washington DC</div>
+    <h1 class="v2-hero-title">Le vrai goût<br>de <em>Paris</em></h1>
+    <p class="v2-hero-sub">Fresh pastries, artisan breads, and real espresso — crafted daily by bakers brought over from France.</p>
+    <div class="v2-pills">
+      <span class="v2-pill">Viennoiserie</span>
+      <span class="v2-pill">Artisan Breads</span>
+      <span class="v2-pill">Sandwiches</span>
+      <span class="v2-pill">Coffee</span>
+      <span class="v2-pill">Dog-Friendly Patio</span>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO STRIP -->
+<div class="v2-divider" id="photos"><span>La galerie</span></div>
+<div class="v2-strip">
+  <div class="v2-strip-item" data-label="Croissant au beurre">
+    <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/croissant.jpg" alt="Croissant"/>
+  </div>
+  <div class="v2-strip-item" data-label="Pain au chocolat">
+    <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/painchoc.jpg" alt="Pain au chocolat"/>
+  </div>
+  <div class="v2-strip-item" data-label="Tarte aux fruits">
+    <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/tart.jpg" alt="Tart"/>
+  </div>
+  <div class="v2-strip-item" data-label="Macarons">
+    <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/macaron.jpg" alt="Macarons"/>
+  </div>
+</div>
+
+<!-- MENU -->
+<div class="v2-divider" id="menu" style="margin-top:64px;"><span>Ce que nous cuisons</span></div>
+<div class="v2-menu">
+  <div class="v2-section-label">What we bake</div>
+  <div class="v2-tabs">
+    <button class="v2-tab active" onclick="switchTab('pastries',this)">Pastries</button>
+    <button class="v2-tab" onclick="switchTab('breads',this)">Breads</button>
+    <button class="v2-tab" onclick="switchTab('coffee',this)">Coffee</button>
+    <button class="v2-tab" onclick="switchTab('sandwiches',this)">Sandwiches</button>
+  </div>
+
+  <div class="v2-panel active" id="tab-pastries">
+    <div class="v2-card">
+      <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/croissant.jpg" alt="Croissant"/>
+      <div class="v2-card-body">
+        <div class="v2-card-name">Croissant</div>
+        <div class="v2-card-desc">Classic French butter croissant — flaky, golden, made with imported French butter.</div>
+        <div class="v2-card-price">From $4.50</div>
+      </div>
+    </div>
+    <div class="v2-card">
+      <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/painchoc.jpg" alt="Pain au chocolat"/>
+      <div class="v2-card-body">
+        <div class="v2-card-name">Pain au chocolat</div>
+        <div class="v2-card-desc">Two rods of dark chocolate folded into laminated dough. Customers say it disappears fast.</div>
+        <div class="v2-card-price">From $4.75</div>
+      </div>
+    </div>
+    <div class="v2-card">
+      <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/pistachio.jpg" alt="Pistachio croissant"/>
+      <div class="v2-card-body">
+        <div class="v2-card-name">Pistachio croissant</div>
+        <div class="v2-card-desc">Twice-baked with pistachio frangipane. Dancing on the edge of sweet — in the best way.</div>
+        <div class="v2-card-price">From $5.50</div>
+      </div>
+    </div>
+    <div class="v2-card">
+      <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/raisins.jpg" alt="Pain aux raisins"/>
+      <div class="v2-card-body">
+        <div class="v2-card-name">Pain aux raisins</div>
+        <div class="v2-card-desc">Spiral dough with plump raisins and pastry cream. Not too sweet.</div>
+        <div class="v2-card-price">From $4.50</div>
+      </div>
+    </div>
+    <div class="v2-card">
+      <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/tart.jpg" alt="Tarte aux fruits"/>
+      <div class="v2-card-body">
+        <div class="v2-card-name">Tarte aux fruits</div>
+        <div class="v2-card-desc">Seasonal fruit tart finished with gold powder by Chef Abdenour.</div>
+        <div class="v2-card-price">From $6.00</div>
+      </div>
+    </div>
+    <div class="v2-card">
+      <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/macaron.jpg" alt="Macarons"/>
+      <div class="v2-card-body">
+        <div class="v2-card-name">Macarons</div>
+        <div class="v2-card-desc">Made fresh, flavors rotate daily. Ask at the counter what's just out of the oven.</div>
+        <div class="v2-card-price">From $3.25</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="v2-panel" id="tab-breads">
+    <div class="v2-card">
+      <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/baguette.jpg" alt="Baguette"/>
+      <div class="v2-card-body">
+        <div class="v2-card-name">Baguette tradition</div>
+        <div class="v2-card-desc">A two-day process — French flour, French butter, shaped by Boulanger Théo.</div>
+        <div class="v2-card-price">From $3.50</div>
+      </div>
+    </div>
+    <div class="v2-card">
+      <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/loaf.jpg" alt="Country loaf"/>
+      <div class="v2-card-body">
+        <div class="v2-card-name">Pain de campagne</div>
+        <div class="v2-card-desc">Rustic country loaf with a dark crust and open crumb. Baked once daily.</div>
+        <div class="v2-card-price">From $9.00</div>
+      </div>
+    </div>
+    <div class="v2-card">
+      <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/brioche.jpg" alt="Brioche"/>
+      <div class="v2-card-body">
+        <div class="v2-card-name">Brioche</div>
+        <div class="v2-card-desc">Enriched dough, butter-forward. Sold whole or by the slice.</div>
+        <div class="v2-card-price">From $4.00</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="v2-panel" id="tab-coffee">
+    <div class="v2-card">
+      <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/espresso.jpg" alt="Espresso"/>
+      <div class="v2-card-body">
+        <div class="v2-card-name">Espresso</div>
+        <div class="v2-card-desc">Single origin, pulled tight. The foundation of everything else on this list.</div>
+        <div class="v2-card-price">From $3.50</div>
+      </div>
+    </div>
+    <div class="v2-card">
+      <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/cappuccino.jpg" alt="Cappuccino"/>
+      <div class="v2-card-body">
+        <div class="v2-card-name">Cappuccino</div>
+        <div class="v2-card-desc">Classic proportions — one part espresso, one part milk, one part foam.</div>
+        <div class="v2-card-price">From $5.50</div>
+      </div>
+    </div>
+    <div class="v2-card">
+      <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/dripcoff.jpg" alt="Drip coffee"/>
+      <div class="v2-card-body">
+        <div class="v2-card-name">Drip coffee</div>
+        <div class="v2-card-desc">Brewed every 30 minutes. Free refills at the counter before 10am.</div>
+        <div class="v2-card-price">From $4.00</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="v2-panel" id="tab-sandwiches">
+    <div class="v2-card">
+      <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/jambon.jpg" alt="Jambon beurre"/>
+      <div class="v2-card-body">
+        <div class="v2-card-name">Jambon-beurre</div>
+        <div class="v2-card-desc">Ham, Échiré butter, cornichons on a fresh baguette. The Parisian lunch.</div>
+        <div class="v2-card-price">From $11.00</div>
+      </div>
+    </div>
+    <div class="v2-card">
+      <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/croque.jpg" alt="Croque monsieur"/>
+      <div class="v2-card-body">
+        <div class="v2-card-name">Croque monsieur</div>
+        <div class="v2-card-desc">Béchamel, Comté, ham. Baked until golden, served warm.</div>
+        <div class="v2-card-price">From $13.00</div>
+      </div>
+    </div>
+    <div class="v2-card">
+      <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/quiche.jpg" alt="Quiche"/>
+      <div class="v2-card-body">
+        <div class="v2-card-name">Quiche Lorraine</div>
+        <div class="v2-card-desc">Lardons, Gruyère, silky egg custard in a butter crust. Available until sold out.</div>
+        <div class="v2-card-price">From $8.00</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STORY -->
+<div class="v2-divider" id="story"><span>Notre histoire</span></div>
+<section class="v2-story">
+  <div class="v2-story-img">
+    <img src="https://raw.githubusercontent.com/denispeniche/12below-site/main/Boulangeriedc/images/macaron.jpg" alt="French macarons"/>
+  </div>
+  <div class="v2-story-text">
+    <div class="v2-section-label">Our Story</div>
+    <h2 class="v2-section-title">A Paris team.<br>A Capitol Hill corner.</h2>
+    <p class="v2-body">Co-owners Lounes Khenane and Bouzid Aissaoui run five restaurants in Paris, including the beloved Chez Suzette. Their first U.S. venture brings the same craft to 7th and C Street SE. Pastry chef Slama Abdenour makes everything from scratch — even the passion fruit juice. Boulanger Théo shapes each loaf through a two-day process using ingredients flown in from France.</p>
+    <div class="v2-fact">
+      <div class="v2-fact-title">Made in-house, daily</div>
+      <div class="v2-fact-body">Every viennoiserie, pastry, and loaf produced on-site each morning using classic French methods and imported ingredients.</div>
+    </div>
+    <div class="v2-fact">
+      <div class="v2-fact-title">Priced for the neighborhood</div>
+      <div class="v2-fact-body">Most pastries under $5, drip coffee ~$4, espresso drinks up to $7.50. An everyday place, not a special-occasion one.</div>
+    </div>
+    <div class="v2-fact">
+      <div class="v2-fact-title">#4 most bookmarked new spot in DC</div>
+      <div class="v2-fact-body">Ranked by Beli users in April 2026 — just weeks after opening. Over 2 million bell bookmarks.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PATIO -->
+<div class="v2-patio">
+  <div class="v2-patio-icon">🐾</div>
+  <div class="v2-patio-text">
+    <strong>A dog-friendly patio worth lingering on</strong>
+    <p>Large, sunny, and designed for a slower, more European pace. Bring your four-legged neighbor.</p>
+  </div>
+</div>
+
+<!-- HOURS + MAP -->
+<div class="v2-divider" id="hours"><span>Horaires &amp; adresse</span></div>
+<div class="v2-info">
+  <div>
+    <div class="v2-section-label">Hours</div>
+    <h3 class="v2-section-title" style="font-size:2rem;">When we're open</h3>
+    <div class="v2-hr-row"><span class="v2-hr-day">Monday</span><span class="v2-hr-closed">Closed</span></div>
+    <div class="v2-hr-row"><span class="v2-hr-day">Tuesday</span><span class="v2-hr-time">7:30 am – 7:00 pm</span></div>
+    <div class="v2-hr-row"><span class="v2-hr-day">Wednesday</span><span class="v2-hr-time">7:30 am – 7:00 pm</span></div>
+    <div class="v2-hr-row"><span class="v2-hr-day">Thursday</span><span class="v2-hr-time">7:30 am – 7:00 pm</span></div>
+    <div class="v2-hr-row"><span class="v2-hr-day">Friday</span><span class="v2-hr-time">7:30 am – 7:00 pm</span></div>
+    <div class="v2-hr-row"><span class="v2-hr-day">Saturday</span><span class="v2-hr-time">8:00 am – 7:00 pm</span></div>
+    <div class="v2-hr-row"><span class="v2-hr-day">Sunday</span><span class="v2-hr-time">8:00 am – 7:00 pm</span></div>
+  </div>
+  <div>
+    <div class="v2-section-label">Find us</div>
+    <h3 class="v2-section-title" style="font-size:2rem;">Capitol Hill · Eastern Market</h3>
+    <div class="v2-map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3105.4!2d-76.9954!3d38.8811!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7b84b2a8e3d1f%3A0x1!2s303+7th+St+SE%2C+Washington%2C+DC+20003!5e0!3m2!1sen!2sus!4v1" width="100%" height="200" style="border:0;display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <p class="v2-addr">303 7th Street SE, Washington, DC 20003</p>
+    <p class="v2-addr-note">Across from Eastern Market — look for the green brick and the line of neighbors.</p>
+    <p class="v2-addr-note" style="margin-top:8px;">Instagram: <a href="https://instagram.com/saintgeorges.dc" target="_blank" style="color:var(--gold); text-decoration:none; font-weight:400;">@saintgeorges.dc</a></p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="v2-footer-logo">Boulangerie Saint Georges</div>
+  <div class="v2-footer-sub">Capitol Hill · Washington DC · Est. 2026</div>
+  <ul class="v2-footer-links">
+    <li><a href="#photos">Photos</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#story">Story</a></li>
+    <li><a href="#hours">Hours</a></li>
+  </ul>
+  <div class="v2-footer-copy">© 2026 Boulangerie Saint Georges</div>
+</footer>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.v2-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.v2-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
