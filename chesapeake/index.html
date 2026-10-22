@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Mission Continues Script</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: a production script; each act is a pastel band, each scene a VIDEO | AUDIO table, each audio cell tinted by who speaks */
+:root{
+  --bg:#f7f8fb; --paper:#ffffff; --ink:#2a2d3a; --muted:#6b6f80; --line:#e4e6ee; --video:#f6f7fa;
+  --act1:#dcecfb; --act1-ink:#2e5f8a; --act2:#dcf3e6; --act2-ink:#2d6b4a; --act3:#fde4d8; --act3-ink:#8a4a2e;
+  --nar:#ece4fb; --nar-ink:#5b3fa0; --pres:#dbe9fb; --pres-ink:#2d5b91; --sec:#d9f2e9; --sec-ink:#2a6b55;
+  --stud:#fde9d6; --stud-ink:#93552a; --test:#fbe0ea; --test-ink:#9a3a62; --snd:#fdf6d3; --snd-ink:#7a6514;
+  --display:"Young Serif",Georgia,serif; --body:"Figtree",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#16171d; --paper:#1e2028; --ink:#e8e9f0; --muted:#9a9eb0; --line:#2e3140; --video:#23252e;
+  --act1:#1f2d3d; --act1-ink:#a9cdf2; --act2:#1d3229; --act2-ink:#a3dcbc; --act3:#3a2a23; --act3-ink:#f3bfa5;
+  --nar:#2a2440; --nar-ink:#cdb9f5; --pres:#1f2b3d; --pres-ink:#a9c9f2; --sec:#1d332c; --sec-ink:#9fdcc5;
+  --stud:#3a2c20; --stud-ink:#f2c49d; --test:#3a2230; --test-ink:#f3b0cb; --snd:#35301a; --snd-ink:#eedb8a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#16171d; --paper:#1e2028; --ink:#e8e9f0; --muted:#9a9eb0; --line:#2e3140; --video:#23252e;
+  --act1:#1f2d3d; --act1-ink:#a9cdf2; --act2:#1d3229; --act2-ink:#a3dcbc; --act3:#3a2a23; --act3-ink:#f3bfa5;
+  --nar:#2a2440; --nar-ink:#cdb9f5; --pres:#1f2b3d; --pres-ink:#a9c9f2; --sec:#1d332c; --sec-ink:#9fdcc5;
+  --stud:#3a2c20; --stud-ink:#f2c49d; --test:#3a2230; --test-ink:#f3b0cb; --snd:#35301a; --snd-ink:#eedb8a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55}
+.wrap{max-width:1000px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px 80px}
+header{display:grid;gap:10px;margin-bottom:24px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(34px,6vw,52px);line-height:1.05;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(24px,4vw,32px);margin:0;line-height:1.15;text-wrap:balance}
+.chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.nar .chip,.chip.nar{background:var(--nar-ink);color:var(--nar)} .pres .chip,.chip.pres{background:var(--pres-ink);color:var(--pres)}
+.sec .chip,.chip.sec{background:var(--sec-ink);color:var(--sec)} .stud .chip,.chip.stud{background:var(--stud-ink);color:var(--stud)}
+.test .chip,.chip.test{background:var(--test-ink);color:var(--test)} .snd .chip,.chip.snd{background:var(--snd-ink);color:var(--snd)}
+.legend{display:flex;flex-wrap:wrap;gap:8px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;margin-bottom:8px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+nav a{font-size:13px;font-weight:600;text-decoration:none;padding:6px 12px;border-radius:999px;background:var(--paper);color:var(--ink);border:1px solid var(--line)}
+nav a.a1{background:var(--act1);color:var(--act1-ink);border-color:transparent} nav a.a2{background:var(--act2);color:var(--act2-ink);border-color:transparent} nav a.a3{background:var(--act3);color:var(--act3-ink);border-color:transparent}
+nav a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.block{background:var(--paper);border-radius:20px;padding:22px clamp(14px,3vw,26px);margin-top:24px;display:grid;gap:14px;scroll-margin-top:70px}
+.block p{margin:0;max-width:70ch}
+.act{border-radius:22px;padding-block:22px 8px;padding-inline:clamp(12px,3vw,24px);margin-top:28px;scroll-margin-top:70px}
+.act.a1{background:var(--act1)} .act.a2{background:var(--act2)} .act.a3{background:var(--act3)}
+.act-head{display:grid;gap:4px;margin-bottom:16px}
+.act-head .num{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.a1 .num{color:var(--act1-ink)} .a2 .num{color:var(--act2-ink)} .a3 .num{color:var(--act3-ink)}
+.act-head p{margin:0;color:var(--muted);font-size:14px;max-width:70ch}
+.scene{background:var(--paper);border-radius:16px;padding:16px clamp(12px,2.5vw,20px);margin-bottom:16px;display:grid;gap:12px}
+.scene-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.scene h3{margin:0;font-size:17px;font-weight:700;line-height:1.3}
+.scene h3 .sc{color:var(--muted);font-weight:600;margin-right:6px}
+.tc{font-size:13px;font-variant-numeric:tabular-nums;color:var(--muted);font-weight:600;white-space:nowrap}
+.note{font-size:14px;color:var(--muted);font-style:italic;margin:0}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:separate;border-spacing:0 6px}
+th{text-align:left;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:0 12px}
+td{vertical-align:top;padding:10px 12px}
+td.v{background:var(--video);border-radius:10px 0 0 10px;width:42%;color:var(--ink)}
+td.a{border-radius:0 10px 10px 0}
+td.a .chip{margin-bottom:6px}
+td.a div{min-width:0}
+tr.nar td.a{background:var(--nar)} tr.pres td.a{background:var(--pres)} tr.sec td.a{background:var(--sec)}
+tr.stud td.a{background:var(--stud)} tr.test td.a{background:var(--test)} tr.snd td.a{background:var(--snd)}
+tr.test td.a div{font-style:italic}
+.ph{font-weight:600;border-bottom:2px dotted currentColor}
+.trans{background:var(--paper);border-radius:14px;padding:12px 16px;margin-bottom:16px;font-size:14px}
+.trans b{color:var(--act2-ink)}
+.notes-table td{background:var(--video);font-size:14px}
+.notes-table td:first-child{border-radius:10px 0 0 10px;font-weight:700;width:22%}
+.notes-table td:last-child{border-radius:0 10px 10px 0}
+ul.tips{margin:0;padding-left:20px;display:grid;gap:4px}
+.guides{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.guide{border-radius:14px;padding:14px 16px;background:var(--test)}
+.guide.all{background:var(--nar);grid-column:1/-1}
+.guide h4{margin:0 0 8px;font-size:14px;font-weight:700}
+.guide ol,.guide ul{margin:0;padding-left:20px;display:grid;gap:4px;font-size:14px}
+.spoken-act{border-radius:18px;padding:18px clamp(12px,3vw,22px) 6px;margin-top:16px}
+.spoken-act.a1{background:var(--act1)} .spoken-act.a2{background:var(--act2)} .spoken-act.a3{background:var(--act3)}
+.spoken-act > h3{font-family:var(--display);font-weight:400;font-size:22px;margin:0 0 12px}
+.sp-scene{background:var(--paper);border-radius:14px;padding:14px clamp(12px,2.5vw,18px);margin-bottom:12px;display:grid;gap:10px}
+.sp-scene h4{margin:0;font-size:16px;font-weight:700;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.sp-scene h4 span{color:var(--muted);font-weight:600;font-size:13px;font-variant-numeric:tabular-nums}
+.line{display:grid;grid-template-columns:140px 1fr;gap:12px;align-items:start}
+.line .who small{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+.say{border-radius:12px;padding:12px 16px;min-width:0}
+.say p{margin:0;max-width:none} .say p+p{margin-top:10px}
+.line.nar .say{background:var(--nar)} .line.pres .say{background:var(--pres)} .line.sec .say{background:var(--sec)}
+.line.stud .say{background:var(--stud)} .line.test .say{background:var(--test);font-style:italic}
+.dirn{font-style:italic;color:var(--snd-ink);background:var(--snd);border-radius:10px;padding:8px 14px;font-size:14px}
+@media (max-width:560px){.line{grid-template-columns:1fr;gap:6px}}
+@media (max-width:640px){
+  table,tbody,tr,td{display:block;width:100%}
+  thead{display:none}
+  tr{margin-bottom:8px}
+  td.v{border-radius:10px 10px 0 0;width:100%}
+  td.a{border-radius:0 0 10px 10px}
+  .notes-table td:first-child{border-radius:10px 10px 0 0;width:100%}
+  .notes-table td:last-child{border-radius:0 0 10px 10px}
+}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Chesapeake Conference · Constituency Session · May 2027</span>
+    <h1>The Mission Continues</h1>
+    <div class="legend">
+      <span class="chip nar">Narrator</span><span class="chip pres">President</span><span class="chip sec">Exec. Secretary</span>
+      <span class="chip stud">Study Presenter</span><span class="chip test">Testimony</span><span class="chip snd">Sound &amp; Music</span>
+    </div>
+  </header>
+  <nav aria-label="Sections">
+    <a href="#notes">Notes</a><a class="a1" href="#act1">Act One</a><a class="a2" href="#act2">Act Two</a><a class="a3" href="#act3">Act Three</a><a href="#spoken">Full Spoken Script</a><a href="#guides">Interview Guides</a>
+  </nav>
+
+  <section class="block" id="notes">
+    <h2>Script Notes</h2>
+    <p>A working production script for a 38–42 minute documentary, built from the Version 1 concept. Each scene is a two-column table: what we see on the left, what we hear on the right.</p>
+    <div class="scroll"><table class="notes-table"><tbody>
+      <tr><td><span class="chip pres">President</span></td><td>On camera, sync sound. Kent Island lines are from the concept. Priority setups are talking points, not lines to read.</td></tr>
+      <tr><td><span class="chip nar">Narrator</span></td><td>Voice only, recorded in studio. Warm, pastoral, unhurried.</td></tr>
+      <tr><td><span class="chip sec">Exec. Secretary</span></td><td>On camera, sit-down. Outline of what she covers; she speaks in her own words.</td></tr>
+      <tr><td><span class="chip stud">Study Presenter</span></td><td>On camera. Outline only until the study is final.</td></tr>
+      <tr><td><span class="chip test">Testimony</span></td><td>Five subjects, on camera, unscripted. Interview guides are at the end.</td></tr>
+    </tbody></table></div>
+    <ul class="tips">
+      <li>Underlined words in [brackets] are placeholders: a stat to confirm, a name, or a quote to pull from an interview.</li>
+      <li>Timecodes follow the concept and will move in the edit.</li>
+    </ul>
+  </section>
+
+  <main id="script"></main>
+
+  <section class="block" id="spoken">
+    <h2>Full Spoken Script</h2>
+    <p>Every word heard in the film, in order, by speaker. The President's lines are written to sound like him speaking, so he can say them in his own words rather than read them. Testimonies stay unscripted.</p>
+    <div id="spoken-list"></div>
+  </section>
+
+  <section class="block" id="guides">
+    <h2>Testimony Interview Guides</h2>
+    <p>The testimonies are unscripted. These questions draw out a 45–60 second story. Ask for answers in full sentences that don't depend on the question.</p>
+    <div class="guides" id="guide-list"></div>
+  </section>
+</div>
+
+<script>
+const N={nar:"Narrator",pres:"President",sec:"Exec. Secretary",stud:"Study Presenter",test:"Testimony",snd:"Sound & Music"};
+const ph=t=>t.replace(/\[([^\]]+)\]/g,'<span class="ph">[$1]</span>');
+const acts=[
+{id:"act1",c:"a1",num:"Act One · 0:00 – 6:00",title:"A Mission Takes Root",note:"The shift in Act One is from belonging to a conference to belonging to a story.",scenes:[
+ {n:1,t:"Kent Island Shoreline at Dawn",tc:"0:00 – 2:30",rows:[
+  ["Black. Fade up on the Chesapeake Bay at first light. No title.","snd","Natural sound only: water on the shore, wind, a gull far off. No music."],
+  ["Wide: the President at the water's edge, small in frame, horizon behind him. The drone begins a slow 30-second lift.","snd","Natural sound continues. Let it breathe for 8–10 seconds."],
+  ["Medium on the President, looking out, then turning slightly toward camera.","pres","“In 1844 a man came to this shore with a message. He didn't know what he was starting. We do. Because the mission never stopped.”"],
+  ["The drone keeps pulling back. He grows smaller; the bay grows larger.","snd","Music enters, low and warm, underneath."],
+  ["Hold the wide as the light rises over the water.","nar","“Every story has a shoreline. A place where something arrived and stayed. For the Seventh-day Adventist work in this region, it began here, on the edge of the Chesapeake. A message carried across the water. And it took root.”"]]},
+ {n:2,t:"Montage: 1844 to Today",tc:"2:30 – 4:30",rows:[
+  ["Archival photographs, slow push-ins. Old maps of the bay and the Delmarva peninsula.","nar","“In 1844 the message came to this shore. It took root.”"],
+  ["Animated map: the conference territory builds state by state. Counter on screen: 700 members.","nar","“In 1899 the Chesapeake Conference was formally organized. Seven hundred members. Two ministers. A territory of one and a half million people.”"],
+  ["Historic church buildings, some still standing. Then-and-now dissolves where possible.","nar","“Churches were built by people who expected to stay. Some of those buildings still stand. Some of those congregations still meet.”"],
+  ["The counter climbs across the decades to 19,000. Graphics: 73 churches · 10 schools · 19,000 members.","nar","“Today: seventy-three churches. Ten schools. Nineteen thousand members. And five point two million people still in the territory.”"],
+  ["Photographs from past constituency sessions: faces of earlier generations.","nar","“Every constituency report since 1899 is one entry in a continuous record. Each generation gave its account. This quinquennium is the current entry.”"]]},
+ {n:3,t:"Mt. Aetna: Where the Plan Was Discerned",tc:"4:30 – 6:00",rows:[
+  ["Aerial: Mt. Aetna in the mountains near Hagerstown. Tree line, the lodge, the grounds.","snd","Music continues, quieter."],
+  ["Slow gimbal move through the lodge into the empty meeting room. Chairs around a table. A window. Light falling across the table.","nar","“In October 2022, the newly elected Executive Committee came to this place. Three days. Prayer. Study.”"],
+  ["Close details: a chair, the window light, the table surface. Hold.","nar","“Five hundred fifty-four voices from the constituency were already on record with what they needed. The committee listened.”"],
+  ["Return to the wide of the empty room. Slow fade.","nar","“What was discerned in this room became the plan that guided the next five years. Five priorities. One mission.”"]]}
+]},
+{id:"act2",c:"a2",num:"Act Two · 6:00 – 25:00",title:"A Mission Advanced",note:"The audience moves from feeling the history to seeing the present: their tithe at work as lives changed, not line items.",scenes:[
+ {n:4,t:"The Quinquennium Record",tc:"6:00 – 9:00",rows:[
+  ["Exterior: Conference HQ, Columbia. Drone descends from the satellite view.","nar","“A mission is carried by people. It is also measured. Here is the record of these five years.”"],
+  ["The Executive Secretary seated at a table, not a podium. Medium and close-up angles.","sec","Covers membership at the start and end of the quinquennium [STAT]; baptisms by year with trend [STAT]; net change: gains, losses, transfers, deaths [STAT]."],
+  ["Animated graphics build beside her in the film's visual style: membership line, baptism bars.","sec","Covers churches and companies added [STAT]; school enrollment across 10 schools [STAT]; pastors and districts [STAT]."],
+  ["Graphic: the 4-state territory with 5.2 million people.","sec","Puts the 5.2 million in context and closes with what the numbers mean to her. Pull a closing line from the interview: [QUOTE]."]],
+  after:'<b>Transition convention (all of Act Two):</b> at every location change, the drone lifts from the site, blends into a satellite-style zoom out over MD · DE · VA · WV, pans, and descends into the next location. Music or natural sound carries it; no narration over the move.'},
+ {n:5,t:"Priority 1: Evangelism, Church Planting & Revitalization",tc:"9:00 – 12:30",rows:[
+  ["Lower third: Priority 1 · Evangelism, Church Planting & Church Revitalization. President on location or at HQ.","pres","Talking points: what this priority is; what it cost; why it matters. The 5.2 million people are outside the walls, so the church has to go to them."],
+  ["A full sanctuary. New faces. A greeter at the door.","nar","“A church that is alive has a sound. Full rooms. New names. People who were not here a year ago.”"],
+  ["Testimony subject #1 in their own environment, before the interview.","nar","Introduces [NAME], [their town, state], and why their story matters."],
+  ["Interview, sync.","test","Testimony #1, unscripted: [PULL 45–60 SECONDS FROM INTERVIEW]."],
+  ["A baptism. Hold from the step into the water to the moment they come up. Do not cut away.","snd","Natural sound. Music drops out. The congregation's response."],
+  ["A church plant meeting in a rented room, school gym or storefront. The evangelism director seen working, with lower third.","nar","“Some churches don't look like churches yet. They meet in rented rooms and school gyms. They are not finished. They are beginning.” Stats build on screen: baptisms [STAT]; new churches and companies toward the 35-by-25 goal [STAT]."],
+  ["Community outreach outside the building: streets, neighborhoods.","nar","“[STAT] churches entered revitalization. [STAT] communities were entered for the first time. The mission went where the people are.”"]]},
+ {n:6,t:"Priority 2: Children's, Youth & Young Adult Ministries",tc:"12:30 – 15:00",rows:[
+  ["Lower third: Priority 2. President setup.","pres","Talking points: why the next generation is not a program but the future of the mission; what the conference invested."],
+  ["A child in Sabbath School, absorbed in the story. No one performing for camera.","nar","“Faith is not handed over in a single moment. It is passed on, Sabbath by Sabbath, one story at a time.”"],
+  ["Testimony subject #2: a young adult, now leading.","nar","Introduces [NAME], who grew up in the church, chose to stay, and now leads [ROLE]."],
+  ["Interview, sync.","test","Testimony #2: [PULL 45–60 SECONDS]."],
+  ["Summer camp (archival): canoes, campfire, worship under trees.","nar","“At camp, the faith and the fun are hard to tell apart. That is the point.”"],
+  ["Youth in a real moment of community. Youth director seen working, with lower third.","nar","Stats build: Sabbath School participation [STAT]; youth events and attendance [STAT]; young adult engagement [STAT]; camp enrollment [STAT]."]]},
+ {n:7,t:"Priority 3: Adventist Education",tc:"15:00 – 17:30",rows:[
+  ["Aerial: Highland View Academy. Then on the ground, students moving between buildings.","snd","Music, natural sound of students."],
+  ["Lower third: Priority 3. President setup.","pres","Talking points: why Adventist education is mission work; what the schools carry for families."],
+  ["Elementary classroom: the moment a teacher and student connect over the work.","nar","“Some lessons are on the board. The ones that last are the ones a teacher lives in front of a child.”"],
+  ["Testimony subject #3: a parent or student.","nar","Introduces [NAME] and their connection to [SCHOOL]."],
+  ["Interview, sync.","test","Testimony #3: [PULL 45–60 SECONDS]."],
+  ["Principals at their campuses; Education Director in school footage, with lower thirds.","nar","Stats build: enrollment across 10 schools [STAT]; trend by campus [STAT]; schools by state [STAT]; milestones this period [STAT]."]]},
+ {n:8,t:"Priority 4: Community Services & Outreach",tc:"17:30 – 21:00",rows:[
+  ["The ACS warehouse under construction: steel, concrete, workers.","nar","“Some promises are built in real time.”"],
+  ["Lower third: Priority 4. President setup.","pres","Talking points: the church outside its walls; service as the clearest picture of the gospel the community sees."],
+  ["Food distribution: close on faces of volunteers and the people they serve.","nar","“Most people in this territory will meet the church outside a sanctuary. In a line for groceries. At a health screening. In a moment of need.”"],
+  ["Testimony subject #4: someone the church served.","nar","Introduces [NAME] and how they encountered the church."],
+  ["Interview, sync. Subtitles if in Spanish or another language.","test","Testimony #4: [PULL 45–60 SECONDS]."],
+  ["Hispanic worship and multilingual congregations: several languages, several cultures.","snd","Natural sound of worship in Spanish and other languages; let it play."],
+  ["Health ministry event; Women's and Family Ministries gatherings. Directors seen working, with lower thirds.","nar","“Chesapeake worships in [STAT] languages.” Stats build: people served [STAT]; pounds of food [STAT]; disaster responses [STAT]; health reach [STAT]."],
+  ["The ACS warehouse near completion (second visit).","nar","“What was a foundation is now a building. Soon it will be a place where the work does not stop.”"]]},
+ {n:9,t:"Priority 5: Church Leadership Training & Equipping",tc:"21:00 – 24:00",rows:[
+  ["Lower third: Priority 5. President setup.","pres","Talking points: churches grow when their leaders are equipped; what the conference put into training."],
+  ["The media studio at HQ, working: lights, cameras, a recording in progress.","nar","“A church can only go as far as its leaders are prepared to take it.”"],
+  ["Stewardship training: leaders taking notes, discussing, not just listening.","nar","“So the conference invested in people. Elders. Treasurers. Sabbath School leaders. Pastors.”"],
+  ["Testimony subject #5: a church leader.","nar","Introduces [NAME], [ROLE] at [CHURCH]."],
+  ["Interview, sync.","test","Testimony #5: [PULL 45–60 SECONDS]."],
+  ["Partners in Mission team in a local church; Mt. Aetna used for training; Men's and Prayer Ministries gatherings. Directors with lower thirds.","nar","Stats build: PIM churches and liaisons [STAT]; leaders trained [STAT]; Sabbath School renewal [STAT]; communication reach [STAT]; Mt. Aetna usage [STAT]; planned giving [STAT]."]]},
+ {n:10,t:"Title Cards: Alive · Together · On Mission",tc:"24:00 – 25:00",rows:[
+  ["B-roll reprise from Act Two, faster cutting. Card: ALIVE.","snd","Music full. No narration."],
+  ["Reprise continues. Card: TOGETHER.","snd","Music full."],
+  ["Reprise continues. Card: ON MISSION. Cut to black.","snd","Music resolves, then silence for 2 seconds."]]}
+]},
+{id:"act3",c:"a3",num:"Act Three · 25:00 – End",title:"A Mission Unfinished",note:"Five years of faithful work held against a harder truth: the mission is larger than any quinquennium. The audience leaves commissioned, not applauded.",scenes:[
+ {n:11,t:"The Territory",tc:"25:00 – 27:00",rows:[
+  ["Fade up from black. Animated map: the four states as a living population, points of light for people.","nar","“There are five point two million people in this territory.”"],
+  ["Animated data: age distribution, cultural composition, religious affiliation, the growing unaffiliated [DATA].","nar","“Here is who they are. Young families and retirees. Many languages. A growing number who claim no faith at all.”"],
+  ["Growth corridors light up where new communities are forming [DATA].","nar","“Here is where they are. New neighborhoods are forming faster than the church is moving.”"],
+  ["Overlay: church locations against population density. The gaps become visible.","nar","“And here is where the church is. And where it isn't yet.”"]]},
+ {n:12,t:"Sentiment & Awareness Study",tc:"27:00 – 29:30",note:"Script this scene only after the study is complete and validated.",rows:[
+  ["Study presenter on camera, briefing style.","nar","“The conference asked a question it had never asked before: what does this region actually think of us?”"],
+  ["Animated graphics: awareness by state and region [DATA].","stud","Awareness levels [STAT]."],
+  ["Sentiment breakdown: favorable, neutral, unfavorable, no opinion [DATA].","stud","Sentiment results [STAT] and what they mean."],
+  ["Heat map: where awareness and credibility are strongest [DATA].","stud","Where the doors are open [FINDINGS]."],
+  ["Verbatim responses on screen, one at a time [QUOTES FROM STUDY].","stud","Where barriers exist that the next quinquennium must address [FINDINGS]. Tone: a briefing, not a celebration or an alarm."]]},
+ {n:13,t:"The Work Still to Be Done",tc:"29:30 – 31:00",rows:[
+  ["Territory B-roll: growth corridors, new subdivisions, a commuter train, a market, a park. People going about their lives.","snd","Music, restrained."],
+  ["Communities where the church is not yet present.","nar","Names two or three specific findings from the study [FINDINGS], without editorializing."],
+  ["Slow drone over a new neighborhood at dusk, lights coming on.","nar","“The data has spoken. The territory has been mapped. The doors that are open have been named. The question now is whether this conference will walk through them.”"]]},
+ {n:14,t:"Kent Island Return: The Declaration",tc:"31:00 – 33:30",rows:[
+  ["Kent Island, same shore, same light as Sc 1. New angle: the President faces forward, toward the water.","snd","Natural sound: water, wind."],
+  ["Medium and close-up, sync.","pres","Direct to the constituency, no notes: “This mission didn't start here. And it doesn't end here. There are 5.2 million people in this territory who need what was brought to this shore. We are not done. We give everything we have to advance it. Because we believe Jesus is coming. He that began a good work in us, in this Chesapeake family, shall complete it until the day of Jesus Christ.”"],
+  ["Hold on him. A beat.","pres","“The mission continues.”"],
+  ["Drone pulls back, wider than Sc 1. He grows very small against the bay.","snd","Natural sound. Then silence."]]},
+ {n:15,t:"Montage: The Mission Continues",tc:"33:30 – 37:30",note:"No narration. Music full for four minutes. Hold each shot longer than feels comfortable.",rows:[
+  ["Churches at golden hour.","snd","Music full."],
+  ["A baptism (from Sc 5). Children in Sabbath School.","snd","Music."],
+  ["HVA campus. The ACS warehouse going up. A community service moment.","snd","Music."],
+  ["Hispanic worship. Mt. Aetna at last light.","snd","Music."],
+  ["A family arriving at church on Sabbath morning: unhurried, ordinary, faithful.","snd","Music."],
+  ["The Kent Island shore, empty. Just the water.","snd","Music thins to a single line."]]},
+ {n:16,t:"Final Title Sequence",tc:"37:30 – End",rows:[
+  ["Card 1: “He that began a good work in us, in this Chesapeake family, shall complete it until the day of Jesus Christ.” Philippians 1:6","snd","Music fades."],
+  ["Card 2: ALIVE. TOGETHER. ON MISSION.","snd","Silence."],
+  ["Card 3: Chesapeake Conference of Seventh-day Adventists · Organized 1899 · Mission Began 1844 · Maryland · Delaware · Virginia · West Virginia · 73 Churches · 10 Schools · 19,000 Members · 5.2 Million People in the Territory","snd","Silence."],
+  ["Card 4: The Mission Continues. Then black, held 8 seconds.","snd","Silence. House lights rise."]]}
+]}];
+document.getElementById("script").innerHTML=acts.map(a=>`<section class="act ${a.c}" id="${a.id}"><div class="act-head"><span class="num">${a.num}</span><h2>${a.title}</h2><p>${a.note}</p></div>`+
+ a.scenes.map(s=>`<article class="scene"><div class="scene-top"><h3><span class="sc">Sc ${s.n}</span>${s.t}</h3><span class="tc">${s.tc}</span></div>`+
+  (s.note?`<p class="note">${s.note}</p>`:"")+
+  `<div class="scroll"><table><thead><tr><th>Video</th><th>Audio</th></tr></thead><tbody>`+
+  s.rows.map(r=>`<tr class="${r[1]}"><td class="v">${ph(r[0])}</td><td class="a"><span class="chip">${N[r[1]]}</span><div>${ph(r[2])}</div></td></tr>`).join("")+
+  `</tbody></table></div></article>`+(s.after?`<div class="trans">${s.after}</div>`:"")).join("")+`</section>`).join("");
+const SUB={nar:"Voice only",pres:"On camera",sec:"On camera · her own words",stud:"On camera · draft",test:"Unscripted"};
+const L=(k,...p)=>({k,p}), D=t=>({k:"dir",t});
+const spoken=[
+{c:"a1",t:"Act One: A Mission Takes Root",s:[
+ ["Sc 1 · Kent Island Shoreline at Dawn","0:00 – 2:30",[D("Natural sound only: water, wind. Hold 8–10 seconds before anyone speaks."),
+  L("pres","In 1844 a man came to this shore with a message. He didn't know what he was starting. We do. Because the mission never stopped."),
+  D("Music enters, low and warm. The drone keeps pulling back."),
+  L("nar","Every story has a shoreline. A place where something arrived, and stayed.","For the Seventh-day Adventist message in this region, it began here, at the edge of the Chesapeake. A message carried across the water. Received by a few. Passed on to many.","And it took root.")]],
+ ["Sc 2 · Montage: 1844 to Today","2:30 – 4:30",[L("nar","In 1844 the message came to this shore. It took root.","It spread the way faith always spreads: one home, one family, one congregation at a time.","In 1899 the Chesapeake Conference was formally organized. Seven hundred members. Two ministers. A territory of one and a half million people.","They built churches like people who intended to stay. Some of those buildings still stand. Some of those congregations still gather every Sabbath.","Generation after generation, the work grew.","Today: seventy-three churches. Ten schools. Nineteen thousand members. And five point two million people still in the territory.","Every constituency report since 1899 is one entry in a continuous record. Each generation has sat where you are sitting now and given its account.","This quinquennium is the current entry.")]],
+ ["Sc 3 · Mt. Aetna","4:30 – 6:00",[L("nar","In October 2022, the newly elected Executive Committee came to this place.","Three days. Prayer. Study.","Five hundred fifty-four voices from the constituency were already on record with what they needed. The committee did not come to invent a plan. They came to listen for one.","What was discerned in this room became the plan that guided the next five years.","Five priorities. One mission.")]]]},
+{c:"a2",t:"Act Two: A Mission Advanced",s:[
+ ["Sc 4 · The Quinquennium Record","6:00 – 9:00",[L("nar","A mission is carried by people. But it is also measured. What follows is the record of these five years: what was entrusted, and what was done with it."),
+  L("sec","Five years ago, the Chesapeake Conference had [X] members. Today, we have [X].","Over these five years, [X] people were baptized into this family. [Year by year: X, X, X, X, X.] [One sentence on the trend.]","Membership changes in many ways. We welcomed [X] by baptism and profession of faith, and [X] by transfer. [X] transferred out, and we laid [X] to rest. Altogether, our membership [grew / changed] by [X].","We are now [X] churches and [X] companies. [Any additions this period.]","Our ten schools enroll [X] students.","[X] pastors serve [X] districts across four states.","And all of this sits inside a territory of five point two million people. For every member of this conference, there are more than [270] people in this territory who are not.","These numbers are not the mission. But they are an honest account of how we carried it."),
+  D("Drone-to-satellite transition to the first church site.")]],
+ ["Sc 5 · Priority 1: Evangelism, Church Planting & Revitalization","9:00 – 12:30",[L("pres","The first priority was simple to say and hard to do: reach people. Evangelism. Planting new churches. Bringing struggling churches back to life.","It cost us. Time, money, comfort. We asked pastors and members to go where the church wasn't yet. Because five point two million people are not going to walk into our buildings on their own. We have to go to them."),
+  L("nar","A church that is alive has a sound. Full rooms. New names on the visitor cards. Faces that weren't here a year ago.","[NAME] lives in [TOWN, STATE]. [One sentence on who they were before.] Today, [what changed]."),
+  L("test","Testimony #1 · 45–60 seconds in their own words."),
+  D("The baptism. Natural sound. No narration until the moment is complete."),
+  L("nar","Over these five years, [X] people were baptized in the Chesapeake Conference.","[X] new churches and companies were planted, moving toward the goal of thirty-five by twenty-five. Some of them don't look like churches yet. They meet in school gyms, rented halls, living rooms. They are not finished. They are beginning.","At the same time, [X] established congregations chose to start again: to look honestly at how they worship, how they welcome, how they serve. Revitalization is quieter than planting. It is no less a miracle.","And [X] communities heard the message for the first time. The mission went outside the walls, where most of the five point two million actually live.")]],
+ ["Sc 6 · Priority 2: Children's, Youth & Young Adult Ministries","12:30 – 15:00",[L("pres","Every church is one generation from empty. That's not a slogan. That's arithmetic.","So we made the next generation a priority, not a program. Sabbath School teachers. Youth leaders. Camp staff. Young adult ministries. We invested in them because they are not the church of tomorrow. They are the church right now."),
+  L("nar","Faith is not handed over in a single moment. It is passed on, Sabbath by Sabbath, story by story, by people who show up week after week for children who may not remember their names, but will remember what they believed.","[NAME] grew up in [CHURCH, TOWN]. [One sentence on the moment they could have walked away.] They stayed. Today, [NAME] leads [ROLE]."),
+  L("test","Testimony #2 · 45–60 seconds in their own words."),
+  L("nar","Across the conference, [X] children gather in Sabbath School each week. Youth ministries held [X] events, reaching [X] young people in [X] states. [Young adult engagement stat.]","And at camp, [X] campers spent summers where faith and fun were impossible to tell apart.","That is exactly the point.")]],
+ ["Sc 7 · Priority 3: Adventist Education","15:00 – 17:30",[L("pres","Adventist education is evangelism with a bell schedule. Every school day, in ten schools, teachers are doing the work of the mission with children whose families have trusted us with them.","It isn't cheap. It isn't easy. And it is worth it."),
+  L("nar","Some lessons are written on the board. The ones that last are the ones a teacher lives out in front of a child.","[NAME]'s family chose [SCHOOL] in [TOWN, STATE]. [One sentence on their situation or what they were looking for.]"),
+  L("test","Testimony #3 · 45–60 seconds in their own words."),
+  L("nar","Across ten schools in [X] states, [X] students are enrolled in Adventist education. [One sentence on the trend.] [Milestone: a new program, accreditation, or building.]","Behind every enrollment number is a family that chose this, and a teacher who chose to stay.")]],
+ ["Sc 8 · Priority 4: Community Services & Outreach","17:30 – 21:00",[D("Over the ACS warehouse under construction."),
+  L("nar","Some promises are built in real time."),
+  L("pres","Most people in this territory will never hear a sermon from us. But they might meet us in a food line. At a health screening. After a storm takes their home.","The question is whether they recognize Jesus in what we do there. Community service isn't a department. It's how this territory sees the church."),
+  L("nar","Most people meet the church outside a sanctuary. In a line for groceries. At a free clinic. In a moment when they have nothing left to give, and someone gives them something anyway.","[NAME] first met the church [where and when]. [One sentence on what they were going through.]"),
+  L("test","Testimony #4 · 45–60 seconds in their own words. Subtitles if not in English."),
+  D("Hispanic and multilingual worship. Natural sound, 10–15 seconds, no narration."),
+  L("nar","Chesapeake does not worship in one language. Every Sabbath, congregations across this territory praise God in [X] languages. [X] Hispanic congregations. [X] multilingual congregations. One family.","Over these five years, Adventist Community Services served [X] people and distributed [X] pounds of food at [X] events. Disaster response teams deployed [X] times. Health ministries reached [X] people in [X] communities. Women's Ministries and Family Ministries gathered [X] people, strengthening the homes where faith is first lived."),
+  D("Over the warehouse near completion."),
+  L("nar","What was a foundation is now a building. Soon it will be a place where the work never stops.")]],
+ ["Sc 9 · Priority 5: Church Leadership Training & Equipping","21:00 – 24:00",[L("pres","A church can only go as far as its leaders are ready to take it.","So we invested in the people who lead. Elders. Treasurers. Sabbath School teachers. Pastors. Training, coaching, tools. Because when you equip one leader, you strengthen a whole congregation."),
+  L("nar","Not every part of the mission is seen from the pulpit. Some of it happens in a training room on a Tuesday night, when a treasurer finally understands the budget, an elder learns to lead a small group, or a Sabbath School teacher discovers she isn't alone.","[NAME] serves as [ROLE] at [CHURCH] in [TOWN, STATE]. [One sentence on where they started.]"),
+  L("test","Testimony #5 · 45–60 seconds in their own words."),
+  L("nar","Partners in Mission served [X] churches through [X] Local Ministries Liaisons. Stewardship training equipped [X] church leaders across [X] states. [X] churches joined Sabbath School renewal.","The conference's podcast, newsletter and social channels reached [X] people. Mt. Aetna hosted [X] retreats and trainings. Planned Giving and Trust Services [milestone].","And Men's Ministries and Prayer Ministries gathered [X] people who rarely see themselves in a film like this one, but without whom none of it would have happened.")]],
+ ["Sc 10 · Alive · Together · On Mission","24:00 – 25:00",[D("No spoken words. Music full. Title cards: ALIVE. TOGETHER. ON MISSION.")]]]},
+{c:"a3",t:"Act Three: A Mission Unfinished",s:[
+ ["Sc 11 · The Territory","25:00 – 27:00",[L("nar","There are five point two million people in this territory.","Here is who they are. [Age summary, e.g., “Nearly X in 10 are under thirty-five.”] [Cultural composition in one sentence.] [X] percent claim no religious affiliation at all, and that number is growing.","Here is where they are. In growth corridors like [PLACE] and [PLACE], new communities are forming faster than the church is moving.","And here is where the church is.","And where it isn't yet.")]],
+ ["Sc 12 · Sentiment & Awareness Study","27:00 – 29:30",[D("Finalize these lines once the study is complete and validated."),
+  L("nar","For the first time, the conference asked a question it had never asked before: what does this region actually think of the Seventh-day Adventist Church?"),
+  L("stud","We surveyed [X] people across Maryland, Delaware, Virginia and West Virginia.","[X] percent have heard of the Seventh-day Adventist Church. In [REGION], that number drops to [X] percent.","Among those who know us, [X] percent are favorable, [X] percent neutral, [X] percent unfavorable, and [X] percent have no opinion at all.","Here is the open door: [FINDING, e.g., “People already associate us with health and community service.”]","And here are the barriers: [FINDING].","This isn't a verdict. It's a map. It shows us where the doors are open, and where we have work to do.")]],
+ ["Sc 13 · The Work Still to Be Done","29:30 – 31:00",[L("nar","[Finding 1, stated plainly.] [Finding 2.] [Finding 3.]","The data has spoken. The territory has been mapped. The doors that are open have been named.","The question now is whether this conference will walk through them.")]],
+ ["Sc 14 · Kent Island Return: The Declaration","31:00 – 33:30",[D("Natural sound: water, wind. Same shore, same light as Sc 1."),
+  L("pres","This mission didn't start here. And it doesn't end here.","There are 5.2 million people in this territory who need what was brought to this shore.","We are not done. We give everything we have to advance it. Because we believe Jesus is coming.","He that began a good work in us, in this Chesapeake family, shall complete it until the day of Jesus Christ."),
+  D("A beat."),
+  L("pres","The mission continues."),
+  D("Drone pulls back. Natural sound, then silence.")]],
+ ["Sc 15 · Montage: The Mission Continues","33:30 – 37:30",[D("No spoken words. Music full for four minutes.")]],
+ ["Sc 16 · Final Title Sequence","37:30 – End",[D("No spoken words. Four title cards, then 8 seconds of black and silence.")]]]}];
+document.getElementById("spoken-list").innerHTML=spoken.map(a=>`<div class="spoken-act ${a.c}"><h3>${a.t}</h3>`+
+ a.s.map(([t,tc,ls])=>`<div class="sp-scene"><h4>${t}<span>${tc}</span></h4>`+
+  ls.map(l=>l.k==="dir"?`<div class="dirn">${l.t}</div>`:`<div class="line ${l.k}"><div class="who"><span class="chip ${l.k}">${N[l.k]}</span><small>${SUB[l.k]}</small></div><div class="say">${l.p.map(p=>`<p>${ph(p)}</p>`).join("")}</div></div>`).join("")+`</div>`).join("")+`</div>`).join("");
+const guides=[
+ ["Questions for all five",["Tell me who you are and where you live.","Take me back to before. What was your life like?","What happened? Walk me through the moment things changed.","Who was there? What did they do?","What is different now?","If you could say one thing to the people in that room in May, what would it be?"],true],
+ ["#1 · Evangelism, Church Planting & Revitalization",["How did you first come into contact with this church?","What did it feel like to be baptized, or to watch this church come back to life?","What does this church mean to your neighborhood?"]],
+ ["#2 · Children's, Youth & Young Adult",["Who invested in you when you were young? What did they do?","Was there a time you could have walked away? Why did you stay?","What are you doing now for the next generation?"]],
+ ["#3 · Adventist Education",["Why did you choose Adventist education, or what was it like as a student?","Is there a teacher you remember? What did they give you?","How did school shape your faith, not just your grades?"]],
+ ["#4 · Community Services & Outreach",["What were you going through when you first met the church?","What did they do for you? What surprised you?","What did you find there that you didn't expect?"]],
+ ["#5 · Church Leadership Training & Equipping",["What do you do in your church today?","What training or support made the difference?","What would you not be doing now without it?"]]];
+document.getElementById("guide-list").innerHTML=guides.map(g=>`<div class="guide${g[2]?" all":""}"><h4>${g[0]}</h4><${g[2]?"ol":"ul"}>${g[1].map(q=>`<li>${q}</li>`).join("")}</${g[2]?"ol":"ul"}></div>`).join("");
+</script>
+</body>
+</html>
