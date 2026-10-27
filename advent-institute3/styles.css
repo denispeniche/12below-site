@@ -39,14 +39,17 @@ p{margin:0}
 /* Header */
 .site-header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .site-header .wrap{height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.logo{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--ink)}
-.logo b{font-family:var(--display);font-weight:400;font-size:22px;letter-spacing:.02em}
-.logo span{font-size:13px;font-weight:700;letter-spacing:.28em;color:var(--bronze)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.logo-mark{width:32px;height:32px;flex-shrink:0;margin-right:2px}
+.logo b{font-family:var(--sans);font-weight:700;font-size:23px;letter-spacing:-.03em;line-height:1}
+.logo span{font-family:var(--sans);font-size:23px;font-weight:400;letter-spacing:0;color:var(--bronze);margin-left:-3px;line-height:1}
 .nav{display:flex;gap:32px;font-size:15px;font-weight:500}
 .nav a{color:var(--body);text-decoration:none} .nav a:hover{color:var(--ink)}
 .header-right{display:flex;align-items:center;gap:22px}
 .lang{font-size:14px;font-weight:600;letter-spacing:.08em;color:var(--muted)}
 .lang a{color:var(--muted);text-decoration:none} .lang a[aria-current]{color:var(--ink)}
+.logo,.nav a,.lang,.site-header .btn{white-space:nowrap;flex-shrink:0}
+@media (max-width:1240px){.nav{gap:22px}.header-right{gap:16px}}
 
 /* Hero */
 .hero{padding:104px 0 120px}
@@ -144,8 +147,9 @@ p{margin:0}
 /* Footer */
 .site-footer{background:var(--brown);color:var(--brown-muted);font-size:15px}
 .site-footer .wrap{padding-top:44px;padding-bottom:44px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
-.site-footer .logo b{color:#F4F1EA;font-size:18px}
-.site-footer .logo span{color:var(--gold);font-size:12px}
+.site-footer .logo{color:#F4F1EA;flex-wrap:wrap;white-space:normal;flex-shrink:1}
+.site-footer .logo b{font-size:20px}
+.site-footer .logo span{color:var(--gold);font-size:20px}
 .site-footer .logo em{font-style:normal;margin-left:14px;color:var(--brown-muted)}
 .site-footer nav{display:flex;gap:28px;flex-wrap:wrap}
 .site-footer a{color:var(--brown-muted)} .site-footer a:hover{color:#fff}
@@ -250,7 +254,7 @@ body.sent .apply-wrap{display:none} body.sent .thanks{display:block}
   .compare > div{padding:30px}
   .card{padding:28px}
   .site-header .wrap{height:68px}
-  .logo b{font-size:19px} .logo span{font-size:11px;letter-spacing:.22em}
+  .logo b,.logo span{font-size:18px} .logo-mark{width:24px;height:24px} .site-header .btn{padding:0 16px;font-size:14px}
   .btn{width:100%}
   .site-header .btn{width:auto}
   .hero-actions{flex-direction:column}
