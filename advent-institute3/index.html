@@ -233,6 +233,26 @@
   </div>
 </section>
 
+<!-- FOUNDING SEATS · to update the counter, change data-total and data-taken below -->
+<section class="section dark" id="seats">
+  <div class="wrap seats-block">
+    <div class="seats-left">
+      <div class="eyebrow">Founding Faculty seats</div>
+      <h2 class="h2">Only <span id="seats-total-h">20</span> founding seats</h2>
+      <p class="lead">The first instructors to join receive benefits later faculty won't get</p>
+      <div class="seatmap" id="seatmap" data-total="20" data-taken="0" aria-hidden="true"></div>
+      <p class="seatcount"><b id="seats-open">20</b> of <span id="seats-total">20</span> seats still open</p>
+    </div>
+    <ul class="perks">
+      <li><span class="ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><h3>Founding rate, locked for life</h3><p>A higher royalty share than faculty who join later</p></div></li>
+      <li><span class="ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><h3>Founding Faculty badge</h3><p>On your profile and every class you teach</p></div></li>
+      <li><span class="ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><h3>Featured at launch</h3><p>Your class is among the first we promote to members</p></div></li>
+      <li><span class="ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><h3>Priority recording dates</h3><p>First pick of studio days and event shoots</p></div></li>
+      <li><span class="ck"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><h3>A voice in what we build</h3><p>A seat on the Founding Faculty council that shapes the platform</p></div></li>
+    </ul>
+  </div>
+</section>
+
 <!-- FINAL CTA -->
 <section class="cta">
   <div class="wrap">
@@ -258,5 +278,16 @@
   </div>
 </footer>
 
+<script>
+  // Founding seat map: draws one dot per seat from data-total / data-taken
+  (function () {
+    var m = document.getElementById('seatmap'); if (!m) return;
+    var total = +m.dataset.total || 20, taken = +m.dataset.taken || 0;
+    for (var i = 0; i < total; i++) { var s = document.createElement('span'); s.className = 'seat' + (i < taken ? ' taken' : ''); m.appendChild(s); }
+    document.getElementById('seats-open').textContent = total - taken;
+    document.getElementById('seats-total').textContent = total;
+    document.getElementById('seats-total-h').textContent = total;
+  })();
+</script>
 </body>
 </html>
