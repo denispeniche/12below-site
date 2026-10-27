@@ -51,7 +51,6 @@ p{margin:0}
 /* Hero */
 .hero{padding:104px 0 120px}
 .hero .wrap{display:flex;flex-direction:column;gap:44px}
-.hero .wrap > div:last-child{max-width:620px}
 .hero-copy{display:flex;flex-direction:column;gap:30px}
 .hero-actions{display:flex;flex-wrap:wrap;gap:14px}
 .hero-points{display:flex;flex-wrap:wrap;gap:10px 24px;font-size:15px;font-weight:500;color:var(--muted)}
