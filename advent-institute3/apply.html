@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apply to Teach · Advent Institute</title>
+<meta name="description" content="Apply to join the Founding Faculty of Advent Institute. About ten minutes, and nothing is binding.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="Advent Institute — Teach With Us"><b>ADVENT</b><span>INSTITUTE</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html">← Teach With Us</a>
+      <a href="resources.html">Faculty resources</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang"><a href="#" aria-current="true">EN</a> · <a href="#">PT</a> · <a href="#">ES</a></div>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="apply-wrap">
+  <section class="page-head">
+    <div class="wrap">
+      <div class="eyebrow">Founding Faculty · Application</div>
+      <h1 class="h1">Apply to Teach</h1>
+      <p class="lead">About ten minutes. Nothing here is binding. It starts a conversation, and you'll only sign once we've both agreed on your class.</p>
+    </div>
+  </section>
+
+  <div class="wrap apply">
+    <!-- Set action to your form handler (Formspree, Netlify Forms, etc.) -->
+    <form id="apply-form" action="[FORM ENDPOINT]" method="post">
+
+      <fieldset>
+        <legend>1 · About you</legend>
+        <div class="row2">
+          <div class="field"><label for="name">Full name</label><input class="input" id="name" name="name" type="text" autocomplete="name" placeholder="Pr. João Almeida" required></div>
+          <div class="field"><label for="email">Email</label><input class="input" id="email" name="email" type="email" autocomplete="email" placeholder="you@example.org" required></div>
+          <div class="field"><label for="phone">WhatsApp / phone</label><input class="input" id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+55 11 90000 0000"></div>
+          <div class="field"><label for="country">Country</label><input class="input" id="country" name="country" type="text" autocomplete="country-name" placeholder="Brazil"></div>
+        </div>
+        <div class="field">
+          <span class="label" id="role-label">Your role</span>
+          <div class="pills" role="radiogroup" aria-labelledby="role-label">
+            <label class="pill"><input type="radio" name="role" value="Pastor" required><span>Pastor</span></label>
+            <label class="pill"><input type="radio" name="role" value="Professor"><span>Professor</span></label>
+            <label class="pill"><input type="radio" name="role" value="Departmental director"><span>Departmental director</span></label>
+            <label class="pill"><input type="radio" name="role" value="Ministry leader"><span>Ministry leader</span></label>
+            <label class="pill"><input type="radio" name="role" value="Other"><span>Other</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="bio">Short bio</label>
+          <span class="hint" id="bio-hint">Your ministry, teaching or academic background in a few sentences.</span>
+          <textarea class="input" id="bio" name="bio" aria-describedby="bio-hint" placeholder="I have served as a pastor for 15 years and teach…"></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>2 · Where you serve</legend>
+        <div class="field"><label for="org">Church, conference, university or ministry</label><input class="input" id="org" name="organization" type="text" placeholder="e.g. Chesapeake Conference, UNASP"></div>
+        <div class="field">
+          <span class="label" id="emp-label">Does your employer need to approve outside teaching?</span>
+          <span class="hint">Many conferences and universities have outside-work or IP policies. We'll help you ask.</span>
+          <div class="checks" role="radiogroup" aria-labelledby="emp-label">
+            <label class="check"><input type="radio" name="employer_approval" value="Yes">Yes</label>
+            <label class="check"><input type="radio" name="employer_approval" value="No">No</label>
+            <label class="check"><input type="radio" name="employer_approval" value="Not sure">Not sure</label>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>3 · Your masterclass</legend>
+        <div class="field">
+          <span class="label" id="lang-label">Teaching language(s)</span>
+          <div class="checks" role="group" aria-labelledby="lang-label">
+            <label class="check"><input type="checkbox" name="languages[]" value="Portuguese">Português</label>
+            <label class="check"><input type="checkbox" name="languages[]" value="Spanish">Español</label>
+            <label class="check"><input type="checkbox" name="languages[]" value="English">English</label>
+            <label class="check"><input type="checkbox" name="languages[]" value="French">Français (later)</label>
+          </div>
+        </div>
+        <div class="field"><label for="title">Proposed masterclass title</label><input class="input" id="title" name="class_title" type="text" placeholder="e.g. Leading Small Groups That Multiply" required></div>
+        <div class="field"><label for="outcomes">What will learners be able to do afterwards?</label><textarea class="input" id="outcomes" name="outcomes" placeholder="Two or three outcomes, and who the class is for."></textarea></div>
+        <div class="field">
+          <label for="sample">Link to a sample of your teaching</label>
+          <span class="hint" id="sample-hint">A sermon, lecture or seminar on YouTube, Vimeo, Google Drive or your church website.</span>
+          <input class="input" id="sample" name="sample_link" type="url" aria-describedby="sample-hint" placeholder="https://">
+        </div>
+        <label class="check"><input type="checkbox" name="has_recordings" value="Yes">I already have recorded seminars or series that could become a course</label>
+      </fieldset>
+
+      <label class="check top"><input type="checkbox" name="consent" value="Yes" required><span>I've read the <a href="resources.html">Faculty Guide and Terms Summary</a>, and I understand this application is not a contract.</span></label>
+      <div class="submit-row">
+        <button class="btn btn-gold" type="submit">Submit application</button>
+        <span class="hint">We reply within [X] business days.</span>
+      </div>
+    </form>
+
+    <aside class="aside">
+      <div class="box">
+        <div class="eyebrow">What happens next</div>
+        <ol>
+          <li><b class="n">1</b><span><strong>Review.</strong> We read every application personally.</span></li>
+          <li><b class="n">2</b><span><strong>Conversation.</strong> A 30-minute call to shape your topic.</span></li>
+          <li><b class="n">3</b><span><strong>Agreement.</strong> Your personal Faculty Agreement by e-signature.</span></li>
+          <li><b class="n">4</b><span><strong>Recording day.</strong> We handle the rest.</span></li>
+        </ol>
+      </div>
+      <div class="box outline">
+        <h2 style="font-size:18px;margin-bottom:8px">Prefer to talk first?</h2>
+        <p class="muted" style="font-size:16px">Join a 30-minute online info session, or write to faculty@[YOUR DOMAIN].</p>
+        <a class="more" href="[INFO SESSION LINK]">See session dates →</a>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<section class="thanks" aria-live="polite">
+  <div class="wrap">
+    <span class="tick"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1C1410" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+    <h1 class="h1" style="font-size:clamp(40px,5vw,64px);max-width:900px">Thank you. Your application is in.</h1>
+    <p class="lead" style="max-width:680px">We'll be in touch within [X] business days to schedule a short conversation about your masterclass. A confirmation is on its way to your inbox.</p>
+    <a class="btn btn-gold" href="resources.html">Read the Faculty Guide</a>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <a class="logo" href="index.html"><b>ADVENT</b><span>INSTITUTE</span><em>A US nonprofit learning ministry</em></a>
+    <nav aria-label="Footer">
+      <a href="mailto:faculty@[YOUR DOMAIN]">faculty@[YOUR DOMAIN]</a>
+      <a href="resources.html">Faculty resources</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  // Preview behaviour: until a real form endpoint is set, show the thank-you screen instead of submitting.
+  document.getElementById('apply-form').addEventListener('submit', function (e) {
+    if (this.getAttribute('action').indexOf('[') === 0) {
+      e.preventDefault();
+      document.body.classList.add('sent');
+      window.scrollTo(0, 0);
+    }
+  });
+</script>
+</body>
+</html>
